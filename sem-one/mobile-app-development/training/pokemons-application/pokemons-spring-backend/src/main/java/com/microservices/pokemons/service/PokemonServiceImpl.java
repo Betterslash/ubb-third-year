@@ -3,6 +3,7 @@ package com.microservices.pokemons.service;
 import com.microservices.pokemons.dto.PokemonDto;
 import com.microservices.pokemons.exception.PokemonServiceException;
 import com.microservices.pokemons.mapper.PokemonMapper;
+import com.microservices.pokemons.model.PokemonUserEntity;
 import com.microservices.pokemons.model.TrainerEntity;
 import com.microservices.pokemons.model.embeddables.PokemonUserKey;
 import com.microservices.pokemons.repository.PokemonRepository;
@@ -26,6 +27,12 @@ public class PokemonServiceImpl implements PokemonService {
     private final TrainerRepository trainerRepository;
     private final PokemonTypesRepository pokemonTypesRepository;
     private final PokemonUserRepository pokemonUserRepository;
+
+    private Long getUserId(){
+        var authenticatedUser = (TrainerEntity)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var currentUsername = authenticatedUser.getUsername();
+        return trainerRepository.findByUsername(currentUsername).getTrainerId();
+    }
 
     @Override
     public List<PokemonDto> getAllPokemons() {
@@ -63,12 +70,9 @@ public class PokemonServiceImpl implements PokemonService {
 
     @Override
     public List<PokemonDto> getUserPokemons(){
-        var authenticatedUser = (TrainerEntity)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        var currentUsername = authenticatedUser.getUsername();
-        var userId = trainerRepository.findByUsername(currentUsername).getTrainerId();
         return pokemonUserRepository.findAll()
                 .stream()
-                .filter(e -> Objects.equals(e.getTrainer().getTrainerId(), userId))
+                .filter(e -> Objects.equals(e.getTrainer().getTrainerId(), getUserId()))
                 .map(t -> pokemonRepository.getById(t.getPokemon().getPokemonId()))
                 .map(pokemonMapper::fromEntityToDto)
                 .collect(Collectors.toList());
@@ -77,11 +81,24 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public PokemonDto releaseOne(Long id) {
         var response = this.pokemonMapper.fromEntityToDto(this.pokemonRepository.getById(id));
-        var authenticatedUser = (TrainerEntity)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        var currentUsername = authenticatedUser.getUsername();
-        var userId = trainerRepository.findByUsername(currentUsername).getTrainerId();
-        var entryId = new PokemonUserKey(userId, id);
+        var entryId = new PokemonUserKey(getUserId(), id);
         this.pokemonUserRepository.deleteById(entryId);
         return response;
+    }
+
+    @Override
+    public PokemonDto catchOne(Long id) {
+        var caughtPokemon = this.pokemonRepository.getById(id);
+        var userProfile = this.trainerRepository.getById(getUserId());
+        var pokemonUserKey = new PokemonUserKey(userProfile.getTrainerId(), caughtPokemon.getPokemonId());
+        var userPokemonEntry = PokemonUserEntity.builder()
+                .id(pokemonUserKey)
+                .pokemon(caughtPokemon)
+                .trainer(userProfile)
+                .build();
+        return this.pokemonMapper
+                .fromEntityToDto(this.pokemonUserRepository
+                .save(userPokemonEntry)
+                .getPokemon());
     }
 }

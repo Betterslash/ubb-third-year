@@ -10,6 +10,6 @@ public interface PokemonService {
     PokemonDto deleteOne(Long id);
     PokemonDto getOneById(Long id);
     List<PokemonDto> getUserPokemons();
-
     PokemonDto releaseOne(Long id);
+    PokemonDto catchOne(Long id);
 }

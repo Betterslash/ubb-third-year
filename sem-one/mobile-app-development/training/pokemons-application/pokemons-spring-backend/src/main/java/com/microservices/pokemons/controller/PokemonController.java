@@ -50,4 +50,10 @@ public class PokemonController {
     public PokemonDto releasePokemon(@PathVariable Long id){
         return this.pokemonService.releaseOne(id);
     }
+
+    @PostMapping("/catch/{id}")
+    @RolesAllowed({"ROLE_PARTICIPANT", "ROLE_GYM_LEADER"})
+    public PokemonDto catchPokemon(@PathVariable Long id){
+        return this.pokemonService.catchOne(id);
+    }
 }
