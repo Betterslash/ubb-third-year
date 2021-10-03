@@ -38,4 +38,16 @@ public class PokemonController {
     public PokemonDto getOneById(@PathVariable Long id){
         return pokemonService.getOneById(id);
     }
+
+    @GetMapping("/caught")
+    @RolesAllowed({"ROLE_PARTICIPANT", "ROLE_GYM_LEADER"})
+    public List<PokemonDto> getCaughtPokemons(){
+        return this.pokemonService.getUserPokemons();
+    }
+
+    @DeleteMapping("/release/{id}")
+    @RolesAllowed({"ROLE_PARTICIPANT", "ROLE_GYM_LEADER"})
+    public PokemonDto releasePokemon(@PathVariable Long id){
+        return this.pokemonService.releaseOne(id);
+    }
 }

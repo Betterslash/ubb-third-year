@@ -9,4 +9,7 @@ public interface PokemonService {
     PokemonDto insertOne(PokemonDto pokemonDto);
     PokemonDto deleteOne(Long id);
     PokemonDto getOneById(Long id);
+    List<PokemonDto> getUserPokemons();
+
+    PokemonDto releaseOne(Long id);
 }

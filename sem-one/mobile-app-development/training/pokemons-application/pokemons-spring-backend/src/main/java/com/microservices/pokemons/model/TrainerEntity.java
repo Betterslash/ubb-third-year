@@ -1,26 +1,33 @@
-package com.microservices.pokemons.model.user;
+package com.microservices.pokemons.model;
 
-import com.microservices.pokemons.model.BaseEntity;
+import com.microservices.pokemons.model.enums.TrainerRole;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
-@Entity
+@Entity(name = "trainer")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @Setter
-public class PokemonTrainer extends BaseEntity implements UserDetails {
+public class TrainerEntity implements UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long trainerId;
 
     private String username;
     private String password;
     private TrainerRole role;
 
+    @OneToMany(mappedBy = "trainer", targetEntity = PokemonUserEntity.class)
+    public List<PokemonEntity> pokemons;
 
     @Transient
     private boolean isAccountNonExpired;

@@ -1,4 +1,4 @@
-package com.microservices.pokemons.model.user;
+package com.microservices.pokemons.model.enums;
 
 public enum TrainerPermission {
     SEE_POKEMONS("read:pokemons"),

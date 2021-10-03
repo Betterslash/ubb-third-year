@@ -1,8 +1,8 @@
 package com.microservices.pokemons.mapper;
 
 import com.microservices.pokemons.dto.PokemonDto;
-import com.microservices.pokemons.model.pokemons.PokemonEntity;
-import com.microservices.pokemons.model.pokemons.PokemonTypeEntity;
+import com.microservices.pokemons.model.PokemonEntity;
+import com.microservices.pokemons.model.PokemonTypeEntity;
 import com.microservices.pokemons.repository.PokemonRepository;
 import com.microservices.pokemons.repository.PokemonTypesRepository;
 import org.mapstruct.Mapper;
@@ -13,13 +13,13 @@ public interface PokemonMapper {
 
     default Long getIdFromId(PokemonEntity pokemonEntity){
         if(pokemonEntity != null) {
-            return pokemonEntity.getId();
+            return pokemonEntity.getPokemonId();
         }else{
             return null;
         }
     }
 
-    @Mapping(target = "id", source = "id")
+    @Mapping(target = "id", source = "pokemonId")
     PokemonDto fromEntityToDto(PokemonEntity entity);
 
     default PokemonEntity fromDtoToEntity(PokemonDto dto,
@@ -28,7 +28,7 @@ public interface PokemonMapper {
         var types = pokemonTypesRepository.getByTypeOneAndTypeTwo(dto.getTypes().getTypeOne(), dto.getTypes().getTypeTwo());
 
         if(types == null) {
-           types = pokemonTypesRepository.save(new PokemonTypeEntity(dto.getTypes().getTypeOne(), dto.getTypes().getTypeTwo()));
+           types = pokemonTypesRepository.save(new PokemonTypeEntity(null, dto.getTypes().getTypeOne(), dto.getTypes().getTypeTwo()));
         }
             PokemonEntity evolvesFrom = null;
             if (dto.getEvolvesFrom() != null) {

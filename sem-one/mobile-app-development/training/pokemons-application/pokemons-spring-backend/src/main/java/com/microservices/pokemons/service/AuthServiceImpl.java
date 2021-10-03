@@ -1,8 +1,8 @@
 package com.microservices.pokemons.service;
 
 import com.microservices.pokemons.payload.LoginRequest;
-import com.microservices.pokemons.model.user.PokemonTrainer;
-import com.microservices.pokemons.model.user.TrainerRole;
+import com.microservices.pokemons.model.TrainerEntity;
+import com.microservices.pokemons.model.enums.TrainerRole;
 import com.microservices.pokemons.payload.RegisterRequest;
 import com.microservices.pokemons.repository.TrainerRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +26,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public PokemonTrainer register(RegisterRequest user) {
-        var trainer = PokemonTrainer.builder()
+    public TrainerEntity register(RegisterRequest user) {
+        var trainer = TrainerEntity.builder()
                         .password(passwordEncoder.encode(user.getPassword()))
                                 .username(user.getUsername())
                                         .role(TrainerRole.PARTICIPANT)

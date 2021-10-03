@@ -1,5 +1,6 @@
-package com.microservices.pokemons.model.user;
+package com.microservices.pokemons.model.enums;
 
+import com.microservices.pokemons.model.enums.TrainerPermission;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

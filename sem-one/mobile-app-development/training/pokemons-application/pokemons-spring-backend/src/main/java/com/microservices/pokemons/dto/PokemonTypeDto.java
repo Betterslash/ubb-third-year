@@ -1,6 +1,6 @@
 package com.microservices.pokemons.dto;
 
-import com.microservices.pokemons.shared.PokemonType;
+import com.microservices.pokemons.model.enums.shared.PokemonType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
