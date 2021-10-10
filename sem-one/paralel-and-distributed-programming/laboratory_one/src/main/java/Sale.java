@@ -8,14 +8,14 @@ import java.util.concurrent.ThreadLocalRandom;
 @Getter
 @Setter
 @ToString
-public class Bill {
+public class Sale {
 
-    private final Map<Product, Integer> billRepresentation;
+    private final Map<Product, Integer> saleRepresentation;
     private int totalPrice;
 
-    public Bill(List<Product> products, int maxBillSize) {
+    public Sale(List<Product> products, int maxBillSize) {
         totalPrice = 0;
-        this.billRepresentation = new HashMap<>();
+        this.saleRepresentation = new HashMap<>();
         var positions = new HashSet<Integer>();
         var random = new Random();
         var size = random.nextInt(maxBillSize);
@@ -26,13 +26,9 @@ public class Bill {
             var position = random.nextInt(products.size() - 1);
             positions.add(position);
         }
-        positions.forEach(e -> billRepresentation.put(products.get(e), ThreadLocalRandom
+        positions.forEach(e -> saleRepresentation.put(products.get(e), ThreadLocalRandom
                 .current()
                 .nextInt(10)));
-        billRepresentation.forEach((key, value) -> totalPrice += value * key.getUnitPrice());
-    }
-
-    public String simpleFormat(){
-        return "Bill with price : " + this.totalPrice;
+        saleRepresentation.forEach((key, value) -> totalPrice += value * key.getUnitPrice());
     }
 }

@@ -1,16 +1,18 @@
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
+@Slf4j
 public class ConsistencyChecker {
-    public void run(Store store, List<Integer> sumsForCheck, ReentrantLock lock){
-        lock.lock();
+    public void run(Store store, List<Integer> sumsForCheck){
         var currentStoreProfit = store.getCurrentProfit();
         sumsForCheck.stream()
                 .reduce(Integer::sum)
                 .ifPresent(e -> {
-                    System.out.printf("Bills paid have value : %d%n",e);
-                    System.out.printf("Store has a current profit of : %d%n", currentStoreProfit);
+                    var result = (e == currentStoreProfit);
+                    var message = String.format("Ran consistency check : Result -> %s", result);
+                    store.getBills().add(message);
+                    log.info(message);
                 });
-        lock.unlock();
     }
 }

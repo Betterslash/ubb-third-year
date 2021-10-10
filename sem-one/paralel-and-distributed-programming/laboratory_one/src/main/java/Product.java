@@ -14,7 +14,7 @@ public class Product {
 
     public Product() {
         this.name = java.util.UUID.randomUUID();
-        this.unitPrice = ThreadLocalRandom.current().nextInt(30);
+        this.unitPrice = ThreadLocalRandom.current().nextInt(40);
     }
 
 }

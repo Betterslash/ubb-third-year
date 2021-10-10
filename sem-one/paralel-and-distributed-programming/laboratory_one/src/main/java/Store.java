@@ -1,6 +1,7 @@
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -13,19 +14,24 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @ToString
+@Slf4j
 public class Store {
     private Map<Product, Integer> stock;
     private List<Product> products;
     private final int productsNumber;
     private int maxProfit;
     private int currentProfit;
+
     private ExecutorService executorService;
-    private List<Future<?>> threads;
     private final ReentrantLock mutex;
+    private List<Future<?>> threads;
+
+    private final List<String> bills;
 
     public Store(int productsNumber, ExecutorService executorService, ReentrantLock mutex) {
         this.productsNumber = productsNumber;
         this.mutex = mutex;
+        this.bills = new ArrayList<>();
         this.currentProfit = 0;
         this.executorService = executorService;
         stock = new HashMap<>();
@@ -37,7 +43,7 @@ public class Store {
     private void initializeStore(){
         for(int i = 0; i < productsNumber; i++){
             var product = new Product();
-            var quantity = ThreadLocalRandom.current().nextInt(130);
+            var quantity = ThreadLocalRandom.current().nextInt(230);
             stock.put(product, quantity);
             products.add(product);
             maxProfit += product.getUnitPrice() * quantity;
@@ -63,9 +69,9 @@ public class Store {
         return Map.entry(uuid, quantity);
     }
 
-    private boolean checkBill(Bill bill){
+    private boolean checkBill(Sale sale){
         var result = new AtomicBoolean(true);
-        var productsToBeSold = bill.getBillRepresentation()
+        var productsToBeSold = sale.getSaleRepresentation()
                 .keySet()
                 .stream()
                 .map(Product::getName)
@@ -76,7 +82,7 @@ public class Store {
                 .filter(e -> productsToBeSold.contains(e.getKey().getName()))
                 .map(e -> createMapEntry(e.getKey().getName().toString(), e.getValue()))
                 .collect(Collectors.toList());
-        bill.getBillRepresentation()
+        sale.getSaleRepresentation()
                 .forEach((key, value) -> storeProducts.forEach(q -> {
                     if (Objects.equals(q.getKey(), key.getName().toString())) {
                         if (value > q.getValue()) {
@@ -87,18 +93,19 @@ public class Store {
         return result.get();
     }
 
-    public void sell(List<Bill> bills, List<Integer> paidSums){
-        bills.forEach(bill -> threads.add( executorService.submit(() ->{
-            if (checkBill(bill)) {
-                bill.getBillRepresentation()
+    public void sell(List<Sale> sales, List<Integer> paidSums){
+        sales.forEach(sale -> threads.add( executorService.submit(() ->{
+            if (checkBill(sale)) {
+                sale.getSaleRepresentation()
                         .forEach(this::sellOne);
-                System.out.println(bill.simpleFormat());
-                paidSums.add(bill.getTotalPrice());
-            }
-            try {
-                Thread.sleep(550);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                paidSums.add(sale.getTotalPrice());
+                this.bills.add(sale.toString());
+                log.info(sale.toString());
+                try {
+                    Thread.sleep(70);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         })));
     }
