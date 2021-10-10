@@ -5,7 +5,9 @@ import com.microservices.pokemons.model.enums.shared.PokemonType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface PokemonTypesRepository extends JpaRepository<PokemonTypeEntity, Long> {
-    PokemonTypeEntity getByTypeOneAndTypeTwo(PokemonType typeOne, PokemonType typeTwo);
+    Optional<PokemonTypeEntity> findByTypeOneAndTypeTwo(PokemonType typeOne, PokemonType typeTwo);
 }

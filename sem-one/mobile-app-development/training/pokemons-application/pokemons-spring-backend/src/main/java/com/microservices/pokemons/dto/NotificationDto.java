@@ -1,4 +1,4 @@
-package com.microservices.pokemons.controller;
+package com.microservices.pokemons.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Notification implements Serializable {
+public class NotificationDto implements Serializable {
     private String action;
     private String content;
 }

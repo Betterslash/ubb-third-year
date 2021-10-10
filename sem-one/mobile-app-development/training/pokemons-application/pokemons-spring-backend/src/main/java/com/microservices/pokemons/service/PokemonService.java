@@ -12,4 +12,6 @@ public interface PokemonService {
     List<PokemonDto> getUserPokemons();
     PokemonDto releaseOne(Long id);
     PokemonDto catchOne(Long id);
+
+    PokemonDto updateOne(Long id, PokemonDto pokemonDto);
 }

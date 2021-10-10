@@ -3,6 +3,7 @@ package com.microservices.pokemons.service;
 import com.microservices.pokemons.dto.PokemonDto;
 import com.microservices.pokemons.exception.PokemonServiceException;
 import com.microservices.pokemons.mapper.PokemonMapper;
+import com.microservices.pokemons.model.PokemonTypeEntity;
 import com.microservices.pokemons.model.PokemonUserEntity;
 import com.microservices.pokemons.model.TrainerEntity;
 import com.microservices.pokemons.model.embeddables.PokemonUserKey;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Service
@@ -100,5 +102,21 @@ public class PokemonServiceImpl implements PokemonService {
                 .fromEntityToDto(this.pokemonUserRepository
                 .save(userPokemonEntry)
                 .getPokemon());
+    }
+
+    @Override
+    public PokemonDto updateOne(Long id, PokemonDto pokemonDto) {
+        var found = this.pokemonRepository.findById(id);
+        var result = new AtomicReference<>(new PokemonDto());
+        found.ifPresentOrElse(e -> {
+            e.setName(pokemonDto.getName());
+            e.setTypes(this.pokemonTypesRepository.findByTypeOneAndTypeTwo(e.getTypes().getTypeOne(), e.getTypes().getTypeTwo())
+                    .orElseGet(() -> pokemonTypesRepository.save(new PokemonTypeEntity(null,e.getTypes().getTypeOne(), e.getTypes().getTypeTwo() ,null))));
+                    result.set(this.pokemonMapper
+                            .fromEntityToDto(this.pokemonRepository
+                                    .save(e)));
+                },
+                () -> result.set(this.insertOne(pokemonDto)));
+        return result.get();
     }
 }

@@ -8,6 +8,8 @@ import com.microservices.pokemons.repository.PokemonTypesRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.time.LocalDate;
+
 @Mapper(componentModel = "spring")
 public interface PokemonMapper {
 
@@ -25,11 +27,14 @@ public interface PokemonMapper {
     default PokemonEntity fromDtoToEntity(PokemonDto dto,
                                           PokemonRepository repository,
                                           PokemonTypesRepository pokemonTypesRepository){
-        var types = pokemonTypesRepository.getByTypeOneAndTypeTwo(dto.getTypes().getTypeOne(), dto.getTypes().getTypeTwo());
+        var types = pokemonTypesRepository
+                .findByTypeOneAndTypeTwo(dto.getTypes().getTypeOne(), dto.getTypes().getTypeTwo())
+                .orElseGet(() -> pokemonTypesRepository
+                        .save(new PokemonTypeEntity(null, dto.getTypes()
+                                .getTypeOne(), dto.getTypes()
+                                .getTypeTwo(), null)));
 
-        if(types == null) {
-           types = pokemonTypesRepository.save(new PokemonTypeEntity(null, dto.getTypes().getTypeOne(), dto.getTypes().getTypeTwo()));
-        }
+
             PokemonEntity evolvesFrom = null;
             if (dto.getEvolvesFrom() != null) {
                 evolvesFrom = repository.getById(dto.getEvolvesFrom());
@@ -38,6 +43,8 @@ public interface PokemonMapper {
                     .name(dto.getName())
                     .evolvesFrom(evolvesFrom)
                     .types(types)
+                    .registeredAt(LocalDate.now())
+                    .hasShiny(dto.isHasShiny())
                     .build();
 
     }

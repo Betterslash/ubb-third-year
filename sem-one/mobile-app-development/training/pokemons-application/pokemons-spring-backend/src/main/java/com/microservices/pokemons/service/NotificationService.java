@@ -1,2 +1,7 @@
-package com.microservices.pokemons.service;public interface NotificationService {
+package com.microservices.pokemons.service;
+
+import com.microservices.pokemons.dto.NotificationDto;
+
+public interface NotificationService {
+    void broadcast(NotificationDto notification);
 }

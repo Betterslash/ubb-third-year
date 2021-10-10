@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity(name = "pokemons")
@@ -20,7 +21,11 @@ public class PokemonEntity implements Serializable {
 
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    private boolean hasShiny;
+
+    private LocalDate registeredAt;
+
+    @ManyToOne
     @JoinColumn(referencedColumnName = "typeId")
     private PokemonTypeEntity types;
 

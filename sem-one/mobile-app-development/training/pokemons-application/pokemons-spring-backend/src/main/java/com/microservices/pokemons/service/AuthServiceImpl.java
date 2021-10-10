@@ -10,6 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -30,6 +32,8 @@ public class AuthServiceImpl implements AuthService {
         var trainer = TrainerEntity.builder()
                         .password(passwordEncoder.encode(user.getPassword()))
                                 .username(user.getUsername())
+                .birthday(LocalDate.now())
+                .email(user.getEmail())
                                         .role(TrainerRole.PARTICIPANT)
                                                 .build();
         return repository.save(trainer);

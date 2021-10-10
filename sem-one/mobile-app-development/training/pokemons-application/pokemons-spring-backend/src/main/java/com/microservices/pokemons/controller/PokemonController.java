@@ -1,6 +1,8 @@
 package com.microservices.pokemons.controller;
 
+import com.microservices.pokemons.dto.NotificationDto;
 import com.microservices.pokemons.dto.PokemonDto;
+import com.microservices.pokemons.service.NotificationService;
 import com.microservices.pokemons.service.PokemonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.List;
 public class PokemonController {
 
     private final PokemonService pokemonService;
+    private final NotificationService notificationService;
 
     @GetMapping
     @RolesAllowed({"ROLE_PARTICIPANT", "ROLE_GYM_LEADER"})
@@ -24,13 +27,28 @@ public class PokemonController {
     @PostMapping
     @RolesAllowed({"ROLE_GYM_LEADER"})
     public PokemonDto insertOne(@RequestBody PokemonDto pokemonDto){
-        return pokemonService.insertOne(pokemonDto);
+        var result = pokemonService.insertOne(pokemonDto);
+        var notification = new NotificationDto("ADD", String.format("Added %s", result.getName()));
+        notificationService.broadcast(notification);
+        return result;
+    }
+
+    @PutMapping("/{id}")
+    @RolesAllowed({"ROLE_GYM_LEADER"})
+    public PokemonDto updateOne(@PathVariable Long id, @RequestBody PokemonDto pokemonDto){
+        var result = this.pokemonService.updateOne(id, pokemonDto);
+        var notification = new NotificationDto("UPDATE", String.format("Updated %s ", pokemonDto.getName()));
+        notificationService.broadcast(notification);
+        return result;
     }
 
     @DeleteMapping("/{id}")
-    @RolesAllowed({"ROLE_GYM_LEADER"})
+    @RolesAllowed("ROLE_GYM_LEADER")
     public PokemonDto deleteOne(@PathVariable Long id){
-        return pokemonService.deleteOne(id);
+        var result = pokemonService.deleteOne(id);
+        var notification = new NotificationDto("DELETE", String.format("Deleted %s", result.getName()));
+        notificationService.broadcast(notification);
+        return result;
     }
 
     @GetMapping("{id}")

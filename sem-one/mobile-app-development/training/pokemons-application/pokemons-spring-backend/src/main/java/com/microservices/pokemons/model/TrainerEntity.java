@@ -6,9 +6,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 @Entity(name = "trainer")
 @AllArgsConstructor
@@ -24,6 +24,8 @@ public class TrainerEntity implements UserDetails {
 
     private String username;
     private String password;
+    private String email;
+    private LocalDate birthday;
     private TrainerRole role;
 
     @OneToMany(mappedBy = "trainer", targetEntity = PokemonUserEntity.class)

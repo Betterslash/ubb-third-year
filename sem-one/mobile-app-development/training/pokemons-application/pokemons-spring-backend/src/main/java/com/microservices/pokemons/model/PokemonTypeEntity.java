@@ -3,11 +3,9 @@ package com.microservices.pokemons.model;
 import com.microservices.pokemons.model.enums.shared.PokemonType;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity(name = "pokemon_type")
 @Builder
@@ -23,4 +21,6 @@ public class PokemonTypeEntity implements Serializable {
     private PokemonType typeOne;
     private PokemonType typeTwo;
 
+    @OneToMany
+    public List<PokemonEntity> pokemons;
 }

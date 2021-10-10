@@ -35,7 +35,7 @@ public enum TrainerRole {
 
     public Set<? extends GrantedAuthority> getGrantedAuthorities(){
         var result = this.permissions.stream()
-                .map(e -> new SimpleGrantedAuthority(this.roleDescription))
+                .map(e -> new SimpleGrantedAuthority(e.name()))
                 .collect(Collectors.toSet());
         result.add(new SimpleGrantedAuthority("ROLE_"+this.roleDescription));
         return result;

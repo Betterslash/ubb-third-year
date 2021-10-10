@@ -1,10 +1,7 @@
 package com.microservices.pokemons.dto;
 
 import com.microservices.pokemons.model.enums.shared.PokemonType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -12,6 +9,8 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class PokemonTypeDto implements Serializable {
     private PokemonType typeOne;
     private PokemonType typeTwo;
