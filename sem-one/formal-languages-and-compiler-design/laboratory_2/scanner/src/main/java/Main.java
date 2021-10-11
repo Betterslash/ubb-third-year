@@ -6,7 +6,7 @@ public class Main {
         var symbolTable = new SymbolTable();
         var pif = new ProgramInternalForm();
         var lineNumber = 0;
-        var myObj = new File("D:\\Uni\\sem-one\\formal-languages-and-compiler-design\\laboratory_2\\scanner\\src\\main\\resources\\program_1.txt");
+        var myObj = new File("D:\\Uni\\sem-one\\formal-languages-and-compiler-design\\laboratory_2\\scanner\\src\\main\\resources\\program_2.txt");
         var myReader = new java.util.Scanner(myObj);
         var line = "";
         while (myReader.hasNextLine()) {
@@ -17,10 +17,12 @@ public class Main {
                             pif.add(new PifPair(e, -1));
                         }else if(Scanner.isIdentifier(e)){
                             symbolTable.add(e);
+                            pif.add(new PifPair("identifier", symbolTable.getId(e)));
                         }else if(Scanner.isConstant(e)){
                             symbolTable.add(e);
+                            pif.add(new PifPair("identifier", symbolTable.getId(e)));
                         }else{
-                            throw new RuntimeException("Smth went wrong sir...");
+                            System.out.println(e);
                         }
                     });
             lineNumber += 1;

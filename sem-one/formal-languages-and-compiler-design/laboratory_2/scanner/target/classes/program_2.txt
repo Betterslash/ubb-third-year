@@ -1,0 +1,5 @@
+ana VAR ARRAY[100]:: INT;
+merge <- merge + 1
+merge tare
+merge <- merge + 1
+ARV

@@ -15,13 +15,13 @@ public class Scanner {
         return false;
     }
 
-    public static boolean isSpecialQuote(String line, Integer index){
+    public static boolean isSpecialQuote(String line, int index){
         if(index == 0){
             return false;
         }else return Objects.equals(line, "\\");
     }
 
-    public static PifPair getStringToken(String line, Integer index){
+    public static PifPair getStringToken(String line, int index){
         var token = new StringBuilder();
         var quotes = 0;
         while (quotes < 2 && line.length() > index){
@@ -34,7 +34,7 @@ public class Scanner {
         return new PifPair(token.toString(), index);
     }
 
-    public static PifPair getOperatorToken(String line, Integer index){
+    public static PifPair getOperatorToken(String line, int index){
         var token = new StringBuilder();
         while(index < line.length() && isInOperator(line.charAt(index))){
             token.append(line.charAt(index));
@@ -44,28 +44,42 @@ public class Scanner {
     }
 
     public static List<String> getTokens(String line){
-        var token = new StringBuilder();
         var index = 0;
+        var token = new StringBuilder();
         var result = new ArrayList<String>();
         while (index < line.length()){
-            if(line.charAt(index) == '"'){
+            var currentChar = line.charAt(index);
+            if(currentChar == '"'){
                 var res = getStringToken(line, index);
-                result.add(res.getValue(), res.getKey());
+                token=new StringBuilder(res.getKey());
+                index = res.getValue();
+                result.add(token.toString());
                 token = new StringBuilder();
             }
-            else if(isInOperator(line.charAt(index))){
+            else if(isInOperator(currentChar)){
                 var res = getOperatorToken(line, index);
-                result.add(res.getValue(), res.getKey());
+                if(!token.toString().equals("")) {
+                    result.add(token.toString());
+                }
+                token = new StringBuilder(res.getKey());
+                index = res.getValue();
+                result.add(token.toString());
                 token = new StringBuilder();
             }
-            else if(isInSeparators(line.charAt(index))){
-                index += 1;
-                var resul = "" + line.charAt(index);
+            else if(isInSeparators(currentChar)){
+                if(!token.toString().equals("")) {
+                    result.add(token.toString());
+                }
+                result.add(String.valueOf(currentChar));
                 token = new StringBuilder();
-                result.add(index, resul);
+                index += 1;
             }else{
+                token.append(currentChar);
                 index += 1;
             }
+        }
+        if(!token.toString().equals("")){
+            result.add(token.toString());
         }
         return result;
     }
@@ -85,6 +99,7 @@ public class Scanner {
         var matcher = pattern.matcher(token);
         return matcher.find();
     }
+
     public static boolean isConstant(String token){
         var pattern = Pattern.compile("^(0|[+\\-]?[1-9][0-9]*)$|^'.'$|^\".*\"$");
         var matcher = pattern.matcher(token);

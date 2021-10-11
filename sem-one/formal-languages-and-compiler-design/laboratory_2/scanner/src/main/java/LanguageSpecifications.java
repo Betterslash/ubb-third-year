@@ -1,8 +1,9 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public final class LanguageSpecifications {
     public static final List<String> separators =
-            Arrays.asList("[", "]", " ", "{", "}", "(", ")", ";", ":");
+            Arrays.asList("[", "]", " ", "{", "}", "(", ")", ";", "\n");
 
     public static final List<String> operators =
             Arrays.asList("+", "-", "*", "/", "%", "<", "<=", "=", ">=", ">",
@@ -11,7 +12,7 @@ public final class LanguageSpecifications {
 
     public static final List<String> reservedKeyWords =
             Arrays.asList("for", "while", "if", "readln", "writeln",
-                    "read", "write", "VAR", "else", "int",
+                    "read", "write", "var", "else", "int",
                     "bool", "char", "string", "array");
 
     public static final List<String> all = initializeAll();
@@ -33,8 +34,11 @@ public final class LanguageSpecifications {
     private static List<String> initializeAll() {
         var result = new ArrayList<String>();
         result.addAll(separators);
+        result.addAll(separators.stream().map(e -> e.toUpperCase(Locale.ROOT)).collect(Collectors.toList()));
         result.addAll(operators);
+        result.addAll(operators.stream().map(e -> e.toUpperCase(Locale.ROOT)).collect(Collectors.toList()));
         result.addAll(reservedKeyWords);
+        result.addAll(reservedKeyWords.stream().map(e -> e.toUpperCase(Locale.ROOT)).collect(Collectors.toList()));
         return result;
     }
 }
