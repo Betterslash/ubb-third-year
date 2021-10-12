@@ -1,5 +1,6 @@
 package com.microservices.pokemons.controller;
 
+import com.microservices.pokemons.dto.ActionType;
 import com.microservices.pokemons.dto.NotificationDto;
 import com.microservices.pokemons.dto.PokemonDto;
 import com.microservices.pokemons.service.NotificationService;
@@ -28,7 +29,7 @@ public class PokemonController {
     @RolesAllowed({"ROLE_GYM_LEADER"})
     public PokemonDto insertOne(@RequestBody PokemonDto pokemonDto){
         var result = pokemonService.insertOne(pokemonDto);
-        var notification = new NotificationDto("ADD", String.format("Added %s", result.getName()));
+        var notification = NotificationDto.Builder.build(ActionType.ADD, pokemonDto);
         notificationService.broadcast(notification);
         return result;
     }
@@ -37,7 +38,7 @@ public class PokemonController {
     @RolesAllowed({"ROLE_GYM_LEADER"})
     public PokemonDto updateOne(@PathVariable Long id, @RequestBody PokemonDto pokemonDto){
         var result = this.pokemonService.updateOne(id, pokemonDto);
-        var notification = new NotificationDto("UPDATE", String.format("Updated %s ", pokemonDto.getName()));
+        var notification = NotificationDto.Builder.build(ActionType.UPDATE, pokemonDto);
         notificationService.broadcast(notification);
         return result;
     }
@@ -46,7 +47,7 @@ public class PokemonController {
     @RolesAllowed("ROLE_GYM_LEADER")
     public PokemonDto deleteOne(@PathVariable Long id){
         var result = pokemonService.deleteOne(id);
-        var notification = new NotificationDto("DELETE", String.format("Deleted %s", result.getName()));
+        var notification = NotificationDto.Builder.build(ActionType.DELETE, result);
         notificationService.broadcast(notification);
         return result;
     }

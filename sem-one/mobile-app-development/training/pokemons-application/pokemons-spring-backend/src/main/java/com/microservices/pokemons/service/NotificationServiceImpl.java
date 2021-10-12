@@ -13,6 +13,6 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void broadcast(NotificationDto notification) {
-        simpMessagingTemplate.convertAndSend( "/notify", notification);
+        simpMessagingTemplate.convertAndSend("/notify", notification);
     }
 }

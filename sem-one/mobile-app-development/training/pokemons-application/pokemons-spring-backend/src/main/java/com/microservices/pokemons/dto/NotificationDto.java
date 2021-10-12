@@ -1,17 +1,27 @@
 package com.microservices.pokemons.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class NotificationDto implements Serializable {
-    private String action;
-    private String content;
+    private final UUID id;
+    private final ActionType action;
+    private final PokemonDto body;
+
+    private NotificationDto(ActionType actionType, PokemonDto body) {
+        this.id = java.util.UUID.randomUUID();
+        this.action = actionType;
+        this.body = body;
+    }
+
+    public final static class Builder{
+        public static NotificationDto build(ActionType actionType, PokemonDto dto){
+            return new NotificationDto(actionType, dto);
+        }
+    }
 }

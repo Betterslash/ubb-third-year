@@ -110,7 +110,7 @@ public class PokemonServiceImpl implements PokemonService {
         var result = new AtomicReference<>(new PokemonDto());
         found.ifPresentOrElse(e -> {
             e.setName(pokemonDto.getName());
-            e.setTypes(this.pokemonTypesRepository.findByTypeOneAndTypeTwo(e.getTypes().getTypeOne(), e.getTypes().getTypeTwo())
+            e.setTypes(this.pokemonTypesRepository.findByTypeOneAndTypeTwo(pokemonDto.getTypes().getTypeOne(), pokemonDto.getTypes().getTypeTwo())
                     .orElseGet(() -> pokemonTypesRepository.save(new PokemonTypeEntity(null,e.getTypes().getTypeOne(), e.getTypes().getTypeTwo() ,null))));
                     result.set(this.pokemonMapper
                             .fromEntityToDto(this.pokemonRepository
