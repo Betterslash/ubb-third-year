@@ -1,3 +1,6 @@
+import Pif.PifSortedListPair;
+import constants.LanguageSpecifications;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +24,7 @@ public class Scanner {
         }else return Objects.equals(line, "\\");
     }
 
-    public static PifPair getStringToken(String line, int index){
+    public static PifSortedListPair getStringToken(String line, int index){
         var token = new StringBuilder();
         var quotes = 0;
         while (quotes < 2 && line.length() > index){
@@ -31,16 +34,16 @@ public class Scanner {
             token.append(line.charAt(index));
             index += 1;
         }
-        return new PifPair(token.toString(), index);
+        return new PifSortedListPair(token.toString(), index);
     }
 
-    public static PifPair getOperatorToken(String line, int index){
+    public static PifSortedListPair getOperatorToken(String line, int index){
         var token = new StringBuilder();
         while(index < line.length() && isInOperator(line.charAt(index))){
             token.append(line.charAt(index));
             index += 1;
         }
-        return new PifPair(token.toString(), index);
+        return new PifSortedListPair(token.toString(), index);
     }
 
     public static List<String> getTokens(String line){

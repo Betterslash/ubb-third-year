@@ -4,7 +4,7 @@ link : https://github.com/Betterslash/ubb-third-year/tree/master/sem-one/formal-
 </h1>
 
 <h2>
-    HashTableWrapper class : 
+    symbol_table.HashTableWrapper class : 
     <div>
         <label>  
         Fields :
@@ -38,7 +38,7 @@ link : https://github.com/Betterslash/ubb-third-year/tree/master/sem-one/formal-
                     -  getEntry(token : string) -> returns the representation for a token in hashtable 
                 </li>
                 <li>
-                    + getId(token : string) -> returns a CustomPair(hashPosition : int, arrayPosition : int) for an entry
+                    + getId(token : string) -> returns a Pif.CustomPair(hashPosition : int, arrayPosition : int) for an entry
                 </li>
             </ul>
         </label>

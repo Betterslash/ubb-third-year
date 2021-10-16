@@ -1,25 +1,25 @@
 import lombok.Data;
+import symbol_table.SymbolTableRepresentation;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Data
-public class SymbolTable {
-    public final List<String> internalRepresentation;
+public class SymbolTable<K, R extends SymbolTableRepresentation<K>> {
+    public final R internalRepresentation;
 
-    public SymbolTable() {
-        this.internalRepresentation = new ArrayList<>();
+    public SymbolTable(R internalRepresentation) {
+        this.internalRepresentation = internalRepresentation;
     }
+
 
     public void add(String value){
-        if(!internalRepresentation.contains(value)){
-            this.internalRepresentation.add(value);
-            Collections.sort(internalRepresentation);
-        }
+        internalRepresentation.add(value);
     }
 
-    public Integer getId(String value){
-        return this.internalRepresentation.indexOf(value);
+    public K getId(String value){
+        return this.internalRepresentation.getId(value);
+    }
+
+    public K getNullValue(){
+        return this.internalRepresentation.getNullEntry();
     }
 }

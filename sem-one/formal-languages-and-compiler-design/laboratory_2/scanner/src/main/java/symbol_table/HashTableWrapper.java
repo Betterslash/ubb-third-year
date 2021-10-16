@@ -1,3 +1,6 @@
+package symbol_table;
+
+import Pif.CustomPair;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -7,7 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Data
-public class HashTableWrapper {
+public class HashTableWrapper implements SymbolTableRepresentation<CustomPair>{
     private final Hashtable<Integer, ArrayList<String>> internalRepresentation;
     private static final int divisonFactor = 31;
 
@@ -61,5 +64,10 @@ public class HashTableWrapper {
         }else{
             throw new RuntimeException("Token has not been found!!");
         }
+    }
+
+    @Override
+    public CustomPair getNullEntry() {
+        return new CustomPair(-1, -1);
     }
 }

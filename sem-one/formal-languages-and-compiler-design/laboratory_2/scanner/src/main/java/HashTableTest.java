@@ -1,3 +1,5 @@
+import symbol_table.HashTableWrapper;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
