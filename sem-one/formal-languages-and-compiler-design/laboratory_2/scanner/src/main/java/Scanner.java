@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Scanner {
 
@@ -16,12 +17,6 @@ public class Scanner {
             }
         }
         return false;
-    }
-
-    public static boolean isSpecialQuote(String line, int index){
-        if(index == 0){
-            return false;
-        }else return Objects.equals(line, "\\");
     }
 
     public static PifSortedListPair getStringToken(String line, int index){
@@ -70,12 +65,12 @@ public class Scanner {
                 token = new StringBuilder();
             }
             else if(isInSeparators(currentChar)){
-                if(!token.toString().equals("")) {
-                    result.add(token.toString());
-                }
-                result.add(String.valueOf(currentChar));
-                token = new StringBuilder();
-                index += 1;
+                    if(!token.toString().equals("")) {
+                        result.add(token.toString());
+                    }
+                    result.add(String.valueOf(currentChar));
+                    token = new StringBuilder();
+                    index += 1;
             }else{
                 token.append(currentChar);
                 index += 1;
@@ -84,7 +79,10 @@ public class Scanner {
         if(!token.toString().equals("")){
             result.add(token.toString());
         }
-        return result;
+        return result
+                .stream()
+                .filter(e -> !Objects.equals(e, " "))
+                .collect(Collectors.toList());
     }
 
     private static boolean isInSeparators(char charAt) {

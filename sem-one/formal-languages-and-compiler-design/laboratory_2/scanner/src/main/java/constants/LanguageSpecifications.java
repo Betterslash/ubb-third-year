@@ -43,4 +43,7 @@ public final class LanguageSpecifications {
         result.addAll(reservedKeyWords.stream().map(e -> e.toUpperCase(Locale.ROOT)).collect(Collectors.toList()));
         return result;
     }
+
+    public final static String IDENTIFIER_KEY = "identifier";
+    public final static String CONSTANT_KEY = "constant";
 }

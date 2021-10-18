@@ -1,4 +1,5 @@
 link : https://github.com/Betterslash/ubb-third-year/tree/master/sem-one/formal-languages-and-compiler-design/laboratory_2/scanner/src/main/java
+<div>
 <h1>
     Symbol table representation as HashTable
 </h1>
@@ -44,3 +45,9 @@ link : https://github.com/Betterslash/ubb-third-year/tree/master/sem-one/formal-
         </label>
     </div>
 </h2>
+</div>
+
+<h1>Scanner</h1>
+<h2>Scanner diagram</h2>
+<img src="../resources/diagrams/diagram.png" alt="uml_diagram"/>
+<

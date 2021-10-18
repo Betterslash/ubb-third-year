@@ -1,3 +1,4 @@
+"asdkl" 'a
 VAR a, b, c : INT;
 max : INT;
 {

@@ -1,4 +1,4 @@
-VAR numbers : ARRAY[100] :: INT;
+VAR numbers:ARRAY[100] :: INT;
 length, readed, i : INT;
 result : INT;
 {
