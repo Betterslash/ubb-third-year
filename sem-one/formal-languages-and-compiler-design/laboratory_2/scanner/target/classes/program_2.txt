@@ -1,5 +1,20 @@
-ana VAR ARRAY[100]:: INT;
-merge <- merge + 1
-merge tare
-merge <- merge + 1
-ARV
+VAR numberForCheck : INT; 
+i : INT; 
+stop : INT; 
+checker : INT; 
+Ok : BOOLEAN; 
+{ 
+Ok <- true; 
+READLN(numberForCheck); 
+FOR(i <- 2; i < stop; i++){ 
+checker <- numberForCheck MOD i; 
+IF(checker == 0){ 
+ok <- false; 
+} 
+} 
+IF(Ok == true){ 
+WRITELN("Number is prime!"); 
+}ELSE{ 
+WRITELN("Number is not prime!"); 
+} 
+} 

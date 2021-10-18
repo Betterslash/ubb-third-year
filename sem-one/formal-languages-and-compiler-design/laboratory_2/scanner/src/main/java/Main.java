@@ -1,6 +1,7 @@
 import Pif.PifHashTablePair;
 import Pif.ProgramInternalForm;
 import constants.LanguageSpecifications;
+import exception.LexicalErrorException;
 import symbol_table.HashTableWrapper;
 
 import java.io.File;
@@ -12,7 +13,7 @@ public class Main {
         var symbolTable = new SymbolTable<>(internalRepresentation);
         var pif = new ProgramInternalForm<PifHashTablePair>();
         var lineNumber = 0;
-        var myObj = new File("D:\\Uni\\sem-one\\formal-languages-and-compiler-design\\laboratory_2\\scanner\\src\\main\\resources\\program_2.txt");
+        var myObj = new File("D:\\Uni\\sem-one\\formal-languages-and-compiler-design\\laboratory_2\\scanner\\src\\main\\resources\\program_1err.txt");
         var myReader = new java.util.Scanner(myObj);
         var line = "";
         while (myReader.hasNextLine()) {
@@ -28,11 +29,13 @@ public class Main {
                             symbolTable.add(e);
                             pif.add(new PifHashTablePair("constant", symbolTable.getId(e)));
                         }else{
-                            System.out.println(e);
+                            throw new LexicalErrorException(String.format("Token %s couldn't be scanned please review the code master ...", e));
                         }
                     });
             lineNumber += 1;
         }
         myReader.close();
+        pif.getInternalRepresentaion()
+                .forEach(System.out::println);
     }
 }

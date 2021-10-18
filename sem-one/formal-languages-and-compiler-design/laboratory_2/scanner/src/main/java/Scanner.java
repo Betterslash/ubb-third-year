@@ -98,7 +98,7 @@ public class Scanner {
     }
 
     public static boolean isIdentifier(String token){
-        var pattern = Pattern.compile("^[a-zA-Z]([a-zA-Z]|[0-9]){0,9}$");
+        var pattern = Pattern.compile("^[a-zA-Z]([a-zA-Z]|[0-9]){0,100}$");
         var matcher = pattern.matcher(token);
         return matcher.find();
     }
