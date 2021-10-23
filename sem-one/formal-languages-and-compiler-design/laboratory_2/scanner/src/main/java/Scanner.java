@@ -34,10 +34,22 @@ public class Scanner {
 
     public static PifSortedListPair getOperatorToken(String line, int index){
         var token = new StringBuilder();
+        if(line.charAt(index) == '-'){
+            if(index + 1 < line.length() && Character.isDigit(line.charAt(index + 1))) {
+                token.append('-');
+                index += 1;
+            }
+            while(index < line.length() && Character.isDigit(line.charAt(index))){
+                token.append(line.charAt(index));
+                index+=1;
+            }
+            return new PifSortedListPair(token.toString(), index);
+        }
         while(index < line.length() && isInOperator(line.charAt(index))){
             token.append(line.charAt(index));
             index += 1;
         }
+
         return new PifSortedListPair(token.toString(), index);
     }
 

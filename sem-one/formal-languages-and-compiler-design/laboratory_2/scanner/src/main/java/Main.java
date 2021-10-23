@@ -14,7 +14,7 @@ public class Main {
         var symbolTable = new SymbolTable<>(internalRepresentation);
         var pif = new ProgramInternalForm<PifHashTablePair>();
         var lineNumber = 0;
-        var myObj = new File(ConfigurationConstants.FILE_PATH + "program_1.txt");
+        var myObj = new File(ConfigurationConstants.FILE_PATH + "program_2.txt");
         var myReader = new java.util.Scanner(myObj);
         var line = "";
         while (myReader.hasNextLine()) {

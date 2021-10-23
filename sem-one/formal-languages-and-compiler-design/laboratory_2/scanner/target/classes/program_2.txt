@@ -1,4 +1,5 @@
-VAR numberForCheck : INT; 
+z<- -12
+VAR numberForCheck : INT;
 i : INT; 
 stop : INT; 
 checker : INT; 
@@ -6,7 +7,7 @@ Ok : BOOLEAN;
 { 
 Ok <- true; 
 READLN(numberForCheck); 
-FOR(i <- 2; i < stop; i++){ 
+FOR(i <- 12; i < stop; i++){
 checker <- numberForCheck MOD i; 
 IF(checker == 0){ 
 ok <- false; 
