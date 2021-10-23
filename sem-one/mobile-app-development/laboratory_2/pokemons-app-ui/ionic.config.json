@@ -1,0 +1,7 @@
+{
+  "name": "pokemons-app-ui",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
