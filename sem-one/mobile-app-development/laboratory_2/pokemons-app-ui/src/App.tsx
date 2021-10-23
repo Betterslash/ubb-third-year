@@ -21,39 +21,15 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import {AppContext, AppProps} from "./context/AppContext";
 import React from "react";
-import {useNetowrk} from "./hooks/AppHooks";
 import {Login} from "./pages/Login";
-import {ConnectionStatus} from "@capacitor/network";
-import {Logger} from "./helpers/logger/Logger";
 
 const App: React.FC = () => {
-
-  const autoLog = () => {
-    Logger.info(JSON.stringify(appProps));
-  }
-  const netStatus = useNetowrk();
-  const setStateToken = async (token : string) => {
-    appProps.token = token;
-  };
-  const setStateNetworkStatus = async (status : ConnectionStatus) => {
-    appProps.networkStatus = status;
-  };
-
-  let appProps : AppProps = {
-    token: "someTokenTest",
-    networkStatus: netStatus,
-    setContextToken : setStateToken,
-    setContextNetworkStatus : setStateNetworkStatus,
-    log : autoLog
-  };
-
   return (
       <IonApp>
         <IonReactRouter>
           <IonRouterOutlet>
-            <AppContext.Provider value={appProps}>
+            <>
               <Route exact path="/home">
                 <Home />
               </Route>
@@ -63,7 +39,7 @@ const App: React.FC = () => {
               <Route exact path="/login">
                 <Login/>
               </Route>
-            </AppContext.Provider>
+            </>
           </IonRouterOutlet>
         </IonReactRouter>
       </IonApp>

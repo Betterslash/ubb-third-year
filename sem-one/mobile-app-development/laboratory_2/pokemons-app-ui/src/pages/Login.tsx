@@ -1,33 +1,31 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import {
     IonButton,
     IonCard,
     IonCardContent,
-    IonCardHeader,
     IonContent,
     IonInput,
     IonLabel,
-    IonPage,
-    IonTitle
+    IonPage
 } from "@ionic/react";
 import {AuthenticationService, UserModel} from "../services/AuthService";
 import {StorageService} from "../services/StorageService";
 import {useLogin} from "../hooks/LoginHook";
-import {AppContext} from "../context/AppContext";
 import {AxiosResponse} from "axios";
 import {Logger} from "../helpers/logger/Logger";
 import {useHistory} from "react-router";
+import {Header} from "../components/layout/Header";
+import {Footer} from "../components/layout/Footer";
+import {useUserState} from "../hooks/AppHooks";
 
 export const Login : React.FC = () => {
     const loginState = useLogin();
-    const appProps = useContext(AppContext);
     const [loginFailureLabel, setLabelState] = useState("");
     const history = useHistory();
-
+    const context = useUserState();
     const onLoginSuccess = async (response : AxiosResponse<string>) => {
         await StorageService.setToken(response.data);
-        await appProps.setContextToken(response.data);
-        appProps.log();
+        await context.setToken(response.data);
         history.push("/");
     }
     const onLoginFailure = (error : string) => {
@@ -46,23 +44,20 @@ export const Login : React.FC = () => {
 
     return(
         <IonPage>
-            <IonContent>
-                <IonCard>
-                    <IonCardHeader>
-                        <IonTitle>
-                            Hello trainer !!
-                        </IonTitle>
-                    </IonCardHeader>
-                    <IonCardContent>
-                        <form onSubmit={doSubmit}>
-                            <IonInput type="text" onIonChange={(e : Event) => loginState.dispatcher({item : e, type : 'USERNAME'})}/>
-                            <IonInput type="password" onIonChange={(e : Event) => loginState.dispatcher({item : e, type : 'PASSWORD'})}/>
-                            <IonButton type="submit">Login</IonButton>
-                        </form>
-                        <IonLabel>{loginFailureLabel}</IonLabel>
-                    </IonCardContent>
-                </IonCard>
-            </IonContent>
+            <Header/>
+                <IonContent>
+                    <IonCard>
+                        <IonCardContent>
+                            <form onSubmit={doSubmit}>
+                                <IonInput type="text" onIonChange={(e : Event) => loginState.dispatcher({item : e, type : 'USERNAME'})}/>
+                                <IonInput type="password" onIonChange={(e : Event) => loginState.dispatcher({item : e, type : 'PASSWORD'})}/>
+                                <IonButton type="submit">Login</IonButton>
+                            </form>
+                            <IonLabel>{loginFailureLabel}</IonLabel>
+                        </IonCardContent>
+                    </IonCard>
+                </IonContent>
+            <Footer/>
         </IonPage>
     );
 }

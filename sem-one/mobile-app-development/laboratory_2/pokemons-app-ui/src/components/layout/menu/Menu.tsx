@@ -6,7 +6,6 @@ import {MenuOptions} from "./options/MenuOptions";
 
 export const Menu : React.FC = () => {
     return (
-        <IonContent id="first">
             <IonMenu side="end" type="overlay" contentId="first">
                 <IonHeader>
                     <IonToolbar color="primary">
@@ -17,6 +16,5 @@ export const Menu : React.FC = () => {
                     <MenuOptions/>
                 </IonContent>
             </IonMenu>
-        </IonContent>
     );
 }

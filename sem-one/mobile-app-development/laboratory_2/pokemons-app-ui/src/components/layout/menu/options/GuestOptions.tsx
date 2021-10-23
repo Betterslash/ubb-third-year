@@ -1,18 +1,24 @@
 import React from "react";
-import {IonContent, IonItem, IonList} from "@ionic/react";
+import {IonContent, IonIcon, IonItem, IonList} from "@ionic/react";
+import {enter, logIn, mail} from "ionicons/icons";
+import {useHistory} from "react-router";
 
 export const GuestOptions : React.FC = () => {
+    const history = useHistory();
+    const navigateToLogin = () => {
+        history.push("/login");
+    }
     return (
         <IonContent>
             <IonList>
-                <IonItem>
-                    LogIn
+                <IonItem onClick={navigateToLogin}>
+                    <IonIcon icon={logIn}/>Login
                 </IonItem>
                 <IonItem>
-                    Register
+                    <IonIcon icon={enter}/>Register
                 </IonItem>
                 <IonItem>
-                    Contact
+                    <IonIcon icon={mail}/>Contact
                 </IonItem>
             </IonList>
         </IonContent>

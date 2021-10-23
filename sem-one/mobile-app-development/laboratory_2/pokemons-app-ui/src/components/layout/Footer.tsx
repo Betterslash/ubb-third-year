@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {IonBadge, IonFooter, IonToolbar} from "@ionic/react";
-import {useNetowrk} from "../../hooks/AppHooks";
 import {useFooterHook} from "../../hooks/FooterHooks";
 
 export interface NetworkBadgeProps{

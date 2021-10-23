@@ -11,14 +11,14 @@ import {Menu} from "./menu/Menu";
 export const Header : React.FC = () =>{
     return (
         <>
-            <Menu/>
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="end">
-                        <IonMenuButton/>
+                        <IonMenuButton id="first"/>
                     </IonButtons>
                     <IonTitle>Header</IonTitle>
                 </IonToolbar>
             </IonHeader>
+            <Menu/>
         </>);
 }
