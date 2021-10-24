@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
 import {ConnectionStatus, Network} from "@capacitor/network";
 import {StorageService} from "../services/StorageService";
-import jwtDecode from "jwt-decode";
 import {Logger} from "../helpers/logger/Logger";
+import jwtDecode from "jwt-decode";
 
 const initialNetworkState : ConnectionStatus = {
-    connected : false,
+    connected : true,
     connectionType : "unknown"
 };
 
@@ -13,7 +13,9 @@ export interface AppProps{
     token : string;
     setToken : (token : string) => void;
     getToken : () => string;
-    getAuthorities : (token : string) => void
+    authorities : string[];
+    setAuthorities : (auts : string[]) => void;
+    log : () => void;
 }
 
 
@@ -40,32 +42,44 @@ export const useNetowrk = () => {
 }
 
 export const useUserState = () => {
+    const getAuthorities = (token : string) : string[]  => {
+        if(token !== ""){
+            // @ts-ignore
+            return jwtDecode(token).authorities;
+        }
+        return [] as string[];
+    }
     const copyContext = (token : string) : AppProps => {
         return {
             token: token,
             setToken: setToken,
-            getToken: getToken
+            getToken: getToken,
+            authorities : getAuthorities(token),
+            setAuthorities : setAuthorities,
+            log : selfLog
         } as AppProps;
     };
-
     const setToken = (token : string) => {
         setAppContext(copyContext(token));
     }
-
     const getToken = () : string => {
         return initialContext.token;
     }
-
-    const getAuthorities = ()  => {
-        const authorities = jwtDecode(appContext.token);
-        Logger.info(JSON.stringify(authorities));
+    const selfLog = () => {
+        Logger.info(JSON.stringify(appContext));
     }
-
+    const setAuthorities = (auts : string[]) => {
+        const user = copyContext(appContext.token);
+        user.authorities = auts;
+        setAppContext(user);
+    }
     const initialContext = {
         token: "",
         setToken: setToken,
         getToken: getToken,
-        getAuthorities : getAuthorities
+        authorities : [] as string[],
+        setAuthorities : setAuthorities,
+        log : selfLog
     } as unknown as AppProps;
 
     const [appContext, setAppContext] = useState(initialContext);

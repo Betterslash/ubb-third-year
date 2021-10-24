@@ -23,8 +23,12 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import React from "react";
 import {Login} from "./pages/Login";
+import {ModifyPokemon} from "./pages/ModifyPokemon";
+import {ProtectedRoute} from "./guards/ProtectedRoute";
+import {CaughtPokemons} from "./pages/CaughtPokemons";
 
 const App: React.FC = () => {
+
   return (
       <IonApp>
         <IonReactRouter>
@@ -39,6 +43,9 @@ const App: React.FC = () => {
               <Route exact path="/login">
                 <Login/>
               </Route>
+              <ProtectedRoute path="/pokemon/:id" ProtectedComponent={ModifyPokemon} />
+              <ProtectedRoute path="/pokemon" ProtectedComponent={ModifyPokemon} />
+              <ProtectedRoute path="/my-pokemons" ProtectedComponent={CaughtPokemons}/>
             </>
           </IonRouterOutlet>
         </IonReactRouter>

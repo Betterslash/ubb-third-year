@@ -12,13 +12,13 @@ export const GuestOptions : React.FC = () => {
         <IonContent>
             <IonList>
                 <IonItem onClick={navigateToLogin}>
-                    <IonIcon icon={logIn}/>Login
+                    <IonIcon slot="start" icon={logIn}/>Login
                 </IonItem>
                 <IonItem>
-                    <IonIcon icon={enter}/>Register
+                    <IonIcon slot="start" icon={enter}/>Register
                 </IonItem>
                 <IonItem>
-                    <IonIcon icon={mail}/>Contact
+                    <IonIcon slot="start" icon={mail}/>Contact
                 </IonItem>
             </IonList>
         </IonContent>

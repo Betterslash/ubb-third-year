@@ -9,7 +9,7 @@ export const Menu : React.FC = () => {
             <IonMenu side="end" type="overlay" contentId="first">
                 <IonHeader>
                     <IonToolbar color="primary">
-                        <IonTitle>Start Menu</IonTitle>
+                        <IonTitle>Pokedex Menu</IonTitle>
                     </IonToolbar>
                 </IonHeader>
                 <IonContent>

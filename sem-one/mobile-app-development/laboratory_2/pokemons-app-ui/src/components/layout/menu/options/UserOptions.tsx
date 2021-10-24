@@ -13,17 +13,20 @@ export const UserOptions : React.FC = () => {
         await context.setToken("");
         history.push("/");
     }
+    const navigateToMyPokemons = () =>{
+        history.push("/my-pokemons");
+    }
 
     return (
         <IonList>
-            <IonItem>
-               <IonIcon icon={list}/> My Pokemons
+            <IonItem onClick={navigateToMyPokemons}>
+               <IonIcon slot="start" icon={list}/> My Pokemons
             </IonItem>
             <IonItem onClick={logout}>
-                <IonIcon icon={logOut}/>Logout
+                <IonIcon slot="start" icon={logOut}/>Logout
             </IonItem>
             <IonItem>
-                <IonIcon icon={mail}/>Contact
+                <IonIcon slot="start" icon={mail}/>Contact
             </IonItem>
         </IonList>
     );

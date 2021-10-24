@@ -51,3 +51,8 @@ export interface PokemonModel {
     evolvesFrom: number;
     catchRate : number;
 }
+
+export interface PokemonUserModel{
+    pokemonId : number;
+    pokemonName : string;
+}
