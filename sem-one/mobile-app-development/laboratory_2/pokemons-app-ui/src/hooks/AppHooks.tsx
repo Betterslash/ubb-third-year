@@ -3,6 +3,7 @@ import {ConnectionStatus, Network} from "@capacitor/network";
 import {StorageService} from "../services/StorageService";
 import {Logger} from "../helpers/logger/Logger";
 import jwtDecode from "jwt-decode";
+import {LocalRepositoryService} from "../services/repository/LocalRepositoryService";
 
 const initialNetworkState : ConnectionStatus = {
     connected : true,
@@ -28,6 +29,13 @@ export const useNetowrk = () => {
         let canceled = false;
         function handleNetworkStatusChange(status: ConnectionStatus) {
             if(!canceled){
+                if(status.connected){
+                    LocalRepositoryService.synchronize().then((res) => {
+                            console.log(JSON.stringify(res?.data));
+                            LocalRepositoryService.reinitializeRepository();
+                        },
+                        () => {Logger.danger("Couldn't synchronize data...");});
+                }
                 setNetworkStatus(status);
             }
         }

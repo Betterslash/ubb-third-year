@@ -1,11 +1,17 @@
 import {PokemonModel} from "../../model/PokemonModel";
 import {Storage} from "@capacitor/storage";
 import {Logger} from "../../helpers/logger/Logger";
+import {Environment} from "../../environment/Environment";
+import {StorageService} from "../StorageService";
+import axios from "axios";
 
 export class LocalRepositoryService {
     private static internalStorage : PokemonModel[] = [];
     private static internalCurrentId : number = 0;
-    private static initializeRepository = () => {
+    private static POKEMONS_API = `${Environment.apiUrl}pokemons/synchronize`
+
+
+    public static reinitializeRepository = () => {
         (async (): Promise<void> => {
             await Storage.set({key: 'repository', value: ''});
             LocalRepositoryService.internalStorage = [] as PokemonModel[];
@@ -43,5 +49,21 @@ export class LocalRepositoryService {
         await Storage.set({key : 'repository', value : JSON.stringify(LocalRepositoryService.internalStorage)});
         Logger.info(LocalRepositoryService.name + ' -> ' + this.deleteOne.name);
         return response;
+    }
+    public static async synchronize(){
+        return Storage.get({key : 'repository'})
+            .then(async result => {
+                if(result.value){
+                    LocalRepositoryService.internalStorage = JSON.parse(result.value);
+                }
+                if (LocalRepositoryService.internalStorage.length > 0) {
+                    const token = await StorageService.getToken();
+                    const headerValue = 'Bearer : ' + token.value;
+                    const items = LocalRepositoryService.internalStorage;
+                    Logger.info('Synchronized data ...');
+                    return axios.post<PokemonModel[]>(this.POKEMONS_API, items, {headers: {'Authorization': headerValue}});
+                }
+            });
+
     }
 }
