@@ -4,7 +4,7 @@ import {Logger} from "../../helpers/logger/Logger";
 
 export class LocalRepositoryService {
     private static internalStorage : PokemonModel[] = [];
-
+    private static internalCurrentId : number = 0;
     private static initializeRepository = () => {
         (async (): Promise<void> => {
             await Storage.set({key: 'repository', value: ''});
@@ -19,6 +19,8 @@ export class LocalRepositoryService {
     }
 
     public static async insertOnePokemon(pokemon : PokemonModel){
+        pokemon.id = this.internalCurrentId;
+        this.internalCurrentId ++;
         this.internalStorage.push(pokemon);
         await Storage.set({key : 'repository', value: JSON.stringify(LocalRepositoryService.internalStorage)});
         Logger.info(LocalRepositoryService.name + ' -> ' + this.insertOnePokemon.name);
@@ -33,5 +35,13 @@ export class LocalRepositoryService {
             Logger.danger(`${LocalRepositoryService.name} -> ${this.getOneById.name} -> Cannot modify a pokemon that doesn't exist`);
             throw new Error("Cannot modify a pokemon that doesn't exist");
         }
+    }
+
+    public static async deleteOne(id : number){
+        const response = LocalRepositoryService.internalStorage.filter(e => e.id === id)[0];
+        LocalRepositoryService.internalStorage = LocalRepositoryService.internalStorage.filter(e => e.id !== id);
+        await Storage.set({key : 'repository', value : JSON.stringify(LocalRepositoryService.internalStorage)});
+        Logger.info(LocalRepositoryService.name + ' -> ' + this.deleteOne.name);
+        return response;
     }
 }

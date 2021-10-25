@@ -13,6 +13,7 @@ import {
     IonTitle
 } from "@ionic/react";
 import {add, arrowForward} from "ionicons/icons";
+import {useHistory} from "react-router";
 
 export interface PokemonEvolutionInfoPorps{
     pokemonId? : number;
@@ -21,8 +22,9 @@ export interface PokemonEvolutionInfoPorps{
 export const PokemonEvolutionInfo : React.FC<PokemonEvolutionInfoPorps> = ({pokemonId}) => {
     const [currentPokemon, setPokemonState] = useState({} as PokemonModel);
     const [fetching, setFetching] = useState(false);
+    const history = useHistory();
     useEffect(() => {
-        if(pokemonId !== undefined && pokemonId != null){
+        if(pokemonId !== undefined && pokemonId != null && pokemonId !== -1){
             setFetching(true);
             setTimeout(() => {
                 PokemonOnlineService.getOneById(pokemonId)
@@ -33,8 +35,13 @@ export const PokemonEvolutionInfo : React.FC<PokemonEvolutionInfoPorps> = ({poke
             setFetching(false);
         }
     }, [pokemonId]);
+    const navigateToDetails = () => {
+        history.push(`/pokemon/${pokemonId}`);
+        window.location.reload();
+    }
+
     return(<>
-        {currentPokemon !== {} as PokemonModel && pokemonId != null &&
+        {currentPokemon !== {} as PokemonModel && pokemonId != null && pokemonId !== -1 &&
             <>  <IonHeader>
                    <IonTitle>
                        <IonLabel>Evolves From : </IonLabel>
@@ -55,7 +62,7 @@ export const PokemonEvolutionInfo : React.FC<PokemonEvolutionInfoPorps> = ({poke
                                 <IonImg src={`../assets/pokemon_types/${currentPokemon.types.typeOne.toLowerCase()}.png`} />
                             </IonThumbnail>
                             <IonButtons>
-                                <IonButton >See Details<IonIcon icon={arrowForward} slot="end"/></IonButton>
+                                <IonButton onClick={navigateToDetails}>See Details<IonIcon icon={arrowForward} slot="end"/></IonButton>
                             </IonButtons>
                             <IonButtons slot="end">
                                 <IonButton>
@@ -64,9 +71,7 @@ export const PokemonEvolutionInfo : React.FC<PokemonEvolutionInfoPorps> = ({poke
                             </IonButtons>
                         </IonItem>
                     }
-
                 </IonCardContent>
-
             </IonCard></>
         }
     </>);

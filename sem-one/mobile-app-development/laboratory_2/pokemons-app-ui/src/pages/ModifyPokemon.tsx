@@ -1,8 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {PokemonType} from "../model/PokemonModel";
 import {
-    IonButton, IonCard,
-    IonCardContent, IonCardHeader, IonCheckbox,
+    IonButton, IonCardContent, IonCheckbox,
     IonContent,
     IonDatetime,
     IonInput, IonItem,
@@ -18,6 +17,8 @@ import {useParams} from "react-router";
 import {PokemonOnlineService} from "../services/PokemonOnlineService";
 import {Logger} from "../helpers/logger/Logger";
 import {PokemonEvolutionInfo} from "../components/widgets/PokemonEvolutionInfo";
+import {useNetowrk} from "../hooks/AppHooks";
+import {LocalRepositoryService} from "../services/repository/LocalRepositoryService";
 
 export interface TypeIdPair {
     name: string;
@@ -39,14 +40,25 @@ export const ModifyPokemon: React.FC = () => {
         });
     const {id} = useParams<ModifyPokemonProps>();
     const initalState = useInitialState(id);
+    const network = useNetowrk().connected;
+    useEffect(() => {
+        if(!network){
+            Logger.warning(ModifyPokemon.name + ' -> offline mode');
+        }
+    }, [network]);
     const onSubmit = (e: any) => {
         e.preventDefault();
-        if(id === undefined) {
-            PokemonOnlineService.updateOnePokemon(-1, initalState.pokemonReducer.pokemon)
-                .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name)});
-        }else {
-            PokemonOnlineService.updateOnePokemon(Number(id), initalState.pokemonReducer.pokemon)
-                .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name)});
+        if(network){
+            if(id === undefined) {
+                PokemonOnlineService.updateOnePokemon(-1, initalState.pokemonReducer.pokemon)
+                    .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name)});
+            }else {
+                PokemonOnlineService.updateOnePokemon(Number(id), initalState.pokemonReducer.pokemon)
+                    .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name)});
+            }
+        }else{
+            LocalRepositoryService.insertOnePokemon(initalState.pokemonReducer.pokemon)
+                .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name)})
         }
     };
     return (

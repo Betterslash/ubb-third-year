@@ -8,13 +8,18 @@ export interface ProtectedRouteProps{
 }
 
 export const ProtectedRoute : React.FC<ProtectedRouteProps> = ({path, ProtectedComponent}) => {
-    const [isAuthenticated, setAuthenticated] = useState(false);
+
+    const [toBeRedered, setRendering] = useState(<Redirect to={"/"}/>);
     useEffect(() => {
         StorageService.getToken()
             .then(result => {
-                const value = result.value !== "";
-                setAuthenticated(value);
-            })
-    }, []);
-    return (<Route exact path={path} render={() => isAuthenticated ? <ProtectedComponent/> : <Redirect to="/"/>}/>);
+                if(result.value !== ""){
+                    setRendering(<ProtectedComponent/>);
+                }
+            });
+    },[]);
+
+    return (<Route exact path={path}>
+        {toBeRedered}
+    </Route>);
 }

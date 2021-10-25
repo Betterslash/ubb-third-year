@@ -18,7 +18,6 @@ export interface AppProps{
     log : () => void;
 }
 
-
 export const useNetowrk = () => {
 
     const [networkStatus, setNetworkStatus] = useState(initialNetworkState);
@@ -92,8 +91,7 @@ export const useUserState = () => {
         });
     },[]);
 
-
-
     return appContext;
 }
+
 

@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
     IonButton,
-    IonButtons,
+    IonButtons, IonCardContent,
     IonContent,
     IonFab,
     IonFabButton,
@@ -10,7 +10,7 @@ import {
     IonItem,
     IonList,
     IonListHeader,
-    IonLoading, IonReorder, IonReorderGroup, IonSearchbar, IonText, IonTitle
+    IonLoading, IonReorder, IonReorderGroup, IonSearchbar, IonText, IonTitle, IonToolbar
 } from "@ionic/react";
 import {useNetowrk, useUserState} from "../../hooks/AppHooks";
 import {PokemonOnlineService} from "../../services/PokemonOnlineService";
@@ -19,6 +19,12 @@ import {add, remove} from "ionicons/icons";
 import {LocalRepositoryService} from "../../services/repository/LocalRepositoryService";
 import {useHistory} from "react-router";
 import {Logger} from "../../helpers/logger/Logger";
+import {CompatClient, IMessage, Stomp} from "@stomp/stompjs";
+import {NotificationModel} from "../../model/NotificationModel";
+import SockJS from "sockjs-client";
+import {Environment} from "../../environment/Environment";
+import {NotificationService} from "../../services/NotificationService";
+import {AppContext} from "../../context/AppContext";
 
 export const Pokedex : React.FC = () => {
 
@@ -29,16 +35,40 @@ export const Pokedex : React.FC = () => {
     const [allData, setAllData]= useState([] as PokemonModel[]);
     const fetchable = useNetowrk().connected;
     const history = useHistory();
+    const [subscription,] = useState(Stomp.over(() => new SockJS(Environment.webSocketUrl)));
     const isUserAdmin = () : boolean => {
         return userState.authorities.filter(e => {return e.includes('ROLE_GYM_LEADER') || e.includes('GYM_LEADER')}).length > 0;
     }
     const navigateToModify = (id: number | string) => {
         history.push(`/pokemon/${id}`)
     }
+    const onSubscribe = (stompClient : CompatClient) => {
+        stompClient.subscribe("/notify", (e : IMessage) =>{
+            const message : NotificationModel = JSON.parse(e.body);
+            NotificationService.addNotification(message)
+                .then(() => {
+                    Logger.info(`Got notifications -> ${JSON.stringify(message.action)}`);
+                    console.log(notificationsState);
+                    notificationsState.stateChange(notificationsState.notifications.concat(message));
+                });
+        });
+    };
+    const onError = (err: any) => {
+        Logger.danger(err)
+    };
+    const onClose = () => {
+        Logger.warning(`Subscrption closed on topic ${subscription.brokerURL}`);
+    };
+    const notificationsState = useContext(AppContext);
     useEffect(() => {
         setFetching(true);
         if(userState.token !== "") {
             if (fetchable) {
+                subscription.debug = ()=> {};
+                subscription.connect({},
+                    () => onSubscribe(subscription),
+                    (err : any) => onError(err),
+                    () => onClose());
                 setTimeout(() => PokemonOnlineService.getAllPokemons()
                     .then(result => {
                         setPokemons(result.data);
@@ -47,6 +77,7 @@ export const Pokedex : React.FC = () => {
                     }), 200);
             } else {
                 setTimeout(() => {
+                    subscription.disconnect();
                     LocalRepositoryService.getAllPokemons()
                         .then(result => {
                             setPokemons(result);
@@ -59,8 +90,7 @@ export const Pokedex : React.FC = () => {
         }else{
             setFetching(false);
         }
-    }, [fetchable, userState]);
-
+    }, [fetchable, userState, ]);
     const [disableInfiniteScroll, setDisableInfiniteScroll] = useState(false);
     const filterByName = (e : any) => {
         if (e.detail.value === "") {
@@ -108,14 +138,26 @@ export const Pokedex : React.FC = () => {
         PokemonOnlineService.catchOnePokemon(pokemonUser)
             .then(() => Logger.info(Pokedex.name + ' -> ' + catchOne.name))
     }
-
     const removeOne = (id : number) => {
-        PokemonOnlineService.deleteOneFromPokedex(id)
-            .then(() => Logger.info(Pokedex.name + ' -> ' + removeOne.name));
+        if(fetchable){
+            setFetching(true);
+            PokemonOnlineService.deleteOneFromPokedex(id)
+                .then(() => {Logger.info(Pokedex.name + ' -> ' + removeOne.name);
+                    setPokemons(pokemons.filter(p => p.id !== id));
+                    setFetching(false);
+                });
+        }else{
+            LocalRepositoryService.deleteOne(id)
+                .then(() => {
+                    LocalRepositoryService.getAllPokemons()
+                        .then(result => setPokemons(result));
+                });
+        }
     }
 
     return (
-        <IonContent >
+        <IonContent>
+        <IonCardContent >
             <IonLoading isOpen={fetching}/>
             <IonListHeader>
                 <IonTitle>
@@ -143,19 +185,20 @@ export const Pokedex : React.FC = () => {
             </IonReorderGroup>
 
             </IonList>
-            <IonInfiniteScroll threshold="5px"
+            <IonInfiniteScroll threshold="2px"
                                disabled={disableInfiniteScroll}
                                onIonInfinite={searchNext}>
                 <IonInfiniteScrollContent
                     loadingText="Loading more pokemons ...">
                 </IonInfiniteScrollContent>
             </IonInfiniteScroll>
-            {isUserAdmin() &&
+        </IonCardContent>
+                {isUserAdmin() &&
                 <IonFab>
                     <IonFabButton>
                         <IonIcon onClick={() => navigateToModify("")} icon={add}/>
                     </IonFabButton>
-                </IonFab>
-            }
-        </IonContent>);
+                </IonFab>}
+        </IonContent>
+    );
 }

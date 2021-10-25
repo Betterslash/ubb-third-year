@@ -22,7 +22,6 @@ import jwtDecode from "jwt-decode";
 export const Login : React.FC = () => {
     const getAuthorities = (token : string) : string[]  => {
         if(token !== ""){
-            console.log(token);
             // @ts-ignore
             return jwtDecode(token).authorities;
         }

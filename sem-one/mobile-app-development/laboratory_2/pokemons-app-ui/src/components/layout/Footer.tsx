@@ -1,5 +1,5 @@
 import React from "react";
-import {IonBadge, IonFooter, IonToolbar} from "@ionic/react";
+import {IonBadge, IonButtons, IonFooter, IonItem, IonToolbar} from "@ionic/react";
 import {useFooterHook} from "../../hooks/FooterHooks";
 
 export interface NetworkBadgeProps{
@@ -13,7 +13,11 @@ export const Footer : React.FC = () => {
     return (
         <IonFooter>
             <IonToolbar>
-                <IonBadge slot="end" color={networkBadge.color}>{networkBadge.text}</IonBadge>
+                <IonButtons slot="start">
+                    <IonItem>
+                        <IonBadge  color={networkBadge.color}>{networkBadge.text}</IonBadge>
+                    </IonItem>
+                </IonButtons>
             </IonToolbar>
         </IonFooter>);
 }

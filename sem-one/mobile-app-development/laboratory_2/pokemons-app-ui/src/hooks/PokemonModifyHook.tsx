@@ -59,7 +59,7 @@ export const useInitialState = (id : string | undefined) => {
     useEffect(() => {
         setFetchingState(true);
         setViewOnly(isUserAdmin());
-        if(id != null){
+        if(id != null && id !== "-1" && id !== undefined){
             if(fetchable){
                 PokemonOnlineService.getOneById(Number(id))
                     .then(result => {

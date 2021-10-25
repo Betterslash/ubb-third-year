@@ -21,19 +21,21 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import React from "react";
+import React, {useState} from "react";
 import {Login} from "./pages/Login";
 import {ModifyPokemon} from "./pages/ModifyPokemon";
 import {ProtectedRoute} from "./guards/ProtectedRoute";
 import {CaughtPokemons} from "./pages/CaughtPokemons";
+import {AppContext} from "./context/AppContext";
+import {NotificationModel} from "./model/NotificationModel";
 
 const App: React.FC = () => {
-
+  const [notifications, setNotifications] = useState([] as NotificationModel[]);
   return (
       <IonApp>
         <IonReactRouter>
           <IonRouterOutlet>
-            <>
+            <AppContext.Provider value={{notifications: notifications, stateChange : setNotifications}}>
               <Route exact path="/home">
                 <Home />
               </Route>
@@ -46,7 +48,7 @@ const App: React.FC = () => {
               <ProtectedRoute path="/pokemon/:id" ProtectedComponent={ModifyPokemon} />
               <ProtectedRoute path="/pokemon" ProtectedComponent={ModifyPokemon} />
               <ProtectedRoute path="/my-pokemons" ProtectedComponent={CaughtPokemons}/>
-            </>
+            </AppContext.Provider>
           </IonRouterOutlet>
         </IonReactRouter>
       </IonApp>
