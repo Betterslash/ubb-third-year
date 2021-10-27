@@ -27,26 +27,27 @@ const Home: React.FC = () => {
         if(!loggedIn){
             return <GuestHome/>
         }else{
-            return <Pokedex/>
+            return <Pokedex token={userState.token}/>
         }
     }
     return (
     <IonPage>
         <Header/>
         {getHomeItems()}
+        {loggedIn &&
         <IonCard>
             <IonCardContent style={{paddingTop : '0px', paddingBottom: '0px'}}>
                 <IonToolbar color={'rgba(0,0,255,0)'}>
-                        <IonButtons slot="secondary">
-                            {isUserAdmin() &&
-                                <IonFabButton size="small" slot="start">
-                                    <IonIcon onClick={() => navigateToModify("")} icon={add}/>
-                                </IonFabButton>
-                            }
-                        </IonButtons>
+                    <IonButtons slot="secondary">
+                        {isUserAdmin() &&
+                        <IonFabButton size="small" slot="start">
+                            <IonIcon onClick={() => navigateToModify("")} icon={add}/>
+                        </IonFabButton>
+                        }
+                    </IonButtons>
                 </IonToolbar>
             </IonCardContent>
-        </IonCard>
+        </IonCard>}
         <Footer/>
     </IonPage>
   );

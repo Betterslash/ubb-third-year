@@ -25,8 +25,11 @@ import {NotificationService} from "../../services/NotificationService";
 import {AppContext} from "../../context/AppContext";
 import {FilterModel, FiltersModalBody} from "../modal/body/FiltersModalBody";
 
-export const Pokedex : React.FC = () => {
+export interface PokedexProps {
+    token : string;
+}
 
+export const Pokedex : React.FC<PokedexProps> = ({token}) => {
 
     const [fetching, setFetching] = useState(false);
     const [applyFilters, setApplyFilters] = useState(false);
@@ -35,7 +38,9 @@ export const Pokedex : React.FC = () => {
     const [allData, setAllData]= useState([] as PokemonModel[]);
     const fetchable = useNetowrk().connected;
     const history = useHistory();
-    const [subscription,] = useState(Stomp.over(() => new SockJS(Environment.webSocketUrl)));
+    const [subscription,] = useState(Stomp.over(() => {
+        return new SockJS(Environment.webSocketUrl+'?access_token='+token);
+    }));
     const navigateToModify = (id: number | string) => {
         history.push(`/pokemon/${id}`)
     }
@@ -60,17 +65,19 @@ export const Pokedex : React.FC = () => {
     useEffect(() => {
         setFetching(true);
             if (fetchable) {
-                subscription.debug = ()=> {};
-                subscription.connect({},
-                    () => onSubscribe(subscription),
-                    (err : any) => onError(err),
-                    () => onClose());
+                if(token !== ""){
+                    subscription.debug = ()=> {};
+
+                    subscription.connect({ Authorization : 'Bearer : ' + token},
+                        () => onSubscribe(subscription),
+                        (err : any) => onError(err),
+                        () => onClose());
+                }
                 setTimeout(() => PokemonOnlineService.getAllPokemons(applyFilters)
                     .then(result => {
                         setPokemons(applyFiltering(result.data));
                         setAllData(result.data);
                         setFetching(false);
-                        console.log(applyFilters);
                         if(applyFilters) {
                             setDisableInfiniteScroll(true);
                         }else{

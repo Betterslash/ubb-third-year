@@ -31,6 +31,7 @@ import {NotificationModel} from "./model/NotificationModel";
 
 const App: React.FC = () => {
   const [notifications, setNotifications] = useState([] as NotificationModel[]);
+
   return (
       <IonApp>
         <IonReactRouter>
