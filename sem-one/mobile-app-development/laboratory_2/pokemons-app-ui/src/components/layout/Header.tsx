@@ -55,7 +55,7 @@ export const Header : React.FC = () =>{
                     </IonButtons>
                     <IonTitle>Header</IonTitle>
                     <IonButtons slot="end">
-                        <IonBadge>{notificationsState.length}</IonBadge>
+                        {/*<IonBadge>{notificationsState.length}</IonBadge>*/}
                         <IonButton onClick={() => {present()}}>
                             <IonIcon icon={notifications}/>
                         </IonButton>

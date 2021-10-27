@@ -30,11 +30,10 @@ export const useNetowrk = () => {
         function handleNetworkStatusChange(status: ConnectionStatus) {
             if(!canceled){
                 if(status.connected){
-                    LocalRepositoryService.synchronize().then((res) => {
-                            console.log(JSON.stringify(res?.data));
-                            LocalRepositoryService.reinitializeRepository();
+                    LocalRepositoryService.synchronize().then(() => {
                         },
-                        () => {Logger.danger("Couldn't synchronize data...");});
+                        () => {Logger.warning("Couldn't synchronize data...");});
+                }else{
                 }
                 setNetworkStatus(status);
             }

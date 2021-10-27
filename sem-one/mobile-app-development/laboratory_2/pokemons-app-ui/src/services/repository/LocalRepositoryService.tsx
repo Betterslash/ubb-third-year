@@ -4,32 +4,48 @@ import {Logger} from "../../helpers/logger/Logger";
 import {Environment} from "../../environment/Environment";
 import {StorageService} from "../StorageService";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 export class LocalRepositoryService {
+
     private static internalStorage : PokemonModel[] = [];
-    private static internalCurrentId : number = 0;
     private static POKEMONS_API = `${Environment.apiUrl}pokemons/synchronize`
 
 
-    public static reinitializeRepository = () => {
-        (async (): Promise<void> => {
-            await Storage.set({key: 'repository', value: ''});
-            LocalRepositoryService.internalStorage = [] as PokemonModel[];
-        })();
-    }
-
-    public static async getAllPokemons(){
+    public static  getAllPokemons(){
         Logger.info(LocalRepositoryService.name + ' -> ' + this.getAllPokemons.name);
-        return new Promise<PokemonModel[]>(resolve => resolve(LocalRepositoryService.internalStorage));
+        return Storage.get({key:'repository'}).then(results => {
+            if(results.value){
+                return JSON.parse(results.value) as PokemonModel[]
+            }else{
+                return [] as PokemonModel[];
+            }
+        })
 
     }
 
     public static async insertOnePokemon(pokemon : PokemonModel){
-        pokemon.id = this.internalCurrentId;
-        this.internalCurrentId ++;
-        this.internalStorage.push(pokemon);
-        await Storage.set({key : 'repository', value: JSON.stringify(LocalRepositoryService.internalStorage)});
-        Logger.info(LocalRepositoryService.name + ' -> ' + this.insertOnePokemon.name);
+        if(LocalRepositoryService.internalStorage.filter(e => e.id === pokemon.id).length > 0){
+            LocalRepositoryService.internalStorage.forEach((e, index) => {
+                if(e.id === pokemon.id){
+                    pokemon.saved = false;
+                    LocalRepositoryService.internalStorage[index] = pokemon;
+                }
+            });
+            await Storage.set({key: 'repository', value: JSON.stringify(LocalRepositoryService.internalStorage)});
+        }else {
+            pokemon.id = -(this.internalStorage.length + 1);
+            pokemon.saved = false;
+            this.internalStorage.push(pokemon);
+            await Storage.set({key: 'repository', value: JSON.stringify(LocalRepositoryService.internalStorage)});
+            Logger.info(LocalRepositoryService.name + ' -> ' + this.insertOnePokemon.name);
+        }
+    }
+
+    public static setRepositoryInternal(pokemons : PokemonModel[]) {
+        (async () => {
+            await Storage.set({key: 'repository', value: JSON.stringify(pokemons)})
+        })();
     }
 
     public static async getOneById(id : number){
@@ -44,26 +60,34 @@ export class LocalRepositoryService {
     }
 
     public static async deleteOne(id : number){
-        const response = LocalRepositoryService.internalStorage.filter(e => e.id === id)[0];
-        LocalRepositoryService.internalStorage = LocalRepositoryService.internalStorage.filter(e => e.id !== id);
+        LocalRepositoryService.internalStorage = await LocalRepositoryService.getAllPokemons();
+        LocalRepositoryService.internalStorage.forEach(e => {if(e.id === id){
+            e.saved = false;
+            e.deletionMark = true;
+        }
+        });
+        const response = LocalRepositoryService.internalStorage;
         await Storage.set({key : 'repository', value : JSON.stringify(LocalRepositoryService.internalStorage)});
         Logger.info(LocalRepositoryService.name + ' -> ' + this.deleteOne.name);
         return response;
     }
     public static async synchronize(){
-        return Storage.get({key : 'repository'})
-            .then(async result => {
-                if(result.value){
-                    LocalRepositoryService.internalStorage = JSON.parse(result.value);
-                }
-                if (LocalRepositoryService.internalStorage.length > 0) {
-                    const token = await StorageService.getToken();
+        const result = await Storage.get({key : 'repository'});
+        if(result.value){
+            LocalRepositoryService.internalStorage = JSON.parse(result.value);
+        }
+        if (LocalRepositoryService.internalStorage.length > 0) {
+            return StorageService.getToken().then((token) => {
+                // @ts-ignore
+                const authorities = jwtDecode(token.value).authorities as string[];
+                if (authorities.includes('ROLE_GYM_LEADER')) {
                     const headerValue = 'Bearer : ' + token.value;
-                    const items = LocalRepositoryService.internalStorage;
+                    const items = Array.from(LocalRepositoryService.internalStorage.filter(e => e.saved === false));
+                    LocalRepositoryService.internalStorage.forEach(e => e.saved = true);
                     Logger.info('Synchronized data ...');
                     return axios.post<PokemonModel[]>(this.POKEMONS_API, items, {headers: {'Authorization': headerValue}});
                 }
             });
-
+        }
     }
 }

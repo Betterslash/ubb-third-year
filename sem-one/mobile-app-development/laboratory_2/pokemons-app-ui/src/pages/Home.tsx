@@ -1,5 +1,7 @@
 import {
-    IonPage
+    IonButtons,
+    IonCard, IonCardContent,
+    IonFabButton, IonIcon, IonPage, IonToolbar
 } from '@ionic/react';
 import './Home.css';
 import {Header} from "../components/layout/Header";
@@ -8,10 +10,19 @@ import {Footer} from "../components/layout/Footer";
 import {Pokedex} from "../components/widgets/Pokedex";
 import {useUserState} from "../hooks/AppHooks";
 import {GuestHome} from "../components/widgets/GuestHome";
+import {add} from "ionicons/icons";
+import {useHistory} from "react-router";
 
 const Home: React.FC = () => {
-    const userContext = useUserState();
-    const loggedIn = userContext.token !== "";
+    const userState = useUserState();
+    const history = useHistory();
+    const navigateToModify = (id: number | string) => {
+        history.push(`/pokemon/${id}`)
+    }
+    const isUserAdmin = () : boolean => {
+        return userState.authorities.filter(e => {return e.includes('ROLE_GYM_LEADER') || e.includes('GYM_LEADER')}).length > 0;
+    }
+    const loggedIn = userState.token !== "";
     const getHomeItems = () => {
         if(!loggedIn){
             return <GuestHome/>
@@ -23,6 +34,19 @@ const Home: React.FC = () => {
     <IonPage>
         <Header/>
         {getHomeItems()}
+        <IonCard>
+            <IonCardContent style={{paddingTop : '0px', paddingBottom: '0px'}}>
+                <IonToolbar color={'rgba(0,0,255,0)'}>
+                        <IonButtons slot="secondary">
+                            {isUserAdmin() &&
+                                <IonFabButton size="small" slot="start">
+                                    <IonIcon onClick={() => navigateToModify("")} icon={add}/>
+                                </IonFabButton>
+                            }
+                        </IonButtons>
+                </IonToolbar>
+            </IonCardContent>
+        </IonCard>
         <Footer/>
     </IonPage>
   );

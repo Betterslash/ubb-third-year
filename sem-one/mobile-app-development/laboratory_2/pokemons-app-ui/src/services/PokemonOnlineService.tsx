@@ -12,11 +12,15 @@ export class PokemonOnlineService {
         //console.log(headerValue);
         return axios.delete(`${Environment.apiUrl}${this.POKEMONS_API}/${id}`, {data: null, headers: {'Authorization': headerValue}});
     }
-    public static async getAllPokemons(): Promise<AxiosResponse<PokemonModel[]>> {
+    public static async getAllPokemons(hasFilters?: boolean): Promise<AxiosResponse<PokemonModel[]>> {
         const token = await StorageService.getToken();
         // @ts-ignore
         axios.defaults.headers.get['Authorization'] = 'Bearer : ' + token.value;
-        return axios.get<PokemonModel[]>(`${Environment.apiUrl}${this.POKEMONS_API}/paginated/0?size=10`);
+        if(!hasFilters){
+            return axios.get<PokemonModel[]>(`${Environment.apiUrl}${this.POKEMONS_API}/paginated/0?size=10`);
+        }else{
+            return axios.get<PokemonModel[]>(`${Environment.apiUrl}${this.POKEMONS_API}`);
+        }
     }
     public static async getOneById(id: number): Promise<AxiosResponse<PokemonModel>> {
         const token = await StorageService.getToken();

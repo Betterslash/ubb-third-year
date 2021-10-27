@@ -1,21 +1,19 @@
 import React, {useContext, useEffect, useState} from "react";
 import {
     IonButton,
-    IonButtons, IonCardContent,
+    IonButtons, IonCardContent, IonChip,
     IonContent,
-    IonFab,
-    IonFabButton,
     IonIcon,
     IonImg, IonInfiniteScroll, IonInfiniteScrollContent,
     IonItem,
     IonList,
     IonListHeader,
-    IonLoading, IonReorder, IonReorderGroup, IonSearchbar, IonText, IonTitle, IonToolbar
+    IonLoading, IonReorder, IonReorderGroup, IonSearchbar, IonText, IonTitle, IonToolbar, useIonModal
 } from "@ionic/react";
-import {useNetowrk, useUserState} from "../../hooks/AppHooks";
+import {useNetowrk} from "../../hooks/AppHooks";
 import {PokemonOnlineService} from "../../services/PokemonOnlineService";
 import {PokemonModel, PokemonUserModel} from "../../model/PokemonModel";
-import {add, remove} from "ionicons/icons";
+import {add, checkmark, closeCircle, closeSharp, filter, remove} from "ionicons/icons";
 import {LocalRepositoryService} from "../../services/repository/LocalRepositoryService";
 import {useHistory} from "react-router";
 import {Logger} from "../../helpers/logger/Logger";
@@ -25,20 +23,19 @@ import SockJS from "sockjs-client";
 import {Environment} from "../../environment/Environment";
 import {NotificationService} from "../../services/NotificationService";
 import {AppContext} from "../../context/AppContext";
+import {FilterModel, FiltersModalBody} from "../modal/body/FiltersModalBody";
 
 export const Pokedex : React.FC = () => {
 
-    const userState = useUserState();
+
     const [fetching, setFetching] = useState(false);
+    const [applyFilters, setApplyFilters] = useState(false);
     const [pokemons, setPokemons] = useState([] as PokemonModel[]);
     const [pageNumber, setPageNumber] = useState(1);
     const [allData, setAllData]= useState([] as PokemonModel[]);
     const fetchable = useNetowrk().connected;
     const history = useHistory();
     const [subscription,] = useState(Stomp.over(() => new SockJS(Environment.webSocketUrl)));
-    const isUserAdmin = () : boolean => {
-        return userState.authorities.filter(e => {return e.includes('ROLE_GYM_LEADER') || e.includes('GYM_LEADER')}).length > 0;
-    }
     const navigateToModify = (id: number | string) => {
         history.push(`/pokemon/${id}`)
     }
@@ -62,35 +59,40 @@ export const Pokedex : React.FC = () => {
     const notificationsState = useContext(AppContext);
     useEffect(() => {
         setFetching(true);
-        if(userState.token !== "") {
             if (fetchable) {
                 subscription.debug = ()=> {};
                 subscription.connect({},
                     () => onSubscribe(subscription),
                     (err : any) => onError(err),
                     () => onClose());
-                setTimeout(() => PokemonOnlineService.getAllPokemons()
+                setTimeout(() => PokemonOnlineService.getAllPokemons(applyFilters)
                     .then(result => {
-                        setPokemons(result.data);
+                        setPokemons(applyFiltering(result.data));
+                        setAllData(result.data);
                         setFetching(false);
-                        setDisableInfiniteScroll(false);
+                        console.log(applyFilters);
+                        if(applyFilters) {
+                            setDisableInfiniteScroll(true);
+                        }else{
+                            setDisableInfiniteScroll(false);
+                        }
                     }), 200);
             } else {
                 setTimeout(() => {
                     subscription.disconnect();
                     LocalRepositoryService.getAllPokemons()
                         .then(result => {
-                            setPokemons(result);
+                            setPokemons(applyFiltering(result));
+                            setAllData(result);
                             setDisableInfiniteScroll(true);
                             setPageNumber(1);
                             setFetching(false);
                         });
                 }, 300);
             }
-        }else{
-            setFetching(false);
-        }
-    }, [fetchable, userState, ]);
+
+
+    }, [fetchable, applyFilters ]);
     const [disableInfiniteScroll, setDisableInfiniteScroll] = useState(false);
     const filterByName = (e : any) => {
         if (e.detail.value === "") {
@@ -112,7 +114,9 @@ export const Pokedex : React.FC = () => {
                                 pokemons.push(e);
                             }
                         });
-                        setPokemons(Array.from(pokemons));
+                        pokemons.forEach(e => e.saved = true);
+                        LocalRepositoryService.setRepositoryInternal(pokemons);
+                        setPokemons(applyFiltering(Array.from(pokemons)));
                         setPageNumber(pageNumber + 1);
                         setDisableInfiniteScroll(true);
 
@@ -122,7 +126,9 @@ export const Pokedex : React.FC = () => {
                                 pokemons.push(e);
                             }
                         });
-                        setPokemons(Array.from(pokemons));
+                        setPokemons(applyFiltering(Array.from(pokemons)));
+                        pokemons.forEach(e => e.saved = true);
+                        LocalRepositoryService.setRepositoryInternal(pokemons);
                         setPageNumber(pageNumber + 1);
                     }
                     setAllData(Array.from(pokemons));
@@ -130,7 +136,7 @@ export const Pokedex : React.FC = () => {
         }else{
             setDisableInfiniteScroll(true);
         }
-        setTimeout(() => (event.target as HTMLIonInfiniteScrollElement).complete().then(() => {}), 100);
+        setTimeout(() => (event.target as HTMLIonInfiniteScrollElement).complete().then(() => {}), 200);
 
     }
     const catchOne = (id : number) => {
@@ -142,19 +148,72 @@ export const Pokedex : React.FC = () => {
         if(fetchable){
             setFetching(true);
             PokemonOnlineService.deleteOneFromPokedex(id)
-                .then(() => {Logger.info(Pokedex.name + ' -> ' + removeOne.name);
+                .then(() => {
+                    Logger.info(Pokedex.name + ' -> ' + removeOne.name);
+                    pokemons.forEach(e => e.saved = true);
+                    LocalRepositoryService.setRepositoryInternal(pokemons.filter(p => p.id !== id));
                     setPokemons(pokemons.filter(p => p.id !== id));
                     setFetching(false);
                 });
         }else{
             LocalRepositoryService.deleteOne(id)
-                .then(() => {
-                    LocalRepositoryService.getAllPokemons()
-                        .then(result => setPokemons(result));
+                .then((result) => {
+                    if(result) {
+                        setPokemons(result);
+                    }
                 });
         }
     }
+    const handleDismiss = () => {
+        dismiss();
+    };
+    const addFilter = (filter: FilterModel) => {
+        setFilters(filters.concat(filter));
+    }
+    const [present, dismiss] = useIonModal(FiltersModalBody, {
+        onDismiss : handleDismiss,
+        addFilter: addFilter
+    });
+    const [filters, setFilters] = useState([] as FilterModel[]);
+    const deleteOne =(id : number) =>{
+        setFilters(filters.filter((e, index)=> index !== id));
+    };
 
+    const applyFiltering = (data : PokemonModel[]) => {
+        let results : PokemonModel[] = data;
+        if(filters.length > 0 && applyFilters){
+            filters.forEach((e => {
+                console.log(e);
+                if(e.field === 'Type'){
+                    if(e.comparator === 'is'){
+                        results = results.filter(q=> q.types.typeOne === e.value)
+                    }
+                    if(e.comparator === "isn't"){
+                        results = results.filter(q => q.types.typeOne !== e.value);
+                    }
+                }
+                if(e.field === 'Catch Rate'){
+                    if(e.comparator === 'bigger than'){
+                        results = results.filter(q => q.catchRate > Number(e.value));
+                    }
+                    if(e.comparator === 'lower than'){
+                        results = results.filter(q => q.catchRate < Number(e.value));
+                    }
+                    if(e.comparator === 'equal to'){
+                        results = results.filter(q => q.catchRate === Number(e.value));
+                    }
+                }
+            }));
+        }
+        return results;
+    };
+    const getApplyFiltersIcon = () =>{
+        if(!applyFilters){
+            return checkmark
+        }else{
+            return closeSharp;
+        }
+    };
     return (
         <IonContent>
         <IonCardContent >
@@ -165,10 +224,25 @@ export const Pokedex : React.FC = () => {
                 </IonTitle>
             </IonListHeader>
             <IonSearchbar onIonChange={filterByName}/>
+            <IonToolbar>
+                <IonButtons slot="start" onClick={() => {present()}}>
+                    <IonButton>
+                        <IonIcon icon={filter} />
+                    </IonButton>
+                </IonButtons>
+                <IonList>
+                    {filters.map((e,index) => (<IonChip key={index}>{`${e.field} ${e.comparator} ${e.value}`}<IonIcon icon={closeCircle} onClick={() => {deleteOne(index)}}/></IonChip>))}
+                </IonList>
+                <IonButtons slot="end">
+                    <IonButton onClick={() => {setApplyFilters(!applyFilters); setPageNumber(1);}}>
+                        <IonIcon icon={getApplyFiltersIcon()}/>
+                    </IonButton>
+                </IonButtons>
+            </IonToolbar>
             <IonList>
             <IonReorderGroup disabled={false} onIonItemReorder={(e:any) => {e.detail.complete();}}>
                 {pokemons.map(e =>
-                    <IonItem key={e.id} >
+                    <IonItem key={e.id} disabled={e.deletionMark != null && e.deletionMark}>
                         <IonImg src={`../assets/pokemon_types/${e.types.typeOne.toLowerCase()}.png`} slot="start"/>
                         <IonText onClick={() => navigateToModify(e.id)}>{e.name}</IonText>
                         <IonButtons slot="end">
@@ -185,7 +259,7 @@ export const Pokedex : React.FC = () => {
             </IonReorderGroup>
 
             </IonList>
-            <IonInfiniteScroll threshold="2px"
+            <IonInfiniteScroll threshold="10px"
                                disabled={disableInfiniteScroll}
                                onIonInfinite={searchNext}>
                 <IonInfiniteScrollContent
@@ -193,12 +267,6 @@ export const Pokedex : React.FC = () => {
                 </IonInfiniteScrollContent>
             </IonInfiniteScroll>
         </IonCardContent>
-                {isUserAdmin() &&
-                <IonFab>
-                    <IonFabButton>
-                        <IonIcon onClick={() => navigateToModify("")} icon={add}/>
-                    </IonFabButton>
-                </IonFab>}
         </IonContent>
     );
 }

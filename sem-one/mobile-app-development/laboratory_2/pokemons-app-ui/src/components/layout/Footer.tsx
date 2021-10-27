@@ -14,7 +14,7 @@ export const Footer : React.FC = () => {
         <IonFooter>
             <IonToolbar>
                 <IonButtons slot="start">
-                    <IonItem>
+                    <IonItem color={'rgba(0,0,255,0)'}>
                         <IonBadge  color={networkBadge.color}>{networkBadge.text}</IonBadge>
                     </IonItem>
                 </IonButtons>

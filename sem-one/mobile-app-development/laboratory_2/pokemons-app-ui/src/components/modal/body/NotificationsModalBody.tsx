@@ -1,12 +1,12 @@
 import {
     IonButton,
-    IonButtons, IonCard, IonContent,
+    IonButtons, IonContent,
     IonHeader, IonIcon,
     IonItem,
     IonList,
     IonLoading,
     IonTitle,
-    IonToolbar, IonVirtualScroll
+    IonToolbar
 } from "@ionic/react";
 import React, {useEffect, useState} from "react";
 import {NotificationModel} from "../../../model/NotificationModel";

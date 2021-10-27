@@ -50,6 +50,8 @@ export interface PokemonModel {
     types : PokemonTypes;
     evolvesFrom: number;
     catchRate : number;
+    saved? : boolean;
+    deletionMark? : boolean;
 }
 
 export interface PokemonUserModel{
