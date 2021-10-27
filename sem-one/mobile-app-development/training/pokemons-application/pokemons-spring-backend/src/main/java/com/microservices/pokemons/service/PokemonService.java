@@ -1,6 +1,7 @@
 package com.microservices.pokemons.service;
 
 import com.microservices.pokemons.dto.PokemonDto;
+import com.microservices.pokemons.dto.PokemonUserDto;
 
 import java.util.List;
 
@@ -11,7 +12,8 @@ public interface PokemonService {
     PokemonDto getOneById(Long id);
     List<PokemonDto> getUserPokemons();
     PokemonDto releaseOne(Long id);
-    PokemonDto catchOne(Long id);
-
+    PokemonDto catchOne(PokemonUserDto id);
+    List<PokemonDto> getAllPaginated(Long size, Long from);
     PokemonDto updateOne(Long id, PokemonDto pokemonDto);
+    List<PokemonDto> insertMultiplePokemons(List<PokemonDto> pokemons);
 }

@@ -3,6 +3,7 @@ package com.microservices.pokemons.controller;
 import com.microservices.pokemons.dto.ActionType;
 import com.microservices.pokemons.dto.NotificationDto;
 import com.microservices.pokemons.dto.PokemonDto;
+import com.microservices.pokemons.dto.PokemonUserDto;
 import com.microservices.pokemons.service.NotificationService;
 import com.microservices.pokemons.service.PokemonService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,12 @@ public class PokemonController {
     @RolesAllowed({"ROLE_PARTICIPANT", "ROLE_GYM_LEADER"})
     public List<PokemonDto> getAllPokemons(){
         return pokemonService.getAllPokemons();
+    }
+
+    @GetMapping("/paginated/{pagine}")
+    @RolesAllowed({"ROLE_PARTICIPANT", "ROLE_GYM_LEADER"})
+    public List<PokemonDto> getAllPokemonsPaginated(@RequestParam Long size, @PathVariable Long pagine){
+        return pokemonService.getAllPaginated(size, pagine);
     }
 
     @PostMapping
@@ -67,12 +74,20 @@ public class PokemonController {
     @DeleteMapping("/release/{id}")
     @RolesAllowed({"ROLE_PARTICIPANT", "ROLE_GYM_LEADER"})
     public PokemonDto releasePokemon(@PathVariable Long id){
-        return this.pokemonService.releaseOne(id);
+        var result = this.pokemonService.releaseOne(id);
+        notificationService.notifyUser(NotificationDto.Builder.build(ActionType.DELETE, result));
+        return result;
     }
 
-    @PostMapping("/catch/{id}")
+    @PostMapping("/catch")
     @RolesAllowed({"ROLE_PARTICIPANT", "ROLE_GYM_LEADER"})
-    public PokemonDto catchPokemon(@PathVariable Long id){
-        return this.pokemonService.catchOne(id);
+    public PokemonDto catchPokemon(@RequestBody PokemonUserDto pokemonUserDto){
+        return this.pokemonService.catchOne(pokemonUserDto);
+    }
+
+    @PostMapping("/synchronize")
+    @RolesAllowed({"ROLE_GYM_LEADER"})
+    public List<PokemonDto> insertOfflineCache(@RequestBody List<PokemonDto> cahcedPokemons){
+        return this.pokemonService.insertMultiplePokemons(cahcedPokemons);
     }
 }

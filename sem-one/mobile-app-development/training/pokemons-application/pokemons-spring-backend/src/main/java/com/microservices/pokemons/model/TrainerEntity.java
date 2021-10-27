@@ -28,7 +28,9 @@ public class TrainerEntity implements UserDetails {
     private LocalDate birthday;
     private TrainerRole role;
 
-    @OneToMany(mappedBy = "trainer", targetEntity = PokemonUserEntity.class)
+    @OneToMany(mappedBy = "trainer",
+            targetEntity = PokemonUserEntity.class,
+            cascade = CascadeType.ALL, orphanRemoval = true)
     public List<PokemonEntity> pokemons;
 
     @Transient

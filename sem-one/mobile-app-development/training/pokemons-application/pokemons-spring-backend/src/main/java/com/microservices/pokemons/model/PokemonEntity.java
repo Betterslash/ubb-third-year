@@ -29,9 +29,15 @@ public class PokemonEntity implements Serializable {
     @JoinColumn(referencedColumnName = "typeId")
     private PokemonTypeEntity types;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private PokemonEntity evolvesFrom;
 
-    @OneToMany(mappedBy = "pokemon", targetEntity = PokemonUserEntity.class)
+
+    @OneToMany(mappedBy = "pokemon",
+            targetEntity = PokemonUserEntity.class,
+            cascade = CascadeType.ALL,
+    orphanRemoval = true)
     private Set<TrainerEntity> trainers;
+
+    private Long catchRate;
 }

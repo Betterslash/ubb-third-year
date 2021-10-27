@@ -4,4 +4,5 @@ import com.microservices.pokemons.dto.NotificationDto;
 
 public interface NotificationService {
     void broadcast(NotificationDto notification);
+    void notifyUser(NotificationDto notificationDto);
 }

@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity(name = "pokemon_user")
 @Getter
@@ -26,4 +27,9 @@ public class PokemonUserEntity implements Serializable {
     @JoinColumn(name = "trainer_id")
     TrainerEntity trainer;
 
+    private String pokemonName;
+
+    private LocalDate lastCaught;
+
+    private Long caughtNumber;
 }

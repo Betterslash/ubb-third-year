@@ -1,8 +1,7 @@
 package com.microservices.pokemons.dto;
 
+import io.micrometer.core.lang.Nullable;
 import lombok.*;
-
-import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -15,4 +14,7 @@ public class PokemonDto extends BaseDto{
     private Long evolvesFrom;
     private boolean hasShiny;
     private String registeredAt;
+    private Long catchRate;
+    @Nullable
+    private Boolean deletionMark;
 }

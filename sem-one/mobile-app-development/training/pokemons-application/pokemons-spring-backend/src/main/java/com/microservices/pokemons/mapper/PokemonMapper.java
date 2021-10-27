@@ -43,8 +43,9 @@ public interface PokemonMapper {
                     .name(dto.getName())
                     .evolvesFrom(evolvesFrom)
                     .types(types)
-                    .registeredAt(LocalDate.now())
+                    .registeredAt(LocalDate.parse(dto.getRegisteredAt()))
                     .hasShiny(dto.isHasShiny())
+                    .catchRate(dto.getCatchRate())
                     .build();
 
     }

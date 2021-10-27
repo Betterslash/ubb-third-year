@@ -1,20 +1,22 @@
 package com.microservices.pokemons.service;
 
 import com.microservices.pokemons.dto.PokemonDto;
+import com.microservices.pokemons.dto.PokemonUserDto;
 import com.microservices.pokemons.exception.PokemonServiceException;
 import com.microservices.pokemons.mapper.PokemonMapper;
 import com.microservices.pokemons.model.PokemonTypeEntity;
 import com.microservices.pokemons.model.PokemonUserEntity;
 import com.microservices.pokemons.model.TrainerEntity;
 import com.microservices.pokemons.model.embeddables.PokemonUserKey;
-import com.microservices.pokemons.repository.PokemonRepository;
-import com.microservices.pokemons.repository.PokemonTypesRepository;
-import com.microservices.pokemons.repository.PokemonUserRepository;
-import com.microservices.pokemons.repository.TrainerRepository;
+import com.microservices.pokemons.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
@@ -29,6 +31,7 @@ public class PokemonServiceImpl implements PokemonService {
     private final TrainerRepository trainerRepository;
     private final PokemonTypesRepository pokemonTypesRepository;
     private final PokemonUserRepository pokemonUserRepository;
+    private final PokemonPagingAndSortingRepository pokemonPagingAndSortingRepository;
 
     private Long getUserId(){
         var authenticatedUser = (TrainerEntity)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -46,14 +49,33 @@ public class PokemonServiceImpl implements PokemonService {
 
     @Override
     public PokemonDto insertOne(PokemonDto pokemonDto) {
-        return this.pokemonMapper.fromEntityToDto(this.pokemonRepository.save(this.pokemonMapper.fromDtoToEntity(pokemonDto, pokemonRepository, pokemonTypesRepository)));
+        var possibleType = getType(pokemonDto);
+        var toBeSaved = this.pokemonMapper.fromDtoToEntity(pokemonDto, this.pokemonRepository, this.pokemonTypesRepository);
+        toBeSaved.setTypes(possibleType);
+        return this.pokemonMapper.fromEntityToDto(this.pokemonRepository.save(toBeSaved));
     }
 
     @Override
     public PokemonDto deleteOne(Long id) {
         var pokemon = this.pokemonRepository.findById(id);
         try {
-            this.pokemonRepository.deleteById(id);
+            pokemon.ifPresent(e -> {
+                var evolution = this.pokemonRepository.findByEvolvesFrom(e);
+                evolution.ifPresent(t -> {
+                    var secondEvolution = this.pokemonRepository.findByEvolvesFrom(t);
+                    secondEvolution.ifPresent(z -> {
+                        z.getEvolvesFrom().setEvolvesFrom(null);
+                        this.pokemonRepository.save(z);
+                        z.setEvolvesFrom(null);
+                        this.pokemonRepository.save(z);
+                        this.pokemonRepository.deleteById(z.getPokemonId());
+                    });
+                    t.setEvolvesFrom(null);
+                    this.pokemonRepository.save(t);
+                    this.pokemonRepository.deleteById(t.getPokemonId());});
+                e.setEvolvesFrom(null);
+                this.pokemonRepository.save(e);
+                this.pokemonRepository.deleteById(e.getPokemonId());});
         }catch (RuntimeException e){
             throw new PokemonServiceException(e.getMessage());
         }
@@ -89,34 +111,95 @@ public class PokemonServiceImpl implements PokemonService {
     }
 
     @Override
-    public PokemonDto catchOne(Long id) {
-        var caughtPokemon = this.pokemonRepository.getById(id);
+    public PokemonDto catchOne(PokemonUserDto pokemonUserDto) {
+        var caughtPokemon = this.pokemonRepository.getById(pokemonUserDto.getPokemonId());
         var userProfile = this.trainerRepository.getById(getUserId());
         var pokemonUserKey = new PokemonUserKey(userProfile.getTrainerId(), caughtPokemon.getPokemonId());
-        var userPokemonEntry = PokemonUserEntity.builder()
-                .id(pokemonUserKey)
-                .pokemon(caughtPokemon)
-                .trainer(userProfile)
-                .build();
-        return this.pokemonMapper
-                .fromEntityToDto(this.pokemonUserRepository
-                .save(userPokemonEntry)
-                .getPokemon());
+        var result = new AtomicReference<>(new PokemonDto());
+        this.pokemonUserRepository.findById(pokemonUserKey)
+                .ifPresentOrElse(e -> {
+                    e.setPokemonName(pokemonUserDto.getPokemonName());
+                    e.setCaughtNumber(e.getCaughtNumber() + 1);
+                    e.setLastCaught(LocalDate.now());
+                    result.set(this.pokemonMapper
+                                    .fromEntityToDto(this.pokemonUserRepository
+                                            .save(e)
+                                            .getPokemon()));
+                },
+                        () -> {var userPokemonEntry = PokemonUserEntity.builder()
+                                .id(pokemonUserKey)
+                                .pokemon(caughtPokemon)
+                                .trainer(userProfile)
+                                .pokemonName("")
+                                .caughtNumber(1L)
+                                .lastCaught(LocalDate.now())
+                                .build();
+
+                            result.set(this.pokemonMapper
+                                    .fromEntityToDto(this.pokemonUserRepository
+                                            .save(userPokemonEntry)
+                                            .getPokemon()));});
+        return result.get();
+
+    }
+
+    @Override
+    public List<PokemonDto> getAllPaginated(Long size, Long from) {
+        var page = Integer.parseInt(String.valueOf(from));
+        var pagebable = PageRequest.of(page, Integer.parseInt(String.valueOf(size)));
+        return this.pokemonPagingAndSortingRepository.findAll(pagebable)
+                .map(pokemonMapper::fromEntityToDto)
+                .toList();
+    }
+
+    private PokemonTypeEntity getType(PokemonDto pokemonDto){
+        var possibleTypes = this.pokemonTypesRepository.findAll()
+                .stream().filter(g -> g.getTypeOne() == pokemonDto.getTypes().getTypeOne() && g.getTypeTwo() == pokemonDto.getTypes().getTypeTwo())
+                .collect(Collectors.toList());
+        var possibleType = new PokemonTypeEntity();
+        if(possibleTypes.size() > 0){
+            possibleType = possibleTypes.get(0);
+        }else{
+            possibleType = pokemonTypesRepository.save(new PokemonTypeEntity(null,pokemonDto.getTypes().getTypeOne(), pokemonDto.getTypes().getTypeTwo() ,null));
+        }
+        return possibleType;
     }
 
     @Override
     public PokemonDto updateOne(Long id, PokemonDto pokemonDto) {
+        var possibleType = getType(pokemonDto);
         var found = this.pokemonRepository.findById(id);
         var result = new AtomicReference<>(new PokemonDto());
         found.ifPresentOrElse(e -> {
             e.setName(pokemonDto.getName());
-            e.setTypes(this.pokemonTypesRepository.findByTypeOneAndTypeTwo(pokemonDto.getTypes().getTypeOne(), pokemonDto.getTypes().getTypeTwo())
-                    .orElseGet(() -> pokemonTypesRepository.save(new PokemonTypeEntity(null,e.getTypes().getTypeOne(), e.getTypes().getTypeTwo() ,null))));
+            e.setHasShiny(pokemonDto.isHasShiny());
+            e.setRegisteredAt(LocalDate.parse(pokemonDto.getRegisteredAt()));
+            e.setCatchRate(pokemonDto.getCatchRate());
+            e.setTypes(possibleType);
                     result.set(this.pokemonMapper
                             .fromEntityToDto(this.pokemonRepository
                                     .save(e)));
                 },
-                () -> result.set(this.insertOne(pokemonDto)));
+                () -> {
+                    pokemonDto.id = null;
+                    pokemonDto.setEvolvesFrom(null);
+                    result.set(this.insertOne(pokemonDto));
+                });
         return result.get();
     }
+
+    @Override
+    @Transactional
+    public List<PokemonDto> insertMultiplePokemons(List<PokemonDto> pokemons) {
+        var results = new ArrayList<PokemonDto>();
+        pokemons.forEach(e -> {
+            if(e.getDeletionMark() != null && e.getDeletionMark()){
+                this.pokemonRepository.findById(e.id).ifPresent(q -> this.pokemonRepository.deleteById(q.getPokemonId()));
+            }else if(e.getDeletionMark() == null || !e.getDeletionMark()){
+                results.add(this.updateOne(e.id, e));
+            }
+        });
+        return results;
+    }
+
 }
