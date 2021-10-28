@@ -28,6 +28,7 @@ import {ProtectedRoute} from "./guards/ProtectedRoute";
 import {CaughtPokemons} from "./pages/CaughtPokemons";
 import {AppContext} from "./context/AppContext";
 import {NotificationModel} from "./model/NotificationModel";
+import {Register} from "./pages/Register";
 
 const App: React.FC = () => {
   const [notifications, setNotifications] = useState([] as NotificationModel[]);
@@ -49,6 +50,9 @@ const App: React.FC = () => {
               <ProtectedRoute path="/pokemon/:id" ProtectedComponent={ModifyPokemon} />
               <ProtectedRoute path="/pokemon" ProtectedComponent={ModifyPokemon} />
               <ProtectedRoute path="/my-pokemons" ProtectedComponent={CaughtPokemons}/>
+              <Route exact path={"/register"}>
+                <Register/>
+              </Route>
             </AppContext.Provider>
           </IonRouterOutlet>
         </IonReactRouter>

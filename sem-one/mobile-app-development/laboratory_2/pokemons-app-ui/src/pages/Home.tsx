@@ -1,7 +1,7 @@
 import {
     IonButtons,
     IonCard, IonCardContent,
-    IonFabButton, IonIcon, IonPage, IonToolbar
+    IonFabButton, IonIcon, IonImg, IonPage, IonToolbar
 } from '@ionic/react';
 import './Home.css';
 import {Header} from "../components/layout/Header";
@@ -45,6 +45,7 @@ const Home: React.FC = () => {
                         </IonFabButton>
                         }
                     </IonButtons>
+                    <img src={"../assets/logo.png"} alt={"logo.png"} sizes={"maxWidth:100, maxHeigth: 60"}/>
                 </IonToolbar>
             </IonCardContent>
         </IonCard>}

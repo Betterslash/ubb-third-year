@@ -5,8 +5,7 @@ import {
     IonContent,
     IonIcon,
     IonImg, IonInfiniteScroll, IonInfiniteScrollContent,
-    IonItem,
-    IonList,
+    IonItem, IonList,
     IonListHeader,
     IonLoading, IonReorder, IonReorderGroup, IonSearchbar, IonText, IonTitle, IonToolbar, useIonModal
 } from "@ionic/react";
@@ -24,6 +23,7 @@ import {Environment} from "../../environment/Environment";
 import {NotificationService} from "../../services/NotificationService";
 import {AppContext} from "../../context/AppContext";
 import {FilterModel, FiltersModalBody} from "../modal/body/FiltersModalBody";
+import {UserTokenService} from "../../services/UserTokenService";
 
 export interface PokedexProps {
     token : string;
@@ -50,7 +50,6 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
             NotificationService.addNotification(message)
                 .then(() => {
                     Logger.info(`Got notifications -> ${JSON.stringify(message.action)}`);
-                    console.log(notificationsState);
                     notificationsState.stateChange(notificationsState.notifications.concat(message));
                 });
         });
@@ -67,7 +66,6 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
             if (fetchable) {
                 if(token !== ""){
                     subscription.debug = ()=> {};
-
                     subscription.connect({ Authorization : 'Bearer : ' + token},
                         () => onSubscribe(subscription),
                         (err : any) => onError(err),
@@ -185,7 +183,6 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
     const deleteOne =(id : number) =>{
         setFilters(filters.filter((e, index)=> index !== id));
     };
-
     const applyFiltering = (data : PokemonModel[]) => {
         let results : PokemonModel[] = data;
         if(filters.length > 0 && applyFilters){
@@ -221,6 +218,7 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
             return closeSharp;
         }
     };
+
     return (
         <IonContent>
         <IonCardContent >
@@ -246,6 +244,7 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
                     </IonButton>
                 </IonButtons>
             </IonToolbar>
+            <br/>
             <IonList>
             <IonReorderGroup disabled={false} onIonItemReorder={(e:any) => {e.detail.complete();}}>
                 {pokemons.map(e =>
@@ -253,9 +252,12 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
                         <IonImg src={`../assets/pokemon_types/${e.types.typeOne.toLowerCase()}.png`} slot="start"/>
                         <IonText onClick={() => navigateToModify(e.id)}>{e.name}</IonText>
                         <IonButtons slot="end">
-                            <IonButton onClick={() => removeOne(e.id)}>
+                            {
+                                UserTokenService.getAuthoritiesFromToken(token).includes("ROLE_GYM_LEADER") &&
+                                <IonButton onClick={() => removeOne(e.id)}>
                                 <IonIcon icon={remove}/>
-                            </IonButton>
+                                </IonButton>
+                            }
                             <IonButton onClick={() => catchOne(e.id)}>
                                 <IonIcon icon={add}/>
                             </IonButton>

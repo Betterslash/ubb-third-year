@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useEffect, useState} from "react";
 import {Redirect, Route} from "react-router-dom";
-import {StorageService} from "../services/StorageService";
+import {UserTokenService} from "../services/UserTokenService";
 import jwtDecode from "jwt-decode";
 
 export interface ProtectedRouteProps{
@@ -11,11 +11,11 @@ export interface ProtectedRouteProps{
 export const ProtectedRoute : React.FC<ProtectedRouteProps> = ({path, ProtectedComponent}) => {
 
     const logout =  () => {(async()=>{
-        await StorageService.deleteToken();
+        await UserTokenService.deleteToken();
     })();}
     const checkToken = () => {
         (async()=>{
-            const token = (await StorageService.getToken()).value;
+            const token = (await UserTokenService.getToken()).value;
             // @ts-ignore
             if (!token || token==="" ||jwtDecode(token).exp < (new Date().getTime() + 1) / 1000) {
                 setRendering(<Redirect to="/"/>);

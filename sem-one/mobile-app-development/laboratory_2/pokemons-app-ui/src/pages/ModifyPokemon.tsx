@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {PokemonType} from "../model/PokemonModel";
 import {
-    IonButton, IonCardContent, IonCheckbox,
+    IonButton, IonCard, IonCardContent, IonCheckbox,
     IonContent,
-    IonDatetime,
+    IonDatetime, IonImg,
     IonInput, IonItem,
     IonLabel,
     IonLoading,
@@ -68,55 +68,61 @@ export const ModifyPokemon: React.FC = () => {
             <IonContent>
                 <IonCardContent>
                     <form onSubmit={onSubmit}>
-                        <IonLabel>
-                            Name : <IonInput disabled={initalState.viewOnly}
-                            value={initalState.pokemonReducer.pokemon.name} type="text"
-                                             onIonChange={(e) => {
-                                                 initalState.pokemonReducer.dispatcher({item: e, type: 'NAME'})
-                                             }} required/>
-                        </IonLabel>
-                        <IonLabel>
-                            Type : <IonSelect disabled={initalState.viewOnly}
-                            onIonChange={(e) => {
-                            initalState.pokemonReducer.dispatcher({item: e, type: 'TYPE_ONE'})
-                        }}>
-                            {choices.map(q => <IonSelectOption key={q.id} value={q.id}>{q.name}</IonSelectOption>)}
-                        </IonSelect>
-                        </IonLabel>
-                        <IonLabel>
-                            Updated at :
-                            <IonDatetime disabled={initalState.viewOnly}
-                                displayFormat="YYYY-MM-DD"
-                                         min="1994-03-14"
-                                         max="2021-12-19" onIonChange={(e) => {
-                                initalState.pokemonReducer.dispatcher({item: e, type: 'REGISTERED_AT'})
-                            }}/>
-                        </IonLabel>
-                        <IonLabel>Catch Rate :
-                            <IonInput disabled={initalState.viewOnly}
-                                required max="100" min="0" value={initalState.pokemonReducer.pokemon.catchRate}
-                                      type="number"
-                                      onIonChange={(e) => {
-                                          initalState.pokemonReducer.dispatcher({item: e, type: 'CATCH_RATE'})
-                                      }}/>
-                        </IonLabel>
-                        <IonLabel>
-                            Has Shiny : <IonItem><IonCheckbox disabled={initalState.viewOnly}
-                            checked={initalState.pokemonReducer.pokemon.hasShiny}
-                                                              placeholder="Has Shiny"
-                                                              onIonChange={(e) => {
-                                                                  initalState.pokemonReducer.dispatcher({
-                                                                      item: e,
-                                                                      type: 'HAS_SHINY'
-                                                                  })
-                                                              }}/></IonItem>
-                        </IonLabel>
+                        <IonCard>
+                            <IonCardContent>
+                                <IonLabel>
+                                    Name : <IonInput disabled={initalState.viewOnly}
+                                                     value={initalState.pokemonReducer.pokemon.name} type="text"
+                                                     onIonChange={(e) => {
+                                                         initalState.pokemonReducer.dispatcher({item: e, type: 'NAME'})
+                                                     }} required/>
+                                </IonLabel>
+                                <IonLabel>
+                                    Type : <IonSelect disabled={initalState.viewOnly}
+                                                      onIonChange={(e) => {
+                                                          initalState.pokemonReducer.dispatcher({item: e, type: 'TYPE_ONE'})
+                                                      }}>
+                                    {choices.map(q => <IonSelectOption key={q.id} value={q.id}>{q.name}</IonSelectOption>)}
+                                </IonSelect>
+                                </IonLabel>
+                                <IonLabel>
+                                    Updated at :
+                                    <IonDatetime disabled={initalState.viewOnly}
+                                                 displayFormat="YYYY-MM-DD"
+                                                 min="1994-03-14"
+                                                 max="2021-12-19" onIonChange={(e) => {
+                                        initalState.pokemonReducer.dispatcher({item: e, type: 'REGISTERED_AT'})
+                                    }}/>
+                                </IonLabel>
+                                <IonLabel>Catch Rate :
+                                    <IonInput disabled={initalState.viewOnly}
+                                              required max="100" min="0" value={initalState.pokemonReducer.pokemon.catchRate}
+                                              type="number"
+                                              onIonChange={(e) => {
+                                                  initalState.pokemonReducer.dispatcher({item: e, type: 'CATCH_RATE'})
+                                              }}/>
+                                </IonLabel>
+                                <IonLabel>
+                                    Has Shiny : <IonItem color={'rgba(0,0,255,0)'} ><IonCheckbox disabled={initalState.viewOnly}
+                                                                                                 checked={initalState.pokemonReducer.pokemon.hasShiny}
+                                                                                                 placeholder="Has Shiny"
+                                                                                                 onIonChange={(e) => {
+                                                                                                     initalState.pokemonReducer.dispatcher({
+                                                                                                         item: e,
+                                                                                                         type: 'HAS_SHINY'
+                                                                                                     })
+                                                                                                 }}/></IonItem>
+                                </IonLabel>
 
-                        <IonButton disabled={initalState.viewOnly}
-                            expand="block" type="submit">Modify</IonButton>
+                                <IonButton disabled={initalState.viewOnly}
+                                           expand="block" type="submit">Modify</IonButton>
+                            </IonCardContent>
+                        </IonCard>
                     </form>
                 </IonCardContent>
                 <PokemonEvolutionInfo pokemonId={initalState.pokemonReducer.pokemon.evolvesFrom}/>
+                <IonImg src={"../assets/bulbasaur.png"}>
+                </IonImg>
             </IonContent>
             <Footer/>
         </IonPage>

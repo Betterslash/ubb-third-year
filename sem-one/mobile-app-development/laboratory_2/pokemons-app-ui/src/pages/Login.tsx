@@ -9,7 +9,7 @@ import {
     IonPage
 } from "@ionic/react";
 import {AuthenticationService, UserModel} from "../services/AuthService";
-import {StorageService} from "../services/StorageService";
+import {UserTokenService} from "../services/UserTokenService";
 import {useLogin} from "../hooks/LoginHook";
 import {AxiosResponse} from "axios";
 import {Logger} from "../helpers/logger/Logger";
@@ -32,7 +32,7 @@ export const Login : React.FC = () => {
     const history = useHistory();
     const context = useUserState();
     const onLoginSuccess = async (response : AxiosResponse<string>) => {
-        await StorageService.setToken(response.data);
+        await UserTokenService.setToken(response.data);
         await context.setToken(response.data);
         await context.setAuthorities(getAuthorities(response.data));
         history.push("/");
