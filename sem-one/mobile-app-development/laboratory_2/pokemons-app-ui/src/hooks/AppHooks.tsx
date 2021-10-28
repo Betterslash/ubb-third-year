@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import {ConnectionStatus, Network} from "@capacitor/network";
-import {StorageService} from "../services/StorageService";
+import {UserTokenService} from "../services/UserTokenService";
 import {Logger} from "../helpers/logger/Logger";
 import jwtDecode from "jwt-decode";
 import {LocalRepositoryService} from "../services/repository/LocalRepositoryService";
+import {useIonToast} from "@ionic/react";
 
 const initialNetworkState : ConnectionStatus = {
     connected : true,
@@ -22,7 +23,7 @@ export interface AppProps{
 export const useNetowrk = () => {
 
     const [networkStatus, setNetworkStatus] = useState(initialNetworkState);
-
+    const [present] = useIonToast();
     useEffect(() => {
         Network.addListener("networkStatusChange", handleNetworkStatusChange);
         Network.getStatus().then(handleNetworkStatusChange);
@@ -30,7 +31,11 @@ export const useNetowrk = () => {
         function handleNetworkStatusChange(status: ConnectionStatus) {
             if(!canceled){
                 if(status.connected){
-                    LocalRepositoryService.synchronize().then(() => {
+                    LocalRepositoryService.synchronize().then((results) => {
+                        if(results && results.data.length > 0){
+                            present('Synchronized data ...', 2000);
+                            Logger.info('Synchronized data ...');
+                        }
                         },
                         () => {Logger.warning("Couldn't synchronize data...");});
                 }else{
@@ -91,7 +96,7 @@ export const useUserState = () => {
     const [appContext, setAppContext] = useState(initialContext);
 
     useEffect(() => {
-        StorageService.getToken().then(result => {
+        UserTokenService.getToken().then(result => {
             if(result.value !== null){
                 setAppContext(copyContext(result.value));
             }

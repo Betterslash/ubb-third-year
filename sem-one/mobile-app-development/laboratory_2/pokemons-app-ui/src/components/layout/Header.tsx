@@ -52,7 +52,7 @@ export const Header : React.FC = () =>{
                         </IonButton>
 
                     </IonButtons>
-                    <IonTitle>Header</IonTitle>
+                    <IonTitle>Pokedex</IonTitle>
                     <IonButtons slot="end">
                         {/*<IonBadge>{notificationsState.length}</IonBadge>*/}
                         <IonButton onClick={() => {present()}}>

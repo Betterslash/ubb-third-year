@@ -2,7 +2,7 @@ import {PokemonModel} from "../../model/PokemonModel";
 import {Storage} from "@capacitor/storage";
 import {Logger} from "../../helpers/logger/Logger";
 import {Environment} from "../../environment/Environment";
-import {StorageService} from "../StorageService";
+import {UserTokenService} from "../UserTokenService";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
@@ -77,14 +77,13 @@ export class LocalRepositoryService {
             LocalRepositoryService.internalStorage = JSON.parse(result.value);
         }
         if (LocalRepositoryService.internalStorage.length > 0) {
-            return StorageService.getToken().then((token) => {
+            return UserTokenService.getToken().then((token) => {
                 // @ts-ignore
                 const authorities = jwtDecode(token.value).authorities as string[];
                 if (authorities.includes('ROLE_GYM_LEADER')) {
                     const headerValue = 'Bearer : ' + token.value;
                     const items = Array.from(LocalRepositoryService.internalStorage.filter(e => e.saved === false));
                     LocalRepositoryService.internalStorage.forEach(e => e.saved = true);
-                    Logger.info('Synchronized data ...');
                     return axios.post<PokemonModel[]>(this.POKEMONS_API, items, {headers: {'Authorization': headerValue}});
                 }
             });

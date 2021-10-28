@@ -8,14 +8,17 @@ export const GuestOptions : React.FC = () => {
     const navigateToLogin = () => {
         history.push("/login");
     }
+    const navigateToRegister =()=>{
+        history.push("/register");
+    }
     return (
         <IonContent>
             <IonList>
                 <IonItem onClick={navigateToLogin}>
                     <IonIcon slot="start" icon={logIn}/>Login
                 </IonItem>
-                <IonItem>
-                    <IonIcon slot="start" icon={enter}/>Register
+                <IonItem onClick={navigateToRegister}>
+                    <IonIcon slot="start" icon={enter} />Register
                 </IonItem>
                 <IonItem>
                     <IonIcon slot="start" icon={mail}/>Contact
