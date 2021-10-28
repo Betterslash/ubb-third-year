@@ -1,5 +1,5 @@
 import React from "react";
-import {IonCardContent, IonFooter, IonIcon, IonImg, IonItem, IonList, IonToolbar} from "@ionic/react";
+import {IonCardContent, IonIcon, IonImg, IonItem, IonList} from "@ionic/react";
 import {list, logOut, mail, person} from "ionicons/icons";
 import {UserTokenService} from "../../../../services/UserTokenService";
 import {useHistory} from "react-router";
@@ -16,12 +16,14 @@ export const UserOptions : React.FC = () => {
     const navigateToMyPokemons = () =>{
         history.push("/my-pokemons");
     }
-
+    const navigateToMyProfile = () =>{
+        history.push("/my-profile");
+    }
     return (
         <>
         <IonList>
             <br/>
-            <IonItem>
+            <IonItem onClick={navigateToMyProfile}>
                 <IonIcon slot={"start"} icon={person}/> My Profile
             </IonItem>
 

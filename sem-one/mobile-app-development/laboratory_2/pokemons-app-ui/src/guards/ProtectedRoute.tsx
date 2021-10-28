@@ -20,8 +20,6 @@ export const ProtectedRoute : React.FC<ProtectedRouteProps> = ({path, ProtectedC
             if (!token || token==="" ||jwtDecode(token).exp < (new Date().getTime() + 1) / 1000) {
                 setRendering(<Redirect to="/"/>);
                 logout();
-            }else{
-                setRendering(<ProtectedComponent/>);
             }
         })();
     }
