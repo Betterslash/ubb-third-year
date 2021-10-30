@@ -1,12 +1,16 @@
 package model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.IOException;
 
 @Getter
+@Setter
+@NoArgsConstructor
 public class PPMImage {
-    private final String fileName;
+    private String fileName;
     private int heigth = 600;
     private int width = 800;
     private String fromat;
@@ -66,6 +70,9 @@ public class PPMImage {
     }
 
     private void initializeYUV(){
+        y = new double[heigth][width];
+        u = new double[heigth][width];
+        v = new double[heigth][width];
         for(int i = 0; i < heigth; i++){
             for(int j = 0; j < width; j ++){
                 y[i][j] = 0.299 * r[i][j] + 0.587 * g[i][j] + 0.114 * b[i][j];
@@ -75,9 +82,25 @@ public class PPMImage {
         }
     }
 
+    public void initializeRGB(){
+        r = new int[heigth][width];
+        g = new int[heigth][width];
+        b = new int[heigth][width];
+        for (int j = 0; j < heigth; j++) {
+            for (int k = 0; k < width; k++) {
+                r[j][k] = (int)(y[j][k] + 1.402 * (u[j][k] -128));
+                g[j][k] = (int)(y[j][k] - 0.344136 *(u[j][k] - 128) - 0.714136 * (v[j][k] -128));
+                b[j][k] = (int)(y[j][k] + 1.7790 * (u[j][k] - 128));
+            }
+        }
+    }
+
     public static class PPMImageBuilder{
         public static PPMImage Build(String path){
             return new PPMImage(path);
+        }
+        public static PPMImage Build(){
+            return new PPMImage();
         }
     }
 }
