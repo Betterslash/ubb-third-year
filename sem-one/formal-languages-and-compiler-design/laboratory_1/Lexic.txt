@@ -1,0 +1,67 @@
+Minilanguage Specification : 
+
+<--------------------------------------------------------------Lexic--------------------------------------------------------------->
+1. Alphabet : 
+    a. Upper and lower-case letters
+    b. Underline character
+    c. Decimal digits
+
+    1.1 Lexic : 
+        a. Special symbols, representing :
+            -operators -> +, -, *, :=, <=, >=, =, ^
+            -separators -> [], {}, space, ;, :, <-
+            -reserved words -> [array, div, mod, char, const, if, typedef, else, int, of, read, readln, write, writeln, switch, case, return, var, while]
+
+        b. Identifiers :
+            identifier ::= letter|'_'letter{letter}{digit}|letter{letter}{digit}
+            letter ::= "A" | "B" | ... | "Z" | "a" | "b" | ... | "z"
+            digit ::= "0" | "1" | ... | "9"
+        
+        c.  Constants : 
+            -integer :
+                no ::= "-"non_zero_digit{digit} | "+"non_zero_digit{digit} | "0" | digit
+                non_zero_digit ::= "1" | "2" | "3" | ... | "9"
+                digit ::= "0" | ... | "9"
+
+            -character
+                character ::= 'letter'|'digit'|'symbol'
+                symbol ::= "~" | "&" | "#" | "_"
+
+            -string
+                symbol ::= "~" | "&" | "#" | "_"
+                string ::= '' | 'char{string}'
+                char ::= letter|digit|symbol
+
+             
+<---------------------------------------------------------------------------------------------------------------------------------->
+
+
+<--------------------------------------------------------------Syntax-------------------------------------------------------------->
+2 Syntax :
+    
+    program ::= "VAR" decllist ";" cmpdstmt ";"
+    decllist ::= declaration | declaration ";" decllist
+    declaration ::= LIDENTIFIER ":" type | arraydecl
+    LIDENTIFIER::= id | id ","  LIDENTIFIER; 
+    type1 ::= "BOOL" | "CHAR" | "INT" | "DOUBLE"
+    type2 ::= "typedef" "::" IDENTIFIER "{" decllist "}"
+    type3 ::= type1 | type2
+    arraydecl ::= "ARRAY" "[" nr "]" "::" type3
+    cmpdstmt ::= "{" stmtlist "}"
+    stmtlist ::= stmt ";" stmtlist
+    stmt ::= simplstmt | structstmt
+    simplstmt ::= assignstmt | iostmt
+    assignstmt ::= IDENTIFIER "<-" expression ";"
+    expression ::= expression "+" term | expression "-" term | expression "/" term | expression "*" term | expression "DIV" term | expression "MOD" term | expression "^" term | term
+    term ::= term "*" factor | term "^" factor | factor
+    factor ::= "(" expression ")" | IDENTIFIER
+    iostmt ::= "READ"  "(" IDENTIFIER ")" | "WRITE" "(" IDENTIFIER ")" | "READLN"  "(" IDENTIFIER ")" | "WRITELN" "(" IDENTIFIER ")"
+    structstmt ::= cmpdstmt | ifstmt | whilestmt
+    ifstmt ::= "IF" "(" condition ")" cmpdstmt |"IF" "(" condition ")" cmpdstmt "ELSE" cmpdstmt
+    whilestmt ::= "WHILE" "(" condition ")" cmpdstmt
+    condition ::= expression RELATION expression
+    returnstmt ::= "RETURN" expression ; | "RETURN" ;
+    forstmt ::= "FOR" "(" assignstmt ; condition ; expression ")" cmpdstmt 
+    RELATION ::= "<" | "<=" | "=" | "!=" | ">=" | ">"
+
+<---------------------------------------------------------------------------------------------------------------------------------->

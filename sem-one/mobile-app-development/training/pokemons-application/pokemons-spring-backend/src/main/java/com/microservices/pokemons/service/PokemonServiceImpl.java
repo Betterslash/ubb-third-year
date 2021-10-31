@@ -201,5 +201,4 @@ public class PokemonServiceImpl implements PokemonService {
         });
         return results;
     }
-
 }

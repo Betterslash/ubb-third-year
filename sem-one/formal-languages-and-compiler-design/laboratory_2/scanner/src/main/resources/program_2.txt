@@ -1,13 +1,15 @@
-z<- -12
+z<- 15-12
 VAR numberForCheck : INT;
-i : INT; 
+i : INT;
+t <- 1-4
+q <- -3-4
 stop : INT; 
 checker : INT; 
 Ok : BOOLEAN; 
 { 
 Ok <- true; 
 READLN(numberForCheck); 
-FOR(i <- 12; i < stop; i++){
+FOR(i <- -12; i < stop; i++){
 checker <- numberForCheck MOD i; 
 IF(checker == 0){ 
 ok <- false; 

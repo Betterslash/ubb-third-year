@@ -1,7 +1,8 @@
 VAR a, b, c : INT;
 max : INT;
 {
-max <- '0';
+t <- 4
+max <- '0;
 IF(1a >= b){
 IF(1a >= c){
 max <- 1a;

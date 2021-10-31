@@ -32,9 +32,9 @@ public class Scanner {
         return new PifSortedListPair(token.toString(), index);
     }
 
-    public static PifSortedListPair getOperatorToken(String line, int index){
+    public static PifSortedListPair getOperatorToken(String line, int index, Boolean wasLeftConstat){
         var token = new StringBuilder();
-        if(line.charAt(index) == '-'){
+        if(line.charAt(index) == '-' && !wasLeftConstat){
             if(index + 1 < line.length() && Character.isDigit(line.charAt(index + 1))) {
                 token.append('-');
                 index += 1;
@@ -57,6 +57,7 @@ public class Scanner {
         var index = 0;
         var token = new StringBuilder();
         var result = new ArrayList<String>();
+        var wasLastOneConstant = true;
         while (index < line.length()){
             var currentChar = line.charAt(index);
             if(currentChar == '"'){
@@ -64,16 +65,18 @@ public class Scanner {
                 token=new StringBuilder(res.getKey());
                 index = res.getValue();
                 result.add(token.toString());
+                wasLastOneConstant = true;
                 token = new StringBuilder();
             }
             else if(isInOperator(currentChar)){
-                var res = getOperatorToken(line, index);
+                var res = getOperatorToken(line, index, wasLastOneConstant);
                 if(!token.toString().equals("")) {
                     result.add(token.toString());
                 }
                 token = new StringBuilder(res.getKey());
                 index = res.getValue();
                 result.add(token.toString());
+                wasLastOneConstant = true;
                 token = new StringBuilder();
             }
             else if(isInSeparators(currentChar)){
@@ -82,10 +85,12 @@ public class Scanner {
                     }
                     result.add(String.valueOf(currentChar));
                     token = new StringBuilder();
+                    wasLastOneConstant = false;
                     index += 1;
             }else{
                 token.append(currentChar);
                 index += 1;
+                wasLastOneConstant = true;
             }
         }
         if(!token.toString().equals("")){

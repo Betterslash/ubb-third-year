@@ -36,10 +36,10 @@ export const useNetowrk = () => {
             if(!canceled){
                 if(status.connected){
                     LocalRepositoryService.synchronize().then((results) => {
-                        if(results && results.data.length > 0){
-                            present('Synchronized data ...', 2000);
-                            Logger.info('Synchronized data ...');
-                        }
+                            if(results && results.data.length > 0){
+                                present('Synchronized data ...', 2000);
+                                Logger.info('Synchronized data ...');
+                            }
                         },
                         () => {Logger.warning("Couldn't synchronize data...");});
                 }else{

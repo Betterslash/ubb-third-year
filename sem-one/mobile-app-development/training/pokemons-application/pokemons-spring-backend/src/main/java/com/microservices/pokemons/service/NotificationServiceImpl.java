@@ -7,6 +7,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
@@ -25,6 +27,11 @@ public class NotificationServiceImpl implements NotificationService {
                 .getPrincipal();
         var username = user.getUsername();
         simpMessagingTemplate.convertAndSend(String.format("/myPokemons/%s", username), notificationDto);
+    }
+
+    @Override
+    public void multipleBrodacastToUsers(List<NotificationDto> notificationDtos) {
+        notificationDtos.forEach(e -> simpMessagingTemplate.convertAndSend("/notify", e));
     }
 
 

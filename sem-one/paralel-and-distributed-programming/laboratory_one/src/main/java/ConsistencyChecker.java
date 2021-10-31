@@ -5,6 +5,7 @@ import java.util.List;
 @Slf4j
 public class ConsistencyChecker {
     public void run(Store store, List<Integer> sumsForCheck){
+        store.getProducts().forEach(e -> e.getMutex().lock());
         var currentStoreProfit = store.getCurrentProfit();
         sumsForCheck.stream()
                 .reduce(Integer::sum)
@@ -14,5 +15,6 @@ public class ConsistencyChecker {
                     store.getBills().add(message);
                     log.info(message);
                 });
+        store.getProducts().forEach(e -> e.getMutex().unlock());
     }
 }

@@ -1,13 +1,23 @@
 link : https://github.com/Betterslash/ubb-third-year/tree/master/sem-one/formal-languages-and-compiler-design/laboratory_2/scanner/src/main/java
 
-<h1>
+<section>
+<h2>Statement: Implement a scanner (lexical analyzer): Implement the scanning algorithm and use ST from lab 2 for the symbol table.</h2>
+<h1>Scanner</h1>
+<h2>Scanner diagram</h2>
+<img src="../resources/diagrams/diagram.png" alt="uml_diagram"/>
+<h2>
+    How does it work : 
+        
+</h2>
+<h3>
     Symbol table representation as HashTable
-</h1>
+</h3>
+<h2> Requirement</h2>
+<h3>Statement: Implement the Symbol Table (ST) as the specified data structure, with the corresponding operations</h3>
 
 <section>
-    <h2>
-    symbol_table.HashTableWrapper class : 
-    <div>
+    <></section>
+     symbol_table.HashTableWrapper class : 
         <label>  
         Fields :
             <ul>
@@ -44,17 +54,8 @@ link : https://github.com/Betterslash/ubb-third-year/tree/master/sem-one/formal-
                 </li>
             </ul>
         </label>
-    </div>
-</h2>
+
 </section>
-<section>
-<h1>Scanner</h1>
-<h2>Scanner diagram</h2>
-<img src="../resources/diagrams/diagram.png" alt="uml_diagram"/>
-<h2>
-    How does it work : 
-        
-</h2>
 <h4>-> Goes line by line, character by character and does the suitable checks to determine if a character should be one of three main types : </h4>
 <p>Constant</p>
 <p>Identifier</p>
@@ -84,7 +85,7 @@ link : https://github.com/Betterslash/ubb-third-year/tree/master/sem-one/formal-
         <p>getTokens -> main function which build paris of key values as a list and returns them, those key value pairs representing the PIF entries</p>
     </li>
 </ul>
-</section>
+
 <section>
     <h1>Human readable description
     </h1>
@@ -96,4 +97,169 @@ link : https://github.com/Betterslash/ubb-third-year/tree/master/sem-one/formal-
         -> Because the Symbol table takes as internal representation any SynbaleTableRepresentation children it can work with both SortedList implemented in symbol_table as well as with the HashTableWrapper 
         -> PifResource works as the SymbolTableRepresentation such that it makes the implementations adaptable to multiple types of symbol table internal representations
     </div>
+</section>
+
+<section>
+    <H2> Test cases : </H2>
+<ul>
+    <li>
+        Test Case -> "asdkl" 'a
+VAR a, b, c : INT;
+max : INT;
+{
+max <- 0;
+IF(a >= b){
+IF(a >= c){
+max <- a;
+WRITELN(a);
+}
+}
+IF(b >= a){
+IF(b >= c){
+max <- b;
+WRITELN(b);
+}
+}
+IF(c >= b){
+IF(c >= a){
+max <- c;
+WRITELN(c);
+}
+}
+}
+<p></p>
+Success -> PifResource(key=constant, value=CustomPair(hashTableKey=601, arrayListKey=0))
+PifResource(key=VAR, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=101, arrayListKey=0))
+PifResource(key=,, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=103, arrayListKey=0))
+PifResource(key=,, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=105, arrayListKey=0))
+PifResource(key=:, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=INT, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=;, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=342, arrayListKey=0))
+PifResource(key=:, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=INT, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=;, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key={, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=342, arrayListKey=0))
+PifResource(key=<-, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=constant, value=CustomPair(hashTableKey=65, arrayListKey=0))
+PifResource(key=;, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=IF, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=(, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=101, arrayListKey=0))
+PifResource(key=>=, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=103, arrayListKey=0))
+PifResource(key=), value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key={, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=IF, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=(, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=101, arrayListKey=0))
+PifResource(key=>=, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=105, arrayListKey=0))
+PifResource(key=), value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key={, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=342, arrayListKey=0))
+PifResource(key=<-, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=101, arrayListKey=0))
+PifResource(key=;, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=WRITELN, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=(, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=101, arrayListKey=0))
+PifResource(key=), value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=;, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=}, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=}, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=IF, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=(, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=103, arrayListKey=0))
+PifResource(key=>=, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=101, arrayListKey=0))
+PifResource(key=), value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key={, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=IF, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=(, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=103, arrayListKey=0))
+PifResource(key=>=, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=105, arrayListKey=0))
+PifResource(key=), value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key={, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=342, arrayListKey=0))
+PifResource(key=<-, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=103, arrayListKey=0))
+PifResource(key=;, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=WRITELN, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=(, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=103, arrayListKey=0))
+PifResource(key=), value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=;, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=}, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=}, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=IF, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=(, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=105, arrayListKey=0))
+PifResource(key=>=, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=103, arrayListKey=0))
+PifResource(key=), value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key={, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=IF, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=(, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=105, arrayListKey=0))
+PifResource(key=>=, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=101, arrayListKey=0))
+PifResource(key=), value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key={, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=342, arrayListKey=0))
+PifResource(key=<-, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=105, arrayListKey=0))
+PifResource(key=;, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=WRITELN, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=(, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=identifier, value=CustomPair(hashTableKey=105, arrayListKey=0))
+PifResource(key=), value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=;, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=}, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=}, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+PifResource(key=}, value=CustomPair(hashTableKey=-1, arrayListKey=-1))
+Symbol table
+65=[0]
+601=["asdkl"]
+105=[c]
+103=[b]
+101=[a]
+342=[max]
+    </li>
+    <li>
+    Test case -> program_1err.txt ->
+    VAR a, b, c : INT;
+max : INT;
+{
+t <- 4
+max <- '0;
+IF(1a >= b){
+IF(1a >= c){
+max <- 1a;
+WRITELN(1a);
+}
+}
+IF(b >= 1a){
+IF(b >= c){
+max <- b;
+WRITELN(b);
+}
+}
+IF(c >= b){
+IF(c >= 1a){
+max <- c;
+WRITELN(c);
+}
+}
+}
+<p></p>
+Failure -> 
+ Token '0 couldn't be scanned at line number 4 -> please review the code master ...
+</li>
+</ul>
 </section>

@@ -75,9 +75,9 @@ public class PPMImage {
         v = new double[heigth][width];
         for(int i = 0; i < heigth; i++){
             for(int j = 0; j < width; j ++){
-                y[i][j] = 0.299 * r[i][j] + 0.587 * g[i][j] + 0.114 * b[i][j];
-                u[i][j] = 128 - 0.168736 * r[i][j] - 0.331264 * g[i][j] + 0.5 * b[i][j];
-                v[i][j] = 128 + 0.5 * r[i][j] - 0.418688 * g[i][j] - 0.081312 * b[i][j];
+                y[i][j] = 0.3 * r[i][j] + 0.56 * g[i][j] + 0.11 * b[i][j];
+                u[i][j] = 128 - 0.17 * r[i][j] - 0.33 * g[i][j] + 0.5 * b[i][j];
+                v[i][j] = 128 + 0.5 * r[i][j] - 0.42 * g[i][j] - 0.08 * b[i][j];
             }
         }
     }
@@ -88,9 +88,18 @@ public class PPMImage {
         b = new int[heigth][width];
         for (int j = 0; j < heigth; j++) {
             for (int k = 0; k < width; k++) {
-                r[j][k] = (int)(y[j][k] + 1.402 * (u[j][k] -128));
-                g[j][k] = (int)(y[j][k] - 0.344136 *(u[j][k] - 128) - 0.714136 * (v[j][k] -128));
-                b[j][k] = (int)(y[j][k] + 1.7790 * (u[j][k] - 128));
+                r[j][k] = (int)(y[j][k] + 1.402 * (u[j][k] -128) + 15);
+                g[j][k] = (int)(y[j][k] - 0.344136 *(u[j][k] - 128) - 0.714136 * (v[j][k] -128) + 3);
+                b[j][k] = (int)(y[j][k] + 1.7790 * (u[j][k] - 128) + 10);
+                if(r[j][k] > 255){
+                    r[j][k] = 255;
+                }
+                if(g[j][k] > 255){
+                    g[j][k] = 255;
+                }
+                if(b[j][k] > 255){
+                    b[j][k] = 255;
+                }
             }
         }
     }
