@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -81,8 +82,31 @@ public class FiniteAutomata extends Representation {
         }
     }
 
-    protected static FiniteAutomata parse(Grammar grammar){
+    public static FiniteAutomata parse(Grammar grammar){
         var finiteAutomata = new FiniteAutomata(InitializationType.NONE);
+        finiteAutomata.Q = grammar.getN();
+        finiteAutomata.q0 = grammar.getS();
+        finiteAutomata.E = grammar.getE();
+        finiteAutomata.F = new ArrayList<>(List.of("K"));
+        finiteAutomata.S = new ArrayList<>();
+        grammar.getP().forEach(e -> {
+            if(Objects.equals(e.getLeftHandside(), finiteAutomata.q0) && e.getRightHandside().contains("E")){
+                finiteAutomata.F.add(finiteAutomata.getQ0());
+            }else{
+                var route = e.getRightHandside().get(0);
+                var state = "";
+                if(e.getRightHandside().size() == 2){
+                    state = e.getRightHandside().get(1);
+                }
+                finiteAutomata.S.add(HandSideAutomataPair.builder()
+                        .leftHandside(CustomPair.builder()
+                                .route(route)
+                                .state(e.getLeftHandside())
+                                .build())
+                        .rightHandside(state)
+                        .build());
+            }
+        });
         return finiteAutomata;
     }
 }

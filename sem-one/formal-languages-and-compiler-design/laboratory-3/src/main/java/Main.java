@@ -7,6 +7,9 @@ public class Main {
         var grammar = new Grammar(InitializationType.FILE);
         System.out.println(grammar);
         var automata = new FiniteAutomata(InitializationType.FILE);
+        System.out.println(automata);
+
         System.out.println(Grammar.parse(automata));
+        System.out.println(FiniteAutomata.parse(grammar));
     }
 }
