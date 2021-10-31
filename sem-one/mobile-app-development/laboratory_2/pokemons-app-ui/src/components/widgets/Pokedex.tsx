@@ -80,7 +80,7 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
             if (fetchable) {
                 if(token !== ""){
                     subscription.debug = ()=> {};
-                    subscription.connect({ Authorization : 'Bearer : ' + token},
+                    subscription.connect({ },
                         () => onSubscribe(subscription),
                         (err : any) => onError(err),
                         () => onClose());
@@ -196,12 +196,13 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
     const [filters, setFilters] = useState([] as FilterModel[]);
     const deleteOne =(id : number) =>{
         setFilters(filters.filter((e, index)=> index !== id));
+        Logger.info(Pokedex.name + ' -> ' + deleteOne.name);
     };
     const applyFiltering = (data : PokemonModel[]) => {
         let results : PokemonModel[] = data;
         if(filters.length > 0 && applyFilters){
+            Logger.info(Pokedex.name + ' -> ' + applyFiltering.name);
             filters.forEach((e => {
-                console.log(e);
                 if(e.field === 'Type'){
                     if(e.comparator === 'is'){
                         results = results.filter(q=> q.types.typeOne === e.value)

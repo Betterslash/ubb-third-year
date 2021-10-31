@@ -13,7 +13,7 @@ import {
 import {Header} from "../components/layout/Header";
 import {Footer} from "../components/layout/Footer";
 import {useInitialState} from "../hooks/PokemonModifyHook";
-import {useParams} from "react-router";
+import {useHistory, useParams} from "react-router";
 import {PokemonOnlineService} from "../services/PokemonOnlineService";
 import {Logger} from "../helpers/logger/Logger";
 import {PokemonEvolutionInfo} from "../components/widgets/PokemonEvolutionInfo";
@@ -38,6 +38,7 @@ export const ModifyPokemon: React.FC = () => {
             index += 1;
             return {name: s, id: index} as TypeIdPair
         });
+    const history = useHistory();
     const {id} = useParams<ModifyPokemonProps>();
     const initalState = useInitialState(id);
     const network = useNetowrk().connected;
@@ -51,14 +52,14 @@ export const ModifyPokemon: React.FC = () => {
         if(network){
             if(id === undefined) {
                 PokemonOnlineService.updateOnePokemon(-1, initalState.pokemonReducer.pokemon)
-                    .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name)});
+                    .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name); history.push("/");});
             }else {
                 PokemonOnlineService.updateOnePokemon(Number(id), initalState.pokemonReducer.pokemon)
-                    .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name)});
+                    .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name); history.push("/");});
             }
         }else{
             LocalRepositoryService.insertOnePokemon(initalState.pokemonReducer.pokemon)
-                .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name)})
+                .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name);  history.push("/");})
         }
     };
     return (

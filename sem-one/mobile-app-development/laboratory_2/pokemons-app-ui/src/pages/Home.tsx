@@ -1,7 +1,7 @@
 import {
     IonButtons,
     IonCard, IonCardContent,
-    IonFabButton, IonIcon, IonImg, IonPage, IonToolbar
+    IonFabButton, IonIcon, IonPage, IonToolbar
 } from '@ionic/react';
 import './Home.css';
 import {Header} from "../components/layout/Header";

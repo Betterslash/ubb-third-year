@@ -1,7 +1,7 @@
 import {
     IonButton,
     IonButtons, IonCard, IonCardContent, IonContent,
-    IonHeader, IonIcon, IonImg, IonInput, IonLabel, IonSelect, IonSelectOption,
+    IonHeader, IonIcon, IonImg, IonInput, IonSelect, IonSelectOption,
     IonTitle,
     IonToolbar
 } from "@ionic/react";

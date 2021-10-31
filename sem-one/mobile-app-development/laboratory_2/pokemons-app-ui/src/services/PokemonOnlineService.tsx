@@ -52,4 +52,10 @@ export class PokemonOnlineService {
         axios.defaults.headers.get['Authorization'] = 'Bearer : ' + token.value;
         return axios.get<PokemonModel[]>(`${Environment.apiUrl}${this.POKEMONS_API}/caught`);
     }
+    public static async releaseOnePokemon(id  : number) : Promise<AxiosResponse<PokemonModel>>{
+        const token = await UserTokenService.getToken();
+        const headerValue = 'Bearer : ' + token.value;
+        //console.log(headerValue);
+        return axios.delete(`${Environment.apiUrl}${this.POKEMONS_API}/release/${id}`, {data: null, headers: {'Authorization': headerValue}});
+    }
 }
