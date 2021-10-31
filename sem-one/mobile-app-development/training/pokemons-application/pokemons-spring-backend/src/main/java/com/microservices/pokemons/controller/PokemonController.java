@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/api/v1/pokemons")
@@ -88,6 +89,16 @@ public class PokemonController {
     @PostMapping("/synchronize")
     @RolesAllowed({"ROLE_GYM_LEADER"})
     public List<PokemonDto> insertOfflineCache(@RequestBody List<PokemonDto> cahcedPokemons){
-        return this.pokemonService.insertMultiplePokemons(cahcedPokemons);
+        var response = this.pokemonService.insertMultiplePokemons(cahcedPokemons);
+        var notifications = new ArrayList<NotificationDto>();
+        cahcedPokemons.forEach(e -> {
+            if(e.getDeletionMark() != null && e.getDeletionMark()){
+                notifications.add(NotificationDto.Builder.build(ActionType.DELETE, e));
+            }else{
+                notifications.add(NotificationDto.Builder.build(ActionType.UPDATE, e));
+            }
+        });
+        notificationService.multipleBrodacastToUsers(notifications);
+        return response;
     }
 }

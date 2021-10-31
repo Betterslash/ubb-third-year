@@ -1,13 +1,27 @@
 import React, {useContext, useEffect, useState} from "react";
 import {
     IonButton,
-    IonButtons, IonCardContent, IonChip,
+    IonButtons,
+    IonCardContent,
+    IonChip,
     IonContent,
+    IonGrid,
     IonIcon,
-    IonImg, IonInfiniteScroll, IonInfiniteScrollContent,
-    IonItem, IonList,
+    IonImg,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
+    IonItem,
+    IonList,
     IonListHeader,
-    IonLoading, IonReorder, IonReorderGroup, IonSearchbar, IonText, IonTitle, IonToolbar, useIonModal
+    IonLoading,
+    IonReorder,
+    IonReorderGroup,
+    IonRow,
+    IonSearchbar,
+    IonText,
+    IonTitle,
+    IonToolbar,
+    useIonModal
 } from "@ionic/react";
 import {useNetowrk} from "../../hooks/AppHooks";
 import {PokemonOnlineService} from "../../services/PokemonOnlineService";
@@ -235,9 +249,10 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
                         <IonIcon icon={filter} />
                     </IonButton>
                 </IonButtons>
-                <IonList>
-                    {filters.map((e,index) => (<IonChip key={index}>{`${e.field} ${e.comparator} ${e.value}`}<IonIcon icon={closeCircle} onClick={() => {deleteOne(index)}}/></IonChip>))}
-                </IonList>
+                <IonGrid>
+                               {filters.map((e,index) =>
+                                   (<IonRow key={`row_${index}`}><IonChip key={index}>{`${e.field} ${e.comparator} ${e.value}`}<IonIcon icon={closeCircle} onClick={() => {deleteOne(index)}}/></IonChip></IonRow>))}
+                </IonGrid>
                 <IonButtons slot="end">
                     <IonButton onClick={() => {setApplyFilters(!applyFilters); setPageNumber(1);}}>
                         <IonIcon icon={getApplyFiltersIcon()}/>

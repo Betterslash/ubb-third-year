@@ -17,7 +17,7 @@ export const ProtectedRoute : React.FC<ProtectedRouteProps> = ({path, ProtectedC
         (async()=>{
             const token = (await UserTokenService.getToken()).value;
             // @ts-ignore
-            if (!token || token==="" ||jwtDecode(token).exp < (new Date().getTime() + 1) / 1000) {
+            if (jwtDecode(token).exp < (new Date().getTime() + 1) / 1000) {
                 setRendering(<Redirect to="/"/>);
                 logout();
             }

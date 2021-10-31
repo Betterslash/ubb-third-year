@@ -1,2 +1,7 @@
-package repository;public enum ProductType {
+package repository;
+
+public enum ProductType {
+    Phone,
+    Game,
+    Accesory
 }

@@ -1,0 +1,91 @@
+p1 -> Find the maximum between 3 numbers 
+VAR a, b, c : INT;
+    max : INT;
+{
+    max <- 0;
+    IF(a >= b){
+        IF(1a >= c){
+            max <- a;
+            WRITELN(a); 
+        }
+    }
+    IF(b >= a){
+        IF(b >= c){
+            max <- b;
+            WRITELN(b); 
+        }
+    }
+    IF(c >= b){
+        IF(c >= a){
+            max <- c; 
+            WRITELN(c);
+        }
+    }
+}
+
+p2 ->
+VAR numberForCheck : INT;
+    i : INT;
+    stop : INT;
+    checker : INT;
+    Ok : BOOLEAN;
+{
+    Ok <- true;
+    READLN(numberForCheck);
+    FOR(i <- 2; i < stop; i++){
+        checker <- numberForCheck MOD i;
+        IF(checker == 0){
+            ok <- false; 
+        }
+    }
+    IF(Ok == true){
+        WRITELN("Number is prime!");
+    }ELSE{
+        WRITELN("Number is not prime!");
+    }
+} 
+
+p3 -> Compute the sum of n numbers where n < 100
+VAR numbers : ARRAY[100] :: INT;
+    length, readed, i : INT;
+    result : INT;
+{
+    length <- 100;
+    i <- 0;
+    sum <- 0;
+    WHILE((i < length) || (readed != 0)){
+        READLN(readed);
+        nummbers[i] <- readed;
+        i <- i + 1;
+    }
+    length <- i;
+    FOR (i <- 0; i < length; i ++){
+        sum <- sum + numbers[i];
+    }
+    WRITELN(sum);
+}
+
+p1err -> 
+VAR 1a, b, c : INT;
+    max : INT;
+{
+    max <- '0;
+    IF(1a >= b){
+        IF(1a >= c){
+            max <- 1a;
+            WRITELN(1a); 
+        }
+    }
+    IF(b >= 1a){
+        IF(b >= c){
+            max <- b;
+            WRITELN(b); 
+        }
+    }
+    IF(c >= b){
+        IF(c >= 1a){
+            max <- c; 
+            WRITELN(c);
+        }
+    }
+}

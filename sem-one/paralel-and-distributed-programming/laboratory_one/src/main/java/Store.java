@@ -6,9 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 @Getter
@@ -23,14 +21,12 @@ public class Store {
     private int currentProfit;
 
     private ExecutorService executorService;
-    private final ReentrantLock mutex;
     private List<Future<?>> threads;
 
     private final List<String> bills;
 
-    public Store(int productsNumber, ExecutorService executorService, ReentrantLock mutex) {
+    public Store(int productsNumber, ExecutorService executorService) {
         this.productsNumber = productsNumber;
-        this.mutex = mutex;
         this.bills = new ArrayList<>();
         this.currentProfit = 0;
         this.executorService = executorService;
@@ -43,7 +39,7 @@ public class Store {
     private void initializeStore(){
         for(int i = 0; i < productsNumber; i++){
             var product = new Product();
-            var quantity = ThreadLocalRandom.current().nextInt(230);
+            var quantity = product.getQuantity();
             stock.put(product, quantity);
             products.add(product);
             maxProfit += product.getUnitPrice() * quantity;
@@ -51,18 +47,18 @@ public class Store {
     }
 
     private void sellOne(Product product, int quantity){
-        mutex.lock();
+        product.getMutex().lock();
         this.stock.entrySet()
                 .stream()
                 .filter(e -> e.getKey().getName() == product.getName())
                 .findFirst()
                 .ifPresent(e -> {
-                    if(quantity <= e.getValue()) {
-                        e.setValue(e.getValue() - quantity);
+                    if(quantity <= e.getKey().getQuantity()) {
+                        e.getKey().setQuantity(e.getValue() - quantity);
+                        this.currentProfit += product.getUnitPrice() * quantity;
                     }
                 });
-        this.currentProfit += product.getUnitPrice() * quantity;
-        mutex.unlock();
+        product.getMutex().unlock();
     }
 
     private Map.Entry<String, Integer> createMapEntry(String uuid, Integer quantity){
@@ -77,10 +73,10 @@ public class Store {
                 .map(Product::getName)
                 .collect(Collectors.toList());
         var storeProducts = this.stock
-                .entrySet()
+                .keySet()
                 .stream()
-                .filter(e -> productsToBeSold.contains(e.getKey().getName()))
-                .map(e -> createMapEntry(e.getKey().getName().toString(), e.getValue()))
+                .filter(integer -> productsToBeSold.contains(integer.getName()))
+                .map(integer -> createMapEntry(integer.getName().toString(), integer.getQuantity()))
                 .collect(Collectors.toList());
         sale.getSaleRepresentation()
                 .forEach((key, value) -> storeProducts.forEach(q -> {
@@ -99,7 +95,7 @@ public class Store {
                 sale.getSaleRepresentation()
                         .forEach(this::sellOne);
                 paidSums.add(sale.getTotalPrice());
-                this.bills.add(sale.toString());
+                this.bills.add(sale.getSaleRepresentation().keySet().stream().toString());
                 log.info(sale.toString());
                 try {
                     Thread.sleep(70);

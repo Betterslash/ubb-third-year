@@ -1,2 +1,10 @@
-package model;public class MatrixElement {
+package model;
+
+import lombok.Data;
+
+@Data
+public class MatrixElement {
+    private final int value;
+    private final int line;
+    private final int column;
 }

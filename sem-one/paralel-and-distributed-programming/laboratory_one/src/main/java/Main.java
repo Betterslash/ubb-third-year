@@ -1,20 +1,18 @@
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
     public static void main(String[] args) {
         try {
             ProgramInitializer.initialize();
-            var mutex = new ReentrantLock();
             var sumsForCheck = new ArrayList<Integer>();
             var bills = new ArrayList<Sale>();
             var consChecker = new ConsistencyChecker();
             var executorService = Executors.newFixedThreadPool(Runtime.getRuntime()
                     .availableProcessors());
 
-            var store = new Store(ProgramInitializer.PRODUCTS_NUMBER, executorService, mutex);
+            var store = new Store(ProgramInitializer.PRODUCTS_NUMBER, executorService);
             var scheduler =
                     Executors.newScheduledThreadPool(1);
             scheduler.scheduleWithFixedDelay(() ->
