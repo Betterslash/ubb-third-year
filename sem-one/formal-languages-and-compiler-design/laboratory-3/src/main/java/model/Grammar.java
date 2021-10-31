@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -22,14 +23,13 @@ import java.util.stream.Collectors;
  */
 @Getter
 @Setter
-@ToString(exclude = {"reader"})
-public class Grammar implements Representation{
+@ToString
+public class Grammar extends Representation {
     private List<String> N;
     private List<String> E;
     private String S;
     private List<HandsidesGrammarPair> P;
-
-    private final BufferedReader reader;
+    private boolean regularGrammar;
 
     /**
      * Custom constructor that reads a file with a path given in the configurations file and mapps the input as an Grammar object
@@ -38,34 +38,17 @@ public class Grammar implements Representation{
     public Grammar(InitializationType initializationType){
         if (initializationType == InitializationType.FILE) {
             try {
-                this.reader = new BufferedReader(new FileReader("src/main/resources/regular_grammar_1.txt"));
+                reader = new BufferedReader(new FileReader("src/main/resources/regular_grammar_1.txt"));
             } catch (FileNotFoundException e) {
                 throw new GrammarInitializationException("Couldn't initialize the grammar !!");
             }
             this.initializeFromFile();
+            this.regularGrammar = isRegularGrammar();
         } else {
             reader = null;
         }
     }
 
-    /**
-     * @return line parsed as a set of Terminals or non-Terminals for the Grammar object field N or E
-     * @throws GrammarInitializationException if the lines couldn't be parssed correctly
-     */
-    private List<String> readLineAsList(){
-        try {
-            var item = Arrays.stream(reader.readLine()
-                            .strip()
-                            .split("=")).toList()
-                    .stream().map(String::strip)
-                    .collect(Collectors.toList()).get(1);
-            return Arrays.stream(item.substring(2, item.length() - 2)
-                    .split(", "))
-                    .toList();
-        } catch (IOException e) {
-            throw new GrammarInitializationException("Something went wrong during reading!!");
-        }
-    }
 
     /**
      * Gets the rules from the last file lines asn parses them into the Grammar object
@@ -86,13 +69,14 @@ public class Grammar implements Representation{
                    .stream()
                    .map(e -> {
                        var leftHandside = e.split(" -> ")[0];
-                       var rightHandside = e.split(" -> ")[1]
-                               .replaceAll(" ", "")
-                               .split("\\|");
+                       var rightHandside = new ArrayList<String>(Arrays.stream(e.split(" -> ")[1]
+                                       .replaceAll(" ", "")
+                                       .split("\\|"))
+                               .toList());
                        return HandsidesGrammarPair
                                .builder()
                                .leftHandside(leftHandside)
-                               .rightHandside(List.of(rightHandside))
+                               .rightHandside(rightHandside)
                                .build();})
                    .collect(Collectors.toList());
        }catch (Exception e){
@@ -104,12 +88,13 @@ public class Grammar implements Representation{
      * initializes and parses a file given as input path from the configuration file as a grammar object
      * @throws GrammarInitializationException if the parsing is not succesfull
      */
-    private void initializeFromFile(){
+    protected void initializeFromFile(){
         try {
             this.N = readLineAsList();
             this.E = readLineAsList();
             this.S = Arrays.stream(reader.readLine().strip().split(" = ")).toList().get(1);
             this.P = parseRules();
+            reader.close();
         } catch (IOException e) {
             throw new GrammarInitializationException("Couldn't parse the file correctly!!");
         }
@@ -137,7 +122,7 @@ public class Grammar implements Representation{
      * @return true -> if the parsed grammar is a regular one
      *         false -> otherwise
      */
-    public boolean isRegularGrammar(){
+    private boolean isRegularGrammar(){
         for (var e : this.P) {
             var inRhs = new ArrayList<Character>();
             var excludeFromRhs = new ArrayList<Character>();
@@ -178,7 +163,6 @@ public class Grammar implements Representation{
         return true;
     }
 
-
     /**
      * @param automata FiniteAutomata object to be mapped to a Grammar object
      * @return Grammar object representing the mapped finite automata
@@ -190,15 +174,40 @@ public class Grammar implements Representation{
         grammar.S = automata.getQ0();
         grammar.P = new ArrayList<>();
         if(automata.getF().contains(automata.getQ0())){
-            grammar.P.add(HandsidesGrammarPair.builder().leftHandside(automata.getQ0()).rightHandside(List.of("E")).build());
+            var epsillon = new ArrayList<>(List.of("E"));
+            grammar.P.add(HandsidesGrammarPair.builder()
+                    .leftHandside(automata.getQ0())
+                    .rightHandside(epsillon)
+                    .build());
         }
-        automata.getS().forEach(e -> {
-            if(automata.getF().contains(e.getRightHandside())){
-                grammar.P.add(HandsideMapper.fromAutomataPairFinalStateToGrammarPairWith(e));
-            }else{
-                grammar.P.add(HandsideMapper.fromAutomataPairToGrammarPair(e));
-            }
-        });
+        if(automata.getS() != null && automata.getS().size() > 0){
+            automata.getS().forEach(e -> {
+                HandsidesGrammarPair handSide;
+                if(automata.getF().contains(e.getRightHandside())){
+                    handSide = HandsideMapper.fromAutomataPairFinalStateToGrammarPair(e);
+                }else {
+                    handSide = HandsideMapper.fromAutomataPairToGrammarPair(e);
+                }
+                insertRule(grammar, handSide);
+            });
+        }
+        grammar.regularGrammar = grammar.isRegularGrammar();
         return grammar;
+    }
+
+    private static void insertRule(Grammar grammar, HandsidesGrammarPair handSide) {
+        var alreadyIn = grammar.P.stream()
+                        .map(v -> v.leftHandside)
+                                .collect(Collectors.toList())
+                                        .contains(handSide.leftHandside);
+        if(alreadyIn){
+            grammar.P.stream().filter(v -> Objects.equals(v.leftHandside, handSide.leftHandside))
+                    .collect(Collectors.toList())
+                    .get(0)
+                    .getRightHandside()
+                    .add(handSide.getRightHandside().get(0));
+        }else{
+            grammar.P.add(handSide);
+        }
     }
 }
