@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import util.CustomPair;
 import util.HandSideAutomataPair;
-import util.InitializationType;
+import util.enums.InitializationType;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -27,6 +27,8 @@ public class FiniteAutomata extends Representation {
     private List<HandSideAutomataPair> S;
     private String q0;
     private List<String> F;
+    private Boolean DFA;
+
 
     public FiniteAutomata(InitializationType initializationType){
         if (initializationType == InitializationType.FILE) {
@@ -40,7 +42,6 @@ public class FiniteAutomata extends Representation {
             reader = null;
         }
     }
-
     private HandSideAutomataPair parseTransition(String line){
         var sides = line.split(" -> ");
         var leftHandsidePrototype = sides[0].substring(1, sides[0].length() - 1).split(" ");
@@ -54,7 +55,6 @@ public class FiniteAutomata extends Representation {
                 .rightHandside(rightHandside)
                 .build();
     }
-
     private List<HandSideAutomataPair> parseTransitions(){
         var handsidePair = reader.lines()
                 .skip(1)
@@ -68,7 +68,6 @@ public class FiniteAutomata extends Representation {
         Arrays.stream(pairs).forEach(e -> handsideAutomataPairs.add(parseTransition(e)));
         return handsideAutomataPairs;
     }
-
     protected void initializeFromFile(){
         try {
             this.Q = readLineAsList();
@@ -76,11 +75,24 @@ public class FiniteAutomata extends Representation {
             this.q0 = Arrays.stream(reader.readLine().strip().split(" = ")).toList().get(1);
             this.F = readLineAsList();
             this.S = parseTransitions();
+            isDFA();
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private void isDFA(){
+        this.DFA = true;
+        this.S.forEach(e -> {
+            if(this.S.stream()
+                    .filter(t -> Objects.equals(t.getLeftHandside().getState(), e.getLeftHandside().getState())
+                            && Objects.equals(t.getLeftHandside().getRoute(), e.getLeftHandside().getRoute())).toList().size() > 1){
+                this.DFA = false;
+            }
+        });
+    }
+
 
     public static FiniteAutomata parse(Grammar grammar){
         var finiteAutomata = new FiniteAutomata(InitializationType.NONE);

@@ -1,15 +1,7 @@
-import model.FiniteAutomata;
-import model.Grammar;
-import util.InitializationType;
+import service.Menu;
 
 public class Main {
     public static void main(String[] args) {
-        var grammar = new Grammar(InitializationType.FILE);
-        System.out.println(grammar);
-        var automata = new FiniteAutomata(InitializationType.FILE);
-        System.out.println(automata);
-
-        System.out.println(Grammar.parse(automata));
-        System.out.println(FiniteAutomata.parse(grammar));
+        Menu.run();
     }
 }

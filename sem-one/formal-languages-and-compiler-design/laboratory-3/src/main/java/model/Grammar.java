@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import mapper.HandsideMapper;
 import util.HandsidesGrammarPair;
-import util.InitializationType;
+import util.enums.InitializationType;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
