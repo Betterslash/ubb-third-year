@@ -5,6 +5,9 @@ namespace Laboratory4.Utils
 {
     public static class ProgramConstants
     {
+
+        public static readonly ExecutionType ExecutionType = ExecutionType.Tasks;
+        
         public static readonly IEnumerable<string> Hosts = new List<string>
         {
             "www.cs.ubbcluj.ro/~rlupsa/edu/pdp",
@@ -44,8 +47,6 @@ namespace Laboratory4.Utils
             var responseLines = responseContent.Split('\r', '\n');
 
             foreach (var responseLine in responseLines) {
-                // the header is composed using the following pattern:
-                // <header_name>:<header_value>
                 var headerDetails = responseLine.Split(':');
 
                 if (string.Compare(headerDetails[0], "Content-Length", StringComparison.Ordinal) == 0) {
