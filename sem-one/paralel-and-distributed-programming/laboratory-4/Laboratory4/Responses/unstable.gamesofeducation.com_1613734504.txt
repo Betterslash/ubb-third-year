@@ -1,0 +1,31 @@
+HTTP/1.1 301 Moved Permanently
+
+Date: Tue, 02 Nov 2021 16:37:09 GMT
+
+Transfer-Encoding: chunked
+
+Connection: keep-alive
+
+Cache-Control: max-age=3600
+
+Expires: Tue, 02 Nov 2021 17:37:09 GMT
+
+Location: https://unstable.gamesofeducation.com/
+
+Report-To: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=BYKU6RaOSsKtdNIZ3gZut4wdY0y4tW7x2IXcs7R9GTeGaqCqrdYY%2FhumCP5EVVeNkEPYJOztp8H05qehcPweA4qoC1fFgRXyAZyib6D2pQ4hpzveGsaErld1GvTd6Py7WQwv9UvXFrHBKXEWZLX5Qw%3D%3D"}],"group":"cf-nel","max_age":604800}
+
+NEL: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+
+Vary: Accept-Encoding
+
+Server: cloudflare
+
+CF-RAY: 6a7ec9309b9e2b59-FRA
+
+
+
+0
+
+
+
+

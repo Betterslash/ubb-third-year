@@ -1,0 +1,16 @@
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\bin\Debug\net5.0\Laboratory4.exe
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\bin\Debug\net5.0\Laboratory4.deps.json
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\bin\Debug\net5.0\Laboratory4.runtimeconfig.json
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\bin\Debug\net5.0\Laboratory4.runtimeconfig.dev.json
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\bin\Debug\net5.0\Laboratory4.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\bin\Debug\net5.0\ref\Laboratory4.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\bin\Debug\net5.0\Laboratory4.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\obj\Debug\net5.0\Laboratory4.csproj.AssemblyReference.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\obj\Debug\net5.0\Laboratory4.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\obj\Debug\net5.0\Laboratory4.AssemblyInfoInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\obj\Debug\net5.0\Laboratory4.AssemblyInfo.cs
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\obj\Debug\net5.0\Laboratory4.csproj.CoreCompileInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\obj\Debug\net5.0\Laboratory4.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\obj\Debug\net5.0\ref\Laboratory4.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\obj\Debug\net5.0\Laboratory4.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\laboratory-4\Laboratory4\obj\Debug\net5.0\Laboratory4.genruntimeconfig.cache
