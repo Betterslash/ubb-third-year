@@ -1,0 +1,31 @@
+HTTP/1.1 301 Moved Permanently
+
+Server: nginx/1.14.2
+
+Date: Tue, 02 Nov 2021 16:38:58 GMT
+
+Content-Type: text/html
+
+Content-Length: 185
+
+Connection: keep-alive
+
+Location: https://www.wikipedia.com/
+
+
+
+<html>
+
+<head><title>301 Moved Permanently</title></head>
+
+<body bgcolor="white">
+
+<center><h1>301 Moved Permanently</h1></center>
+
+<hr><center>nginx/1.14.2</center>
+
+</body>
+
+</html>
+
+
