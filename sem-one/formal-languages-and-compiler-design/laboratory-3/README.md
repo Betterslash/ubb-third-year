@@ -31,3 +31,12 @@ Grammar Specific:
 
 <h2>Diagram </h2>
 <img src='src/main/resources/diagram.png'>
+
+<h2>How it works</h2>
+1. Parses a given file respcting the rules defined above
+2. Mapps it to a FiniteAutomata object which has properties : Q, E, q0, F, S
+3. Uses a command menu for showing different parts of the automata already initialized
+4. Storing representation is of type : Pair object (state), String(route) with a String value(resulting state)
+5. Can check if the parsed automata is a Deterministic by checking if it doesn't contain states with the same combination of Pair, String values
+6. Can check if an input sequence is a valid one for the FiniteAutomata object by recursively checking its possible paths and if those paths cover every part until a final state
+

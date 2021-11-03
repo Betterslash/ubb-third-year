@@ -85,15 +85,19 @@ public class FiniteAutomata extends Representation {
 
     private boolean internalCheck(Sequence parse, HandSideAutomataPair currentState){
         if(parse.getRepresentation().size() > 0){
-            var state = this.S
+            var possibleState = this.S
                     .stream()
                     .filter(e -> Objects.equals(e.getLeftHandside().getRoute(), parse.getRepresentation().get(0).toString())
                             && Objects.equals(e.getLeftHandside().getState(), currentState.getRightHandside()))
-                    .collect(Collectors.toList())
-                    .get(0);
-            return internalCheck(Sequence.builder()
-                    .representation(parse.getRepresentation().subList(1, parse.getRepresentation().size()))
-                    .build(), state);
+                    .collect(Collectors.toList());
+            if(possibleState.size() == 0){
+                return false;
+            }else {
+                var state = possibleState.get(0);
+                return internalCheck(Sequence.builder()
+                        .representation(parse.getRepresentation().subList(1, parse.getRepresentation().size()))
+                        .build(), state);
+            }
         }
         return this.F.contains(currentState.getRightHandside());
     }
