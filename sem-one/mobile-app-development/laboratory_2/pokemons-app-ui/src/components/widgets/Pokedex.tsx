@@ -26,7 +26,7 @@ import {
 import {useNetowrk} from "../../hooks/AppHooks";
 import {PokemonOnlineService} from "../../services/PokemonOnlineService";
 import {PokemonModel, PokemonUserModel} from "../../model/PokemonModel";
-import {add, checkmark, closeCircle, closeSharp, filter, remove} from "ionicons/icons";
+import {add, caretDown, checkmark, closeCircle, closeSharp, filter, remove} from "ionicons/icons";
 import {LocalRepositoryService} from "../../services/repository/LocalRepositoryService";
 import {useHistory} from "react-router";
 import {Logger} from "../../helpers/logger/Logger";
@@ -234,6 +234,11 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
         }
     };
 
+
+    const showImage = (id: number) =>{
+        Logger.info(`${Pokedex.name} -> ${showImage.name} for item with id : ${id}`);
+    }
+
     return (
         <IonContent>
         <IonCardContent >
@@ -251,8 +256,12 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
                     </IonButton>
                 </IonButtons>
                 <IonGrid>
-                               {filters.map((e,index) =>
-                                   (<IonRow key={`row_${index}`}><IonChip key={index}>{`${e.field} ${e.comparator} ${e.value}`}<IonIcon icon={closeCircle} onClick={() => {deleteOne(index)}}/></IonChip></IonRow>))}
+                    {filters.map((e,index) =>
+                        (<IonRow key={`row_${index}`}>
+                            <IonChip key={index}>{`${e.field} ${e.comparator} ${e.value}`}
+                                <IonIcon icon={closeCircle} onClick={() => {deleteOne(index)}}/>
+                            </IonChip>
+                        </IonRow>))}
                 </IonGrid>
                 <IonButtons slot="end">
                     <IonButton onClick={() => {setApplyFilters(!applyFilters); setPageNumber(1);}}>
@@ -277,8 +286,12 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
                             <IonButton onClick={() => catchOne(e.id)}>
                                 <IonIcon icon={add}/>
                             </IonButton>
+                            <IonButton>
+                                <IonIcon icon={caretDown} onClick={() => {showImage(e.id)}}/>
+                            </IonButton>
                         </IonButtons>
                         <IonReorder key={e.id + '_reorder'} slot="end"/>
+                        <IonItem key={e.id + '_image'}/>
                     </IonItem>
                 )}
             </IonReorderGroup>

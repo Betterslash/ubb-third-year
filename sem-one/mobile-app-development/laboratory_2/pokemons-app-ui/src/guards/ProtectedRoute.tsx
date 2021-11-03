@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useEffect, useState} from "react";
-import {Redirect, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {UserTokenService} from "../services/UserTokenService";
 import jwtDecode from "jwt-decode";
 import {useHistory} from "react-router";
@@ -21,10 +21,8 @@ export const ProtectedRoute : React.FC<ProtectedRouteProps> = ({path, ProtectedC
             const token = (await UserTokenService.getToken()).value;
             // @ts-ignore
             if (token === "" || token === null ||jwtDecode(token).exp < (new Date().getTime() + 1) / 1000) {
-
                     history.push("/");
                     logout();
-
             }
         })();
     }

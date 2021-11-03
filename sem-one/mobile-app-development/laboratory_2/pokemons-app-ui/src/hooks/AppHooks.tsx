@@ -9,6 +9,7 @@ import {Camera, CameraResultType, CameraSource, Photo} from "@capacitor/camera";
 import {UserPhoto} from "../model/UtilsModel";
 import {Directory} from "@capacitor/filesystem";
 import {Filesystem} from "@capacitor/filesystem";
+import {Storage} from "@capacitor/storage";
 
 const initialNetworkState : ConnectionStatus = {
     connected : true,
@@ -130,6 +131,7 @@ export const usePhotoHook = () => {
             setPhotos(newPhotos);
 
             const savedFileImage = await savePicture(cameraPhoto, fileName);
+            await Storage.set({key: 'PHOTO_STORAGE', value: JSON.stringify(newPhotos)});
             Logger.info(`Photo ${savedFileImage.webviewPath} was taken ...`);
         }catch (err){
             Logger.warning(JSON.stringify(err));
