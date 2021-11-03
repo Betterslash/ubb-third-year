@@ -40,3 +40,32 @@ Grammar Specific:
 5. Can check if the parsed automata is a Deterministic by checking if it doesn't contain states with the same combination of Pair, String values
 6. Can check if an input sequence is a valid one for the FiniteAutomata object by recursively checking its possible paths and if those paths cover every part until a final state
 
+<h2>Test Cases</h2>
+1. File Representation : 
+   1. Q = { q1, q2, q3, q4 } 
+   2. E = { 0, 1 } 
+   3. q0 = q1 
+   4. F = { q1, q4 } 
+   5. S = {
+   6. \t(q1, 0) -> q2,
+   7. \t(q1, 1) -> q4,
+   8. \t(q2, 0) -> q2,
+   9. \t(q2, 1) -> q3,
+   10. \t(q3, 0) -> q1,
+   11. \t(q3, 1) -> q4,
+   12. \t(q4, 0) -> q2,
+   13. \t(q4, 1) -> q3 
+   14. }
+
+2. Visual Representation :
+   0. <img src='src/main/resources/automata_model.png'>
+
+3. Results :
+   1. in: 1 out: [q1, q2, q3, q4]
+   2. in: 2 out: [0, 1]
+   3. in: 3 out: [HandsidePair(CustomPair(state=q1, route=0), q2), HandsidePair(CustomPair(state=q1, route=1), q4), HandsidePair(CustomPair(state=q2, route=0), q2), HandsidePair(CustomPair(state=q2, route=1), q3), HandsidePair(CustomPair(state=q3, route=0), q1), HandsidePair(CustomPair(state=q3, route=1), q4), HandsidePair(CustomPair(state=q4, route=0), q2), HandsidePair(CustomPair(state=q4, route=1), q3)]
+   4. in: 4 out: [q1, q4]
+   5. in: 5 out: true
+   6. in: 6 
+      1. in: 1101 out: true
+      2. in: 1111 out: false
