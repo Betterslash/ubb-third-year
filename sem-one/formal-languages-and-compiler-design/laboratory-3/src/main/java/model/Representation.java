@@ -36,4 +36,6 @@ public abstract class Representation {
     }
 
     protected abstract void initializeFromFile();
+
+    public abstract boolean verifySequence(Sequence parse);
 }

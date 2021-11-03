@@ -19,7 +19,8 @@ public final class Menu {
         System.out.println("3 -> Show transitions ");
         System.out.println("4 -> Show final states ");
         System.out.println("5 -> Show if automata is DFA ");
-        System.out.println("6 -> Exit ");
+        System.out.println("6 -> Check sequence ");
+        System.out.println("7 -> Exit ");
         System.out.println("----------------------------");
     }
 
@@ -41,12 +42,13 @@ public final class Menu {
                     case 3 -> command = CommandFactory.buildCommand(CommandType.SHOW_COMMAND, FiniteAutomataField.TRANSITIONS);
                     case 4 -> command = CommandFactory.buildCommand(CommandType.SHOW_COMMAND, FiniteAutomataField.FINAL_STATES);
                     case 5 -> command = CommandFactory.buildCommand(CommandType.SHOW_COMMAND, FiniteAutomataField.IS_DFA);
-                    case 6 -> command = CommandFactory.buildCommand(CommandType.EXIT_COMMAND, null);
+                    case 6 -> command = CommandFactory.buildCommand(CommandType.READ_COMMAND, null);
+                    case 7 -> command = CommandFactory.buildCommand(CommandType.EXIT_COMMAND, null);
                 }
                 assert command != null;
                 command.execute();
             }catch (Exception e){
-                System.out.println("Couldn't understand the command master :( ");
+                System.out.printf("Something went wrong reason being : %s\n", e.getMessage());
             }
         }
     }

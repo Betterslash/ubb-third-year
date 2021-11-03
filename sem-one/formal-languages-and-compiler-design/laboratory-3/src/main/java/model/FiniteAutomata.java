@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -80,6 +81,39 @@ public class FiniteAutomata extends Representation {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean internalCheck(Sequence parse, HandSideAutomataPair currentState){
+        if(parse.getRepresentation().size() > 0){
+            var state = this.S
+                    .stream()
+                    .filter(e -> Objects.equals(e.getLeftHandside().getRoute(), parse.getRepresentation().get(0).toString())
+                            && Objects.equals(e.getLeftHandside().getState(), currentState.getRightHandside()))
+                    .collect(Collectors.toList())
+                    .get(0);
+            return internalCheck(Sequence.builder()
+                    .representation(parse.getRepresentation().subList(1, parse.getRepresentation().size()))
+                    .build(), state);
+        }
+        return this.F.contains(currentState.getRightHandside());
+    }
+
+    @Override
+    public boolean verifySequence(Sequence parse) {
+        if(this.DFA){
+            var response = true;
+            var initialState = this.S
+                    .stream()
+                    .filter(e -> Objects.equals(e.getLeftHandside().getRoute(), parse.getRepresentation().get(0).toString())
+                            && Objects.equals(e.getLeftHandside().getState(), this.q0))
+                    .collect(Collectors.toList())
+                    .get(0);
+            response = internalCheck(Sequence.builder()
+                    .representation(parse.getRepresentation().subList(1, parse.getRepresentation().size()))
+                    .build(), initialState);
+            return response;
+        }
+        return false;
     }
 
     private void isDFA(){
