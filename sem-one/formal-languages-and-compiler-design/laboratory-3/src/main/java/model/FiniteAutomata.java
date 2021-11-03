@@ -1,6 +1,6 @@
 package model;
 
-import exception.GrammarInitializationException;
+import exception.FiniteAutomataInitializationException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -35,7 +35,7 @@ public class FiniteAutomata extends Representation {
             try {
                 reader = new BufferedReader(new FileReader("src/main/resources/finite_automata_1.txt"));
             } catch (FileNotFoundException e) {
-                throw new GrammarInitializationException("Couldn't initialize the grammar !!");
+                throw new FiniteAutomataInitializationException("Couldn't initialize the grammar !!");
             }
             this.initializeFromFile();
         } else {
@@ -93,32 +93,4 @@ public class FiniteAutomata extends Representation {
         });
     }
 
-
-    public static FiniteAutomata parse(Grammar grammar){
-        var finiteAutomata = new FiniteAutomata(InitializationType.NONE);
-        finiteAutomata.Q = grammar.getN();
-        finiteAutomata.q0 = grammar.getS();
-        finiteAutomata.E = grammar.getE();
-        finiteAutomata.F = new ArrayList<>(List.of("K"));
-        finiteAutomata.S = new ArrayList<>();
-        grammar.getP().forEach(e -> {
-            if(Objects.equals(e.getLeftHandside(), finiteAutomata.q0) && e.getRightHandside().contains("E")){
-                finiteAutomata.F.add(finiteAutomata.getQ0());
-            }else{
-                var route = e.getRightHandside().get(0);
-                var state = "";
-                if(e.getRightHandside().size() == 2){
-                    state = e.getRightHandside().get(1);
-                }
-                finiteAutomata.S.add(HandSideAutomataPair.builder()
-                        .leftHandside(CustomPair.builder()
-                                .route(route)
-                                .state(e.getLeftHandside())
-                                .build())
-                        .rightHandside(state)
-                        .build());
-            }
-        });
-        return finiteAutomata;
-    }
 }

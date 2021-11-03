@@ -1,6 +1,5 @@
 package model;
 
-import exception.GrammarInitializationException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,7 +18,7 @@ public abstract class Representation {
 
     /**
      * @return line parsed as a set of Terminals or non-Terminals for the Grammar object field N or E
-     * @throws GrammarInitializationException if the lines couldn't be parssed correctly
+     * @throws exception.InitializationException if the lines couldn't be parssed correctly
      */
     protected List<String> readLineAsList(){
         try {
@@ -32,7 +31,7 @@ public abstract class Representation {
                             .split(", "))
                     .toList();
         } catch (IOException e) {
-            throw new GrammarInitializationException("Something went wrong during reading!!");
+            throw new exception.InitializationException("Something went wrong during reading!!");
         }
     }
 
