@@ -1,6 +1,6 @@
 package com.microservices.pokemons.model.pokemons;
 
-import com.microservices.pokemons.model.files.FileEntity;
+import com.microservices.pokemons.model.locations.LocationEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,4 +44,6 @@ public class PokemonEntity implements Serializable {
 
     private String photoPath;
 
+    @OneToOne
+    private LocationEntity location;
 }

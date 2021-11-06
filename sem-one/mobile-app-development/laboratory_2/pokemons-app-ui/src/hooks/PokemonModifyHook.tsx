@@ -4,7 +4,6 @@ import {useNetowrk, useUserState} from "./AppHooks";
 import {PokemonOnlineService} from "../services/PokemonOnlineService";
 import {LocalRepositoryService} from "../services/repository/LocalRepositoryService";
 import {LocalDateService} from "../services/LocalDateService";
-import {ImageMapper} from "../mapper/ImageMapper";
 
 const createInitialState = (id : string | undefined) : PokemonModel => {
     const initialState : PokemonModel = {
@@ -40,7 +39,6 @@ export const useInitialState = (id : string | undefined) => {
     const userState = useUserState();
     const reducer = (state : any, action : any) : PokemonModel => {
         let futureState = copyState(state);
-
         switch (action.type){
             case 'ALL' : {futureState = copyState(action.item); return futureState;}
             case 'NAME' : {futureState.name = action.item.detail.value; return futureState;}
@@ -49,6 +47,7 @@ export const useInitialState = (id : string | undefined) => {
             case 'REGISTERED_AT' : {futureState.registeredAt = LocalDateService.parseToJavaLocalDate(action.item.detail.value); return futureState;}
             case 'TYPE_ONE' : {futureState.types.typeOne = PokemonType[action.item.detail.value]; return futureState;}
             case 'PHOTO_PATH': {futureState.photoPath = action.item; return futureState}
+            case 'LOCATION' : {futureState.location = action.item; return futureState}
             default : {return futureState;}
         }
     }

@@ -1,3 +1,5 @@
+import {LocationModel} from "./LocationModel";
+
 export enum PokemonType{
     //0
     FIRE,
@@ -53,6 +55,7 @@ export interface PokemonModel {
     photoPath ?: string;
     saved? : boolean;
     deletionMark? : boolean;
+    location?: LocationModel;
 }
 
 export interface PokemonUserModel{

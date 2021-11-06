@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {
+    CreateAnimation,
     IonButton,
     IonButtons, IonCard,
     IonCardContent,
@@ -26,7 +27,7 @@ import {
 import {useNetowrk} from "../../hooks/AppHooks";
 import {PokemonOnlineService} from "../../services/PokemonOnlineService";
 import {PokemonModel, PokemonUserModel} from "../../model/PokemonModel";
-import {add, caretDown, caretUp, checkmark, closeCircle, closeSharp, filter, remove} from "ionicons/icons";
+import {add, caretDown, caretUp, checkmark, closeCircle, closeSharp, filter, remove, location} from "ionicons/icons";
 import {LocalRepositoryService} from "../../services/repository/LocalRepositoryService";
 import {useHistory} from "react-router";
 import {Logger} from "../../helpers/logger/Logger";
@@ -38,6 +39,7 @@ import {NotificationService} from "../../services/NotificationService";
 import {AppContext} from "../../context/AppContext";
 import {FilterModel, FiltersModalBody} from "../modal/body/FiltersModalBody";
 import {UserTokenService} from "../../services/UserTokenService";
+import {LocationView} from "./LocationView";
 
 export interface PokedexProps {
     token : string;
@@ -243,13 +245,32 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
         }
         Logger.info(`${Pokedex.name} -> ${showImage.name} for item with id : ${id}`);
     }
+    const showLocation = (id: number) =>{
+        if(locations.includes(id)){
+            setLocations(locations.filter(e => e !== id));
+        }else{
+            setLocations(locations.concat(id));
+        }
+        Logger.info(`${Pokedex.name} -> ${showLocation.name} for item with id : ${id}`);
+    }
     const [opened, setOpened] = useState([] as number[]);
+    const [locations, setLocations] = useState([] as number[]);
 
     const getImageShowIcon = (id: number) => {
         if(opened.includes(id)){
             return caretUp;
         }else{
             return caretDown;
+        }
+    }
+
+    /*const [currentPhotoPath, setCurrentPhotoPath] = useState('');*/
+
+    const getPokemonPhoto = (photoPath: string) => {
+        if(photoPath !== ''){
+            return `${Environment.imageUploadUrl}/${photoPath}`;
+        }else {
+            return '';
         }
     }
 
@@ -304,14 +325,23 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
                                <IonButton onClick={() => {showImage(e.id)}}>
                                    <IonIcon icon={getImageShowIcon(e.id)} />
                                </IonButton>
+                               <IonButton onClick={() => {showLocation(e.id)}}>
+                                   <IonIcon icon={location}/>
+                               </IonButton>
                            </IonButtons>
                            <IonReorder key={e.id + '_reorder'} slot="end"/>
                        </IonItem>
                        {
                            (opened.includes(e.id) && e.photoPath != null) &&
                            <IonCard>
-                               <IonImg src={e.photoPath}/>
+                               <IonImg src={getPokemonPhoto(e.photoPath)}/>
                            </IonCard>
+                       }
+                       {
+                           (locations.includes(e.id) && e.location != null) &&
+                               <IonCard>
+                                   <LocationView location={e.location}/>
+                               </IonCard>
                        }
                    </div>
                 )}

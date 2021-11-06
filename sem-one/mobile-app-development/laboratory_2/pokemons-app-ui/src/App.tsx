@@ -30,6 +30,7 @@ import {AppContext} from "./context/AppContext";
 import {NotificationModel} from "./model/NotificationModel";
 import {Register} from "./pages/Register";
 import {MyProfile} from "./pages/MyProfile";
+
 const App: React.FC = () => {
   const [notifications, setNotifications] = useState([] as NotificationModel[]);
 

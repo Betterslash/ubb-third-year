@@ -1,4 +1,4 @@
-package com.microservices.pokemons.dto.notification;
+package com.microservices.pokemons.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
