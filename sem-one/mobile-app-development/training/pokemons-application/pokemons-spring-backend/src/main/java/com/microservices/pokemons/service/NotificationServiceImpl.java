@@ -1,7 +1,7 @@
 package com.microservices.pokemons.service;
 
-import com.microservices.pokemons.dto.NotificationDto;
-import com.microservices.pokemons.model.TrainerEntity;
+import com.microservices.pokemons.dto.notification.NotificationDto;
+import com.microservices.pokemons.model.pokemons.TrainerEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {
     IonButton,
-    IonButtons,
+    IonButtons, IonCard,
     IonCardContent,
     IonChip,
     IonContent,
@@ -26,7 +26,7 @@ import {
 import {useNetowrk} from "../../hooks/AppHooks";
 import {PokemonOnlineService} from "../../services/PokemonOnlineService";
 import {PokemonModel, PokemonUserModel} from "../../model/PokemonModel";
-import {add, caretDown, checkmark, closeCircle, closeSharp, filter, remove} from "ionicons/icons";
+import {add, caretDown, caretUp, checkmark, closeCircle, closeSharp, filter, remove} from "ionicons/icons";
 import {LocalRepositoryService} from "../../services/repository/LocalRepositoryService";
 import {useHistory} from "react-router";
 import {Logger} from "../../helpers/logger/Logger";
@@ -236,7 +236,21 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
 
 
     const showImage = (id: number) =>{
+        if(opened.includes(id)){
+            setOpened(opened.filter(e => e !== id));
+        }else{
+            setOpened(opened.concat(id));
+        }
         Logger.info(`${Pokedex.name} -> ${showImage.name} for item with id : ${id}`);
+    }
+    const [opened, setOpened] = useState([] as number[]);
+
+    const getImageShowIcon = (id: number) => {
+        if(opened.includes(id)){
+            return caretUp;
+        }else{
+            return caretDown;
+        }
     }
 
     return (
@@ -273,26 +287,33 @@ export const Pokedex : React.FC<PokedexProps> = ({token}) => {
             <IonList>
             <IonReorderGroup disabled={false} onIonItemReorder={(e:any) => {e.detail.complete();}}>
                 {pokemons.map(e =>
-                    <IonItem key={e.id} disabled={e.deletionMark != null && e.deletionMark}>
-                        <IonImg src={`../assets/pokemon_types/${e.types.typeOne.toLowerCase()}.png`} slot="start"/>
-                        <IonText onClick={() => navigateToModify(e.id)}>{e.name}</IonText>
-                        <IonButtons slot="end">
-                            {
-                                UserTokenService.getAuthoritiesFromToken(token).includes("ROLE_GYM_LEADER") &&
-                                <IonButton onClick={() => removeOne(e.id)}>
-                                <IonIcon icon={remove}/>
-                                </IonButton>
-                            }
-                            <IonButton onClick={() => catchOne(e.id)}>
-                                <IonIcon icon={add}/>
-                            </IonButton>
-                            <IonButton>
-                                <IonIcon icon={caretDown} onClick={() => {showImage(e.id)}}/>
-                            </IonButton>
-                        </IonButtons>
-                        <IonReorder key={e.id + '_reorder'} slot="end"/>
-                        <IonItem key={e.id + '_image'}/>
-                    </IonItem>
+                   <div key={e.id+ "_container"}>
+                       <IonItem key={e.id} disabled={e.deletionMark != null && e.deletionMark}>
+                           <IonImg src={`../assets/pokemon_types/${e.types.typeOne.toLowerCase()}.png`} slot="start"/>
+                           <IonText onClick={() => navigateToModify(e.id)}>{e.name}</IonText>
+                           <IonButtons slot="end">
+                               {
+                                   UserTokenService.getAuthoritiesFromToken(token).includes("ROLE_GYM_LEADER") &&
+                                   <IonButton onClick={() => removeOne(e.id)}>
+                                       <IonIcon icon={remove}/>
+                                   </IonButton>
+                               }
+                               <IonButton onClick={() => catchOne(e.id)}>
+                                   <IonIcon icon={add}/>
+                               </IonButton>
+                               <IonButton onClick={() => {showImage(e.id)}}>
+                                   <IonIcon icon={getImageShowIcon(e.id)} />
+                               </IonButton>
+                           </IonButtons>
+                           <IonReorder key={e.id + '_reorder'} slot="end"/>
+                       </IonItem>
+                       {
+                           (opened.includes(e.id) && e.photoPath != null) &&
+                           <IonCard>
+                               <IonImg src={e.photoPath}/>
+                           </IonCard>
+                       }
+                   </div>
                 )}
             </IonReorderGroup>
 

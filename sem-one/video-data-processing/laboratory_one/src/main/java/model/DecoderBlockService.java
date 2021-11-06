@@ -1,6 +1,5 @@
 package model;
 
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -42,8 +41,8 @@ public final class DecoderBlockService {
 
     private static PPMImage createImageResult(List<double[][]> yValues, List<double[][]> uValues, List<double[][]> vValues){
         var image = PPMImage.PPMImageBuilder.Build();
-        image.setWidth(600);
-        image.setHeigth(800);
+        image.setWidth(800);
+        image.setHeigth(600);
         image.setY(decodeBlock(yValues));
         image.setU(decodeBlock(uValues));
         image.setV(decodeBlock(vValues));
@@ -56,8 +55,12 @@ public final class DecoderBlockService {
         recomposeImage(imageResult);
     }
 
+    /**
+     * @param blocks For every block in the list I put it in a cretain order to keep its position in the image
+     * @return decoded matrix coresponding to the block type introduced
+     */
     private static double[][] decodeBlock(List<double[][]> blocks){
-        double[][] matrix = new double[800][600];
+        double[][] matrix = new double[600][800];
         int line = 0;
         int column = 0;
         for (var block : blocks)
@@ -65,7 +68,7 @@ public final class DecoderBlockService {
             for (int i = 0; i < 8; i++)
                 System.arraycopy(block[i], 0, matrix[line + i], column, 8);
             column += 8;
-            if (column == 600)
+            if (column == 800)
             {
                 line += 8;
                 column = 0;
@@ -81,8 +84,8 @@ public final class DecoderBlockService {
         writer.write("# CREATOR: GIMP PNM Filter Version 1.1" + System.lineSeparator());
         writer.write("800 600" + System.lineSeparator());
         writer.write("255" + System.lineSeparator());
-        for (int i = 0; i < 800; i++) {
-            for (int j = 0; j < 600; j++) {
+        for (int i = 0; i < 600; i++) {
+            for (int j = 0; j < 800; j++) {
                 writer.write(image.getR()[i][j] + System.lineSeparator());
                 writer.write(image.getG()[i][j] + System.lineSeparator());
                 writer.write(image.getB()[i][j] + System.lineSeparator());

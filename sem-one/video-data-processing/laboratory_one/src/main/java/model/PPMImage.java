@@ -36,8 +36,8 @@ public class PPMImage {
             fromat = internalRepresentation.readLine();
             internalRepresentation.readLine();
             var sizes = internalRepresentation.readLine().split(" ");
-            heigth = Integer.parseInt(sizes[0]);
-            width = Integer.parseInt(sizes[1]);
+            width = Integer.parseInt(sizes[0]);
+            heigth = Integer.parseInt(sizes[1]);
             maxValue = Integer.parseInt(internalRepresentation.readLine());
         }catch (IOException exception){
             System.out.println(exception.getMessage());
@@ -75,9 +75,11 @@ public class PPMImage {
         v = new double[heigth][width];
         for(int i = 0; i < heigth; i++){
             for(int j = 0; j < width; j ++){
-                y[i][j] = 0.3 * r[i][j] + 0.56 * g[i][j] + 0.11 * b[i][j];
-                u[i][j] = 128 - 0.17 * r[i][j] - 0.33 * g[i][j] + 0.5 * b[i][j];
-                v[i][j] = 128 + 0.5 * r[i][j] - 0.42 * g[i][j] - 0.08 * b[i][j];
+                y[i][j] = 0.299 * r[i][j] + 0.587 * g[i][j] + 0.114 * b[i][j];
+                u[i][j] = 0.492 * (b[i][j] - y[i][j]);
+                //u[i][j] = 128 - 0.17 * r[i][j] - 0.33 * g[i][j] + 0.5 * b[i][j];
+                //v[i][j] = 128 + 0.5 * r[i][j] - 0.42 * g[i][j] - 0.08 * b[i][j];
+                v[i][j] = 0.887 * (r[i][j] - y[i][j]);
             }
         }
     }
@@ -88,9 +90,12 @@ public class PPMImage {
         b = new int[heigth][width];
         for (int j = 0; j < heigth; j++) {
             for (int k = 0; k < width; k++) {
-                r[j][k] = (int)(y[j][k] + 1.402 * (u[j][k] -128) + 15);
-                g[j][k] = (int)(y[j][k] - 0.344136 *(u[j][k] - 128) - 0.714136 * (v[j][k] -128) + 3);
-                b[j][k] = (int)(y[j][k] + 1.7790 * (u[j][k] - 128) + 10);
+                //r[j][k] = (int)(y[j][k] + 1.402 * (u[j][k] -128) + 15);
+                //g[j][k] = (int)(y[j][k] - 0.345 *(u[j][k] - 128) - 0.715 * (v[j][k] -128) + 3);
+                //b[j][k] = (int)(y[j][k] + 1.78 * (u[j][k] - 128) + 10);
+                r[j][k] = (int)(y[j][k] + 1.140 * v[j][k]);
+                g[j][k] = (int)(y[j][k] - 0.395 * u[j][k] - 0.581 * v[j][k]);
+                b[j][k] = (int)(y[j][k] + 2.032 * u[j][k]);
                 if(r[j][k] > 255){
                     r[j][k] = 255;
                 }
@@ -99,6 +104,15 @@ public class PPMImage {
                 }
                 if(b[j][k] > 255){
                     b[j][k] = 255;
+                }
+                if(r[j][k] < 0){
+                    r[j][k] = 0;
+                }
+                if(g[j][k] < 0){
+                    g[j][k] = 0;
+                }
+                if(b[j][k] < 0){
+                    b[j][k] = 0;
                 }
             }
         }

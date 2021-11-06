@@ -1,8 +1,9 @@
 package com.microservices.pokemons.mapper;
 
-import com.microservices.pokemons.dto.PokemonDto;
-import com.microservices.pokemons.model.PokemonEntity;
-import com.microservices.pokemons.model.PokemonTypeEntity;
+import com.microservices.pokemons.dto.pokemons.PokemonDto;
+import com.microservices.pokemons.model.files.FileEntity;
+import com.microservices.pokemons.model.pokemons.PokemonEntity;
+import com.microservices.pokemons.model.pokemons.PokemonTypeEntity;
 import com.microservices.pokemons.repository.PokemonRepository;
 import com.microservices.pokemons.repository.PokemonTypesRepository;
 import org.mapstruct.Mapper;
@@ -46,6 +47,7 @@ public interface PokemonMapper {
                     .registeredAt(LocalDate.parse(dto.getRegisteredAt()))
                     .hasShiny(dto.isHasShiny())
                     .catchRate(dto.getCatchRate())
+                    .photoPath(dto.getPhotoPath())
                     .build();
 
     }

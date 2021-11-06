@@ -58,7 +58,7 @@ export const MyProfile : React.FC = () => {
                         </IonRow>
                     </IonGrid>
                     <IonButtons>
-                        <IonButton onClick={cameraPhoto.takePhoto}>
+                        <IonButton onClick={cameraPhoto.uploadPhoto}>
                             <IonIcon icon={camera}/>
                         </IonButton>
                     </IonButtons>

@@ -1,6 +1,6 @@
 package com.microservices.pokemons.service;
 
-import com.microservices.pokemons.dto.NotificationDto;
+import com.microservices.pokemons.dto.notification.NotificationDto;
 
 import java.util.List;
 

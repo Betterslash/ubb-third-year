@@ -1,13 +1,15 @@
 package com.microservices.pokemons.controller;
 
 import com.microservices.pokemons.dto.ActionType;
-import com.microservices.pokemons.dto.NotificationDto;
-import com.microservices.pokemons.dto.PokemonDto;
-import com.microservices.pokemons.dto.PokemonUserDto;
+import com.microservices.pokemons.dto.files.FileDto;
+import com.microservices.pokemons.dto.notification.NotificationDto;
+import com.microservices.pokemons.dto.pokemons.PokemonDto;
+import com.microservices.pokemons.dto.pokemons.PokemonUserDto;
 import com.microservices.pokemons.service.NotificationService;
 import com.microservices.pokemons.service.PokemonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
@@ -44,7 +46,8 @@ public class PokemonController {
 
     @PutMapping("/{id}")
     @RolesAllowed({"ROLE_GYM_LEADER"})
-    public PokemonDto updateOne(@PathVariable Long id, @RequestBody PokemonDto pokemonDto){
+    public PokemonDto updateOne(@PathVariable Long id,
+                                @RequestBody PokemonDto pokemonDto){
         var result = this.pokemonService.updateOne(id, pokemonDto);
         var notification = NotificationDto.Builder.build(ActionType.UPDATE, pokemonDto);
         notificationService.broadcast(notification);

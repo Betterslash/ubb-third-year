@@ -1,7 +1,7 @@
 package com.microservices.pokemons.service;
 
-import com.microservices.pokemons.dto.PokemonDto;
-import com.microservices.pokemons.dto.PokemonUserDto;
+import com.microservices.pokemons.dto.pokemons.PokemonDto;
+import com.microservices.pokemons.dto.pokemons.PokemonUserDto;
 
 import java.util.List;
 

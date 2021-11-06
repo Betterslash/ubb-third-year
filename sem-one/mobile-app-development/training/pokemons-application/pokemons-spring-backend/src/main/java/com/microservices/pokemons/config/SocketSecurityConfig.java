@@ -10,7 +10,8 @@ public class SocketSecurityConfig
         extends AbstractSecurityWebSocketMessageBrokerConfigurer {
     @Override
     protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
-        messages.simpTypeMatchers(SimpMessageType.CONNECT,
+        messages
+                .simpTypeMatchers(SimpMessageType.CONNECT,
                 SimpMessageType.DISCONNECT, SimpMessageType.SUBSCRIBE).permitAll().anyMessage().authenticated();
     }
     @Override
