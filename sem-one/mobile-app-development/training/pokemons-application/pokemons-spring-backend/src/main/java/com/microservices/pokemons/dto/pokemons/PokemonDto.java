@@ -1,6 +1,7 @@
 package com.microservices.pokemons.dto.pokemons;
 
-import com.microservices.pokemons.dto.notification.BaseDto;
+import com.microservices.pokemons.dto.locations.LocationDto;
+import com.microservices.pokemons.dto.BaseDto;
 import io.micrometer.core.lang.Nullable;
 import lombok.*;
 
@@ -20,4 +21,6 @@ public class PokemonDto extends BaseDto {
     private Boolean deletionMark;
     @Nullable
     private String photoPath;
+    @Nullable
+    private LocationDto location;
 }

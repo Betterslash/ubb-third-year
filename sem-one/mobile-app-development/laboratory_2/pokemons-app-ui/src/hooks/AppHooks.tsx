@@ -11,6 +11,7 @@ import {Directory} from "@capacitor/filesystem";
 import {Filesystem} from "@capacitor/filesystem";
 import {Storage} from "@capacitor/storage";
 import {Capacitor} from "@capacitor/core";
+import {Geolocation, Position} from '@capacitor/geolocation';
 
 const initialNetworkState : ConnectionStatus = {
     connected : true,
@@ -112,6 +113,7 @@ export const useUserState = () => {
     return appContext;
 }
 
+// Photo Hook
 export const usePhotoHook = () => {
     const [photos, setPhotos] = useState<UserPhoto[]>([]);
     const fileName = new Date().getTime() + ".jpeg";
@@ -264,5 +266,40 @@ const savePicture = async (photo: Photo, fileName: string): Promise<UserPhoto> =
             filepath: fileName,
             webviewPath: photo.webPath
         };
+    }
+};
+
+//Location Hook
+interface MyLocation {
+    position?: Position;
+    error?: Error;
+}
+
+export const useMyLocation = () => {
+    const [state, setState] = useState<MyLocation>({});
+    useEffect(watchMyLocation, []);
+    return state;
+
+    function watchMyLocation() {
+        let cancelled = false;
+        Geolocation.getCurrentPosition()
+            .then(position => updateMyPosition('current', position))
+            .catch(error => updateMyPosition('current',undefined, error));
+        let callbackId = "";
+        Geolocation.watchPosition({}, (position, error) => {
+            if(position){
+                updateMyPosition('watch', position, error);
+            }
+        }).then(result => callbackId = result);
+        return () => {
+            cancelled = true;
+            Geolocation.clearWatch({ id: callbackId });
+        };
+
+        function updateMyPosition(source: string, position?: Position, error: any = undefined) {
+            if (!cancelled) {
+                setState({ ...state, position: position || state.position, error });
+            }
+        }
     }
 };

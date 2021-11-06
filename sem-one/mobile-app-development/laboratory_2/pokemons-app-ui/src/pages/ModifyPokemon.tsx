@@ -2,12 +2,12 @@ import React, {useEffect, useState} from "react";
 import {PokemonType} from "../model/PokemonModel";
 import {
     IonButton, IonButtons, IonCard, IonCardContent, IonCheckbox, IonContent,
-    IonDatetime, IonIcon, IonImg,
+    IonDatetime, IonGrid, IonIcon, IonImg,
     IonInput, IonItem,
     IonLabel,
     IonLoading,
     IonPage, IonRow, IonSelect,
-    IonSelectOption, IonToolbar
+    IonSelectOption, IonToolbar, useIonModal
 } from "@ionic/react";
 import {Header} from "../components/layout/Header";
 import {Footer} from "../components/layout/Footer";
@@ -18,10 +18,12 @@ import {Logger} from "../helpers/logger/Logger";
 import {PokemonEvolutionInfo} from "../components/widgets/PokemonEvolutionInfo";
 import {useNetowrk, usePhotoHook} from "../hooks/AppHooks";
 import {LocalRepositoryService} from "../services/repository/LocalRepositoryService";
-import {camera, trash} from "ionicons/icons";
+import {camera, trash, location} from "ionicons/icons";
 import {ImageService} from "../services/ImageService";
 import {AxiosResponse} from "axios";
 import {Environment} from "../environment/Environment";
+import {MapModalBody, MyMapProps} from "../components/modal/body/MapModalBody";
+import {LocationModel} from "../model/LocationModel";
 
 export interface TypeIdPair {
     name: string;
@@ -41,22 +43,56 @@ export const ModifyPokemon: React.FC = () => {
             index += 1;
             return {name: s, id: index} as TypeIdPair
         });
+    const handleDismiss = () => {
+        dismiss();
+    }
+    const [mapProps, setMapProps] = useState({} as MyMapProps);
+    const updateMapProps = (mapPropsParam: MyMapProps) => {
+        const newMapProps = mapProps;
+        newMapProps.lat = mapPropsParam.lat;
+        newMapProps.lng = mapPropsParam.lng;
+        setMapProps(newMapProps);
+        initalState.pokemonReducer.dispatcher({item: {latitude : mapProps.lat, longitude: mapProps.lng} as LocationModel, type: 'LOCATION'});
+    }
     const history = useHistory();
     const {id} = useParams<ModifyPokemonProps>();
     const initalState = useInitialState(id);
     const network = useNetowrk().connected;
     const photo = usePhotoHook();
     const [currentImagePath, setCurrentImagePath] = useState('');
+    const [present, dismiss] = useIonModal(MapModalBody, {
+        onDismiss : handleDismiss,
+        setPosition: {} as {lat: number, lng: number},
+        updateMapProps: updateMapProps
+    });
+
+    const getPokemonLocationFromServer = async () => {
+        Logger.info(ModifyPokemon.name + ' -> ' + getPokemonLocationFromServer.name);
+        if(id != null && id !== '' && id !== '-1' && id !== undefined){
+            const pokemonLocation = (await PokemonOnlineService.getOneById(Number(id))).data?.location;
+            if(pokemonLocation){
+                Logger.info(ModifyPokemon.name + ' -> success ');
+                setMapProps({lat : pokemonLocation.latitude, lng: pokemonLocation.longitude} as MyMapProps);
+            }else{
+                Logger.info(ModifyPokemon.name + ' -> no Location found');
+                setMapProps({ } as MyMapProps);
+            }
+        }
+    }
+
     useEffect(() => {
         if(!network){
             Logger.warning(ModifyPokemon.name + ' -> offline mode');
         }else{
             getPokemonImageFromServer();
+            getPokemonLocationFromServer();
         }
     }, [network,]);
 
     const updatePokemonRequest = (imageId?: AxiosResponse<string>) =>{
         const futurePokemon = initalState.pokemonReducer.pokemon;
+        futurePokemon.location = {id: null, latitude: mapProps.lat, longitude: mapProps.lng} as unknown as LocationModel;
+        console.log(futurePokemon);
         if(imageId && imageId.data){
             futurePokemon.photoPath = imageId.data;
             Logger.info(`${ModifyPokemon.name} -> ${ImageService.uploadImage.name} -> imageId : ${JSON.stringify(imageId.data)}`);
@@ -81,6 +117,7 @@ export const ModifyPokemon: React.FC = () => {
         if(network){
             const photoData = new FormData();
             const pokemon = initalState.pokemonReducer.pokemon;
+            pokemon.location = {id: null, latitude: mapProps.lat, longitude: mapProps.lng} as unknown as LocationModel;
             getCurrentPhoto().then(result => {
                 if(result){
                     const consumable : any = (result as Blob);
@@ -107,11 +144,14 @@ export const ModifyPokemon: React.FC = () => {
     const getCurrentPhoto = async () => {
         const currentPhotoPath = initalState.pokemonReducer.pokemon.photoPath;
         if (currentPhotoPath) {
-            const stored = await photo.getPhoto(currentPhotoPath);
-            if(stored){
-               return await (await fetch(currentPhotoPath)).blob();
-            }else{
-               return null;
+            try{
+                const stored = await photo.getPhoto(currentPhotoPath);
+                if(stored){
+                    return await (await fetch(currentPhotoPath)).blob();
+                }
+            }catch (err){
+                Logger.warning('No new image added');
+                return null;
             }
         }
     }
@@ -135,7 +175,7 @@ export const ModifyPokemon: React.FC = () => {
         setCurrentImagePath('');
         initalState.pokemonReducer.dispatcher({item: '', type: 'PHOTO_PATH'});
     }
-    
+
     return (
         <IonPage>
             <IonLoading isOpen={initalState.fetching}/>
@@ -218,6 +258,29 @@ export const ModifyPokemon: React.FC = () => {
                                             </IonItem>
                                         </IonCard>
                                     }
+                                <br/>
+                                <IonLabel>
+                                    Location :
+
+                                    { mapProps &&
+                                        <IonGrid>
+                                            <br/>
+                                            <IonRow>
+                                                Latitude : {mapProps.lat}
+                                            </IonRow>
+                                            <br/>
+                                            <IonRow>
+                                                Longitude : {mapProps.lng}
+                                            </IonRow>
+                                        </IonGrid>
+                                    }
+
+                                    <IonButtons slot={"start"}>
+                                       <IonButton onClick={() => present()}>
+                                           <IonIcon icon={location}/>
+                                       </IonButton>
+                                    </IonButtons>
+                                </IonLabel>
                                 <br/>
                                 <IonButton disabled={initalState.viewOnly}
                                            expand="block" type="submit">Modify</IonButton>

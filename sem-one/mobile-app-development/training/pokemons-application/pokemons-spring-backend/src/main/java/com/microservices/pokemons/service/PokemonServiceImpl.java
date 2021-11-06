@@ -3,6 +3,7 @@ package com.microservices.pokemons.service;
 import com.microservices.pokemons.dto.pokemons.PokemonDto;
 import com.microservices.pokemons.dto.pokemons.PokemonUserDto;
 import com.microservices.pokemons.exception.PokemonServiceException;
+import com.microservices.pokemons.mapper.LocationConverter;
 import com.microservices.pokemons.mapper.PokemonMapper;
 import com.microservices.pokemons.model.embeddables.PokemonUserKey;
 import com.microservices.pokemons.model.pokemons.PokemonTypeEntity;
@@ -32,6 +33,7 @@ public class PokemonServiceImpl implements PokemonService {
     private final PokemonTypesRepository pokemonTypesRepository;
     private final PokemonUserRepository pokemonUserRepository;
     private final PokemonPagingAndSortingRepository pokemonPagingAndSortingRepository;
+    private final LocationRepository locationRepository;
 
     private Long getUserId(){
         var authenticatedUser = (TrainerEntity)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -178,10 +180,15 @@ public class PokemonServiceImpl implements PokemonService {
             e.setRegisteredAt(LocalDate.parse(pokemonDto.getRegisteredAt()));
             e.setCatchRate(pokemonDto.getCatchRate());
             e.setTypes(possibleType);
-            e.setPhotoPath(pokemonDto.getPhotoPath());
+                    if(pokemonDto.getLocation() != null){
+                        e.setLocation(locationRepository.save(LocationConverter.convertFromDtoToEntity(pokemonDto.getLocation())));
+                    }
+                    e.setPhotoPath(pokemonDto.getPhotoPath());
                     result.set(this.pokemonMapper
                             .fromEntityToDto(this.pokemonRepository
                                     .save(e)));
+
+
                 },
                 () -> {
                     pokemonDto.id = null;

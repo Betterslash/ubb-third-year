@@ -1,7 +1,7 @@
 package com.microservices.pokemons.mapper;
 
 import com.microservices.pokemons.dto.pokemons.PokemonDto;
-import com.microservices.pokemons.model.files.FileEntity;
+import com.microservices.pokemons.model.locations.LocationEntity;
 import com.microservices.pokemons.model.pokemons.PokemonEntity;
 import com.microservices.pokemons.model.pokemons.PokemonTypeEntity;
 import com.microservices.pokemons.repository.PokemonRepository;
@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 
 import java.time.LocalDate;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {LocationMapper.class})
 public interface PokemonMapper {
 
     default Long getIdFromId(PokemonEntity pokemonEntity){
@@ -40,6 +40,15 @@ public interface PokemonMapper {
             if (dto.getEvolvesFrom() != null) {
                 evolvesFrom = repository.getById(dto.getEvolvesFrom());
             }
+            LocationEntity location = null;
+            if(dto.getLocation() != null){
+                location = LocationEntity
+                        .builder()
+                        .id(dto.getLocation().getId())
+                        .latitude(dto.getLocation().getLatitude())
+                        .longitude(dto.getLocation().getLongitude())
+                        .build();
+            }
             return PokemonEntity.builder()
                     .name(dto.getName())
                     .evolvesFrom(evolvesFrom)
@@ -48,6 +57,7 @@ public interface PokemonMapper {
                     .hasShiny(dto.isHasShiny())
                     .catchRate(dto.getCatchRate())
                     .photoPath(dto.getPhotoPath())
+                    .location(location)
                     .build();
 
     }
