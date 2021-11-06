@@ -1,13 +1,13 @@
 package com.microservices.pokemons.service;
 
-import com.microservices.pokemons.dto.PokemonDto;
-import com.microservices.pokemons.dto.PokemonUserDto;
+import com.microservices.pokemons.dto.pokemons.PokemonDto;
+import com.microservices.pokemons.dto.pokemons.PokemonUserDto;
 import com.microservices.pokemons.exception.PokemonServiceException;
 import com.microservices.pokemons.mapper.PokemonMapper;
-import com.microservices.pokemons.model.PokemonTypeEntity;
-import com.microservices.pokemons.model.PokemonUserEntity;
-import com.microservices.pokemons.model.TrainerEntity;
 import com.microservices.pokemons.model.embeddables.PokemonUserKey;
+import com.microservices.pokemons.model.pokemons.PokemonTypeEntity;
+import com.microservices.pokemons.model.pokemons.PokemonUserEntity;
+import com.microservices.pokemons.model.pokemons.TrainerEntity;
 import com.microservices.pokemons.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -50,7 +50,9 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public PokemonDto insertOne(PokemonDto pokemonDto) {
         var possibleType = getType(pokemonDto);
-        var toBeSaved = this.pokemonMapper.fromDtoToEntity(pokemonDto, this.pokemonRepository, this.pokemonTypesRepository);
+        var toBeSaved = this.pokemonMapper.fromDtoToEntity(pokemonDto,
+                this.pokemonRepository,
+                this.pokemonTypesRepository);
         toBeSaved.setTypes(possibleType);
         return this.pokemonMapper.fromEntityToDto(this.pokemonRepository.save(toBeSaved));
     }
@@ -176,6 +178,7 @@ public class PokemonServiceImpl implements PokemonService {
             e.setRegisteredAt(LocalDate.parse(pokemonDto.getRegisteredAt()));
             e.setCatchRate(pokemonDto.getCatchRate());
             e.setTypes(possibleType);
+            e.setPhotoPath(pokemonDto.getPhotoPath());
                     result.set(this.pokemonMapper
                             .fromEntityToDto(this.pokemonRepository
                                     .save(e)));

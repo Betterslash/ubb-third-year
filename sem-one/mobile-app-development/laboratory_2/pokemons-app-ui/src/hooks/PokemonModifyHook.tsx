@@ -4,6 +4,7 @@ import {useNetowrk, useUserState} from "./AppHooks";
 import {PokemonOnlineService} from "../services/PokemonOnlineService";
 import {LocalRepositoryService} from "../services/repository/LocalRepositoryService";
 import {LocalDateService} from "../services/LocalDateService";
+import {ImageMapper} from "../mapper/ImageMapper";
 
 const createInitialState = (id : string | undefined) : PokemonModel => {
     const initialState : PokemonModel = {
@@ -29,7 +30,8 @@ const copyState = (initialState : PokemonModel) => {
         name: initialState.name,
         evolvesFrom: initialState.evolvesFrom,
         catchRate : initialState.catchRate,
-        types : initialState.types
+        types : initialState.types,
+        photoPath : initialState.photoPath
     } as PokemonModel;
 };
 
@@ -46,6 +48,7 @@ export const useInitialState = (id : string | undefined) => {
             case 'HAS_SHINY' : {futureState.hasShiny = action.item.detail.checked; return futureState;}
             case 'REGISTERED_AT' : {futureState.registeredAt = LocalDateService.parseToJavaLocalDate(action.item.detail.value); return futureState;}
             case 'TYPE_ONE' : {futureState.types.typeOne = PokemonType[action.item.detail.value]; return futureState;}
+            case 'PHOTO_PATH': {futureState.photoPath = action.item; return futureState}
             default : {return futureState;}
         }
     }

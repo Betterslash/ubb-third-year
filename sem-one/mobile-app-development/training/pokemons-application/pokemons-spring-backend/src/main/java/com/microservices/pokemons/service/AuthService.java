@@ -1,7 +1,7 @@
 package com.microservices.pokemons.service;
 
 import com.microservices.pokemons.payload.LoginRequest;
-import com.microservices.pokemons.model.TrainerEntity;
+import com.microservices.pokemons.model.pokemons.TrainerEntity;
 import com.microservices.pokemons.payload.RegisterRequest;
 
 public interface AuthService {

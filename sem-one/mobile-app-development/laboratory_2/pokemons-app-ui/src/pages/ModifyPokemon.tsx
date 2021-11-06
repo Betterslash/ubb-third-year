@@ -1,14 +1,13 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {PokemonType} from "../model/PokemonModel";
 import {
-    IonButton, IonCard, IonCardContent, IonCheckbox,
-    IonContent,
-    IonDatetime, IonImg,
+    IonButton, IonButtons, IonCard, IonCardContent, IonCheckbox, IonContent,
+    IonDatetime, IonIcon, IonImg,
     IonInput, IonItem,
     IonLabel,
     IonLoading,
-    IonPage, IonSelect,
-    IonSelectOption
+    IonPage, IonRow, IonSelect,
+    IonSelectOption, IonToolbar
 } from "@ionic/react";
 import {Header} from "../components/layout/Header";
 import {Footer} from "../components/layout/Footer";
@@ -17,8 +16,12 @@ import {useHistory, useParams} from "react-router";
 import {PokemonOnlineService} from "../services/PokemonOnlineService";
 import {Logger} from "../helpers/logger/Logger";
 import {PokemonEvolutionInfo} from "../components/widgets/PokemonEvolutionInfo";
-import {useNetowrk} from "../hooks/AppHooks";
+import {useNetowrk, usePhotoHook} from "../hooks/AppHooks";
 import {LocalRepositoryService} from "../services/repository/LocalRepositoryService";
+import {camera, trash} from "ionicons/icons";
+import {ImageService} from "../services/ImageService";
+import {AxiosResponse} from "axios";
+import {Environment} from "../environment/Environment";
 
 export interface TypeIdPair {
     name: string;
@@ -42,26 +45,97 @@ export const ModifyPokemon: React.FC = () => {
     const {id} = useParams<ModifyPokemonProps>();
     const initalState = useInitialState(id);
     const network = useNetowrk().connected;
+    const photo = usePhotoHook();
+    const [currentImagePath, setCurrentImagePath] = useState('');
     useEffect(() => {
         if(!network){
             Logger.warning(ModifyPokemon.name + ' -> offline mode');
+        }else{
+            getPokemonImageFromServer();
         }
-    }, [network]);
+    }, [network,]);
+
+    const updatePokemonRequest = (imageId?: AxiosResponse<string>) =>{
+        const futurePokemon = initalState.pokemonReducer.pokemon;
+        if(imageId && imageId.data){
+            futurePokemon.photoPath = imageId.data;
+            Logger.info(`${ModifyPokemon.name} -> ${ImageService.uploadImage.name} -> imageId : ${JSON.stringify(imageId.data)}`);
+        }
+        if (id === undefined) {
+            PokemonOnlineService.updateOnePokemon(-1, futurePokemon)
+                .then(() => {
+                    Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name);
+                    history.push("/");
+                });
+        } else {
+            PokemonOnlineService.updateOnePokemon(Number(id), futurePokemon)
+                .then(() => {
+                    Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name);
+                    history.push("/");
+                });
+        }
+    }
+
     const onSubmit = (e: any) => {
         e.preventDefault();
         if(network){
-            if(id === undefined) {
-                PokemonOnlineService.updateOnePokemon(-1, initalState.pokemonReducer.pokemon)
-                    .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name); history.push("/");});
-            }else {
-                PokemonOnlineService.updateOnePokemon(Number(id), initalState.pokemonReducer.pokemon)
-                    .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name); history.push("/");});
-            }
+            const photoData = new FormData();
+            const pokemon = initalState.pokemonReducer.pokemon;
+            getCurrentPhoto().then(result => {
+                if(result){
+                    const consumable : any = (result as Blob);
+                    consumable.name = `${pokemon.name}_${pokemon.id}.png`;
+                    consumable.lastModifiedDate = new Date();
+                    photoData.set('file', consumable, consumable.name);
+                    ImageService.uploadImage(photoData)
+                        .then( (imageId) => {
+                            updatePokemonRequest(imageId);
+                        })
+                        .catch(err => {
+                            Logger.danger(ModifyPokemon.name + ' -> ' + err);});
+                }else{
+                    updatePokemonRequest();
+                    Logger.warning(`No image to be uploaded`);
+                }
+            });
         }else{
             LocalRepositoryService.insertOnePokemon(initalState.pokemonReducer.pokemon)
                 .then(() => {Logger.info(ModifyPokemon.name + ' -> ' + onSubmit.name);  history.push("/");})
         }
     };
+
+    const getCurrentPhoto = async () => {
+        const currentPhotoPath = initalState.pokemonReducer.pokemon.photoPath;
+        if (currentPhotoPath) {
+            const stored = await photo.getPhoto(currentPhotoPath);
+            if(stored){
+               return await (await fetch(currentPhotoPath)).blob();
+            }else{
+               return null;
+            }
+        }
+    }
+
+    const getPokemonImageFromServer = async () => {
+        Logger.info(ModifyPokemon.name + ' -> ' + getPokemonImageFromServer.name);
+        if(id != null && id !== '' && id !== '-1' && id !== undefined){
+            const pokemonImagePath = (await PokemonOnlineService.getOneById(Number(id))).data?.photoPath;
+            if(pokemonImagePath){
+                Logger.info(ModifyPokemon.name + ' -> success ');
+                setCurrentImagePath(`${Environment.imageUploadUrl}/${pokemonImagePath}`);
+
+            }else{
+                Logger.info(ModifyPokemon.name + ' -> no image found');
+                setCurrentImagePath('');
+            }
+        }
+    }
+
+    const deleteCurrentImage = () => {
+        setCurrentImagePath('');
+        initalState.pokemonReducer.dispatcher({item: '', type: 'PHOTO_PATH'});
+    }
+    
     return (
         <IonPage>
             <IonLoading isOpen={initalState.fetching}/>
@@ -104,7 +178,7 @@ export const ModifyPokemon: React.FC = () => {
                                               }}/>
                                 </IonLabel>
                                 <IonLabel>
-                                    Has Shiny : <IonItem color={'rgba(0,0,255,0)'} ><IonCheckbox disabled={initalState.viewOnly}
+                                    Has Shiny : <IonRow color={'rgba(0,0,255,0)'} ><IonCheckbox disabled={initalState.viewOnly}
                                                                                                  checked={initalState.pokemonReducer.pokemon.hasShiny}
                                                                                                  placeholder="Has Shiny"
                                                                                                  onIonChange={(e) => {
@@ -112,9 +186,39 @@ export const ModifyPokemon: React.FC = () => {
                                                                                                          item: e,
                                                                                                          type: 'HAS_SHINY'
                                                                                                      })
-                                                                                                 }}/></IonItem>
+                                                                                                 }}/></IonRow>
                                 </IonLabel>
-
+                                <br/>
+                                <IonLabel>
+                                    Photo :
+                                </IonLabel>
+                                <IonButtons>
+                                    <IonButton onClick={async () => {photo.takePhoto().then(result =>  {
+                                        if(result?.webviewPath){
+                                            initalState.pokemonReducer
+                                                .dispatcher({item: result?.webviewPath, type: 'PHOTO_PATH'});
+                                            setCurrentImagePath(result.webviewPath);
+                                        }
+                                    });
+                                       }}>
+                                        <IonIcon icon={camera}/>
+                                    </IonButton>
+                                </IonButtons>
+                                    {  currentImagePath &&
+                                    <IonCard key={initalState.pokemonReducer.pokemon.id+"_container"}>
+                                            <IonToolbar>
+                                                <IonButtons slot={"start"}>
+                                                    <IonButton onClick={deleteCurrentImage}>
+                                                        <IonIcon icon={trash}/>
+                                                    </IonButton>
+                                                </IonButtons>
+                                            </IonToolbar>
+                                            <IonItem key={initalState.pokemonReducer.pokemon.id + "_item"}>
+                                                <IonImg src={currentImagePath}/>
+                                            </IonItem>
+                                        </IonCard>
+                                    }
+                                <br/>
                                 <IonButton disabled={initalState.viewOnly}
                                            expand="block" type="submit">Modify</IonButton>
                             </IonCardContent>
@@ -122,8 +226,7 @@ export const ModifyPokemon: React.FC = () => {
                     </form>
                 </IonCardContent>
                 <PokemonEvolutionInfo pokemonId={initalState.pokemonReducer.pokemon.evolvesFrom}/>
-                <IonImg src={"../assets/bulbasaur.png"}>
-                </IonImg>
+                <IonImg src={"../assets/bulbasaur.png"}/>
             </IonContent>
             <Footer/>
         </IonPage>

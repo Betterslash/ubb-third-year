@@ -50,6 +50,7 @@ export interface PokemonModel {
     types : PokemonTypes;
     evolvesFrom: number;
     catchRate : number;
+    photoPath ?: string;
     saved? : boolean;
     deletionMark? : boolean;
 }

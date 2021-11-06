@@ -1,6 +1,6 @@
 package com.microservices.pokemons.repository;
 
-import com.microservices.pokemons.model.TrainerEntity;
+import com.microservices.pokemons.model.pokemons.TrainerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
