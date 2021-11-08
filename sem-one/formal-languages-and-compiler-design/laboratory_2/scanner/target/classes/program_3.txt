@@ -2,7 +2,7 @@ VAR numbers:ARRAY[100] :: INT;
 length, readed, i : INT;
 result : INT;
 {
-length <- 100;
+length <- 1;
 i <- 0;
 sum <- 0;
 WHILE((i < length) || (readed != 0)){

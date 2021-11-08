@@ -1,13 +1,20 @@
 import Pif.PifSortedListPair;
 import constants.LanguageSpecifications;
+import finite_automata.model.FiniteAutomata;
+import finite_automata.model.Sequence;
+import finite_automata.util.enums.InitializationType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Scanner {
+
+    private static final FiniteAutomata identifiersFiniteAutomata = new FiniteAutomata(InitializationType.FILE, "identifiers_finite_automata.txt");
+    private static final FiniteAutomata integerConstantsFiniteAutomata = new FiniteAutomata(InitializationType.FILE, "integer_constants_finite_automata.txt");
 
     public static boolean isInOperator(char character){
         for (var operator: LanguageSpecifications.operators) {
@@ -118,9 +125,25 @@ public class Scanner {
         return matcher.find();
     }
 
+    public static boolean isIdentifier(Sequence sequence){
+        return identifiersFiniteAutomata.verifySequence(sequence);
+    }
+
     public static boolean isConstant(String token){
         var pattern = Pattern.compile("^(0|[+\\-]?[1-9][0-9]*)$|^'.'$|^\".*\"$");
         var matcher = pattern.matcher(token);
+        return matcher.find();
+    }
+
+    public static boolean isConstant(Sequence sequence){
+        var token = new AtomicReference<>("");
+        sequence.getRepresentation()
+                .forEach(e -> token.updateAndGet(v -> v + e));
+        if(integerConstantsFiniteAutomata.verifySequence(sequence) /*&& sequence.getRepresentation().get(0) != '0'*/){
+            return true;
+        }
+        var pattern = Pattern.compile("^(0|[+\\-]?[1-9][0-9]*)$|^'.'$|^\".*\"$");
+        var matcher = pattern.matcher(token.get());
         return matcher.find();
     }
 }
