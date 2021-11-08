@@ -69,3 +69,39 @@ Grammar Specific:
    6. in: 6 
       1. in: 1101 out: true
       2. in: 1111 out: false
+   
+<h2>Integration of FA with Scanner</h2>
+<h3>Requirement : </h3>
+<h4>Use FA to detect tokens <identifier> and <integer constant> in the scanner program</h4>
+<h3>Implementation : </h3>
+1. Created 2 Generators that are generating the inputs for the automatas to be able to check if a sequence is an integer constant or identifier
+2. In the Scanner Class i've instantiated 2 static automatas from the files generated with the custom checker automatas
+3. I created 2 overloadings functions where I give a sequence object instead a String token and the Sequence is checked by there respective automatas
+
+<h2>Test cases</h2>
+Succesfull : 
+"asdkl"
+VAR a, b, c : INT;
+max : INT;
+{
+max <- 0;
+IF(a >= b){
+IF(a >= c){
+max <- a;
+WRITELN(a);
+}
+}
+IF(b >= a){
+IF(b >= c){
+max <- b;
+WRITELN(b);
+}
+}
+IF(c >= b){
+IF(c >= a){
+max <- c;
+WRITELN(c);
+}
+}
+}
+Results can be seen in the previous documentation 
