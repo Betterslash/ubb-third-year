@@ -61,7 +61,7 @@ namespace Laboratory4.Service
             {
                 var bytes = message.Socket.EndReceive(ar);
                 var socket = message.Socket;
-                message.ResponseContent.Append(Encoding.ASCII.GetString(message.Buffer, 0, bytes));
+                message.ResponseContent.Append(Encoding.UTF8.GetString(message.Buffer, 0, bytes));
                 if (!message.ResponseContent.ToString().Contains("\r\n\r\n"))
                 {
                     socket.BeginReceive(message.Buffer, 0, Message.BufferSize, 0, OnReceive, message);
@@ -70,7 +70,7 @@ namespace Laboratory4.Service
                 {
                     var body = ProgramConstants.GetResponseBody(message.ResponseContent.ToString());
                     var headerLength = ProgramConstants.GetContentLength(message.ResponseContent.ToString());
-                    if (body.Length < headerLength)
+                    if (body.Length <= 512)
                     {
                         socket.BeginReceive(message.Buffer, 0, Message.BufferSize, 0, OnReceive, message);
                     }
