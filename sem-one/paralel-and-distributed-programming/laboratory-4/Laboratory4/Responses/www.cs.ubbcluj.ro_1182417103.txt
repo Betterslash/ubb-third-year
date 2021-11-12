@@ -1,0 +1,32 @@
+HTTP/1.1 200 OK
+
+Date: Mon, 08 Nov 2021 12:01:36 GMT
+
+Server: Apache
+
+Set-Cookie: pll_language=ro; expires=Tue, 08-Nov-2022 12:01:37 GMT; Max-Age=31536000; path=/; SameSite=Lax
+
+Vary: Accept-Encoding,User-Agent
+
+Keep-Alive: timeout=10, max=100
+
+Connection: Keep-Alive
+
+Transfer-Encoding: chunked
+
+Content-Type: text/html; charset=UTF-8
+
+
+
+20395
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ro-RO">
+
+<head profile="http://gmpg.org/xfn/11">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Facultatea de Matematic?? ??i Informatic?? | Universitatea Babe??-Bolyai Cluj-Napoca</title>
+
+<meta name="description" content="Pagina web oficial?? a Facult????ii de Matematic?? ??i Informatic?? din cadrul Universit????ii Babe??-Bolyai"/>
+<link rel="stylesheet" href="http://www.cs.ubbcluj.ro/wp-content/themes/CSUBB/lib/css/reset.css" type="text/css" media="screen, projection" 
