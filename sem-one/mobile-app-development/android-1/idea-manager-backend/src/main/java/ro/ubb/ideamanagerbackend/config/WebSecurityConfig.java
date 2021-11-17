@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(new JwtTokenAuthenticationFilter(provider, repository), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/api/v1/ideas")
+                .antMatchers("/api/v1/users")
                 .authenticated();
     }
 

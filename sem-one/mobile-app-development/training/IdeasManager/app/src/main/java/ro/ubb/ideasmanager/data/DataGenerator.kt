@@ -45,7 +45,7 @@ class DataGenerator {
         return Random().nextInt(1000)
     }
 
-    private fun createObject() : IdeaModel{
+    fun createObject() : IdeaModel{
         val alphabet = initializeAlphabet()
         val title = generateTitle(alphabet)
         val neededBudget = generateNeededBudget()

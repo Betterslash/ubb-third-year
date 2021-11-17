@@ -8,6 +8,13 @@
     android:textDirection="inherit"
     tools:context=".fragment.IdeaListFragment" >
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_idea_button"
         android:layout_width="55dp"

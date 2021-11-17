@@ -7,14 +7,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ro.ubb.ideasmanager.R
-import ro.ubb.ideasmanager.data.DataSource
 import ro.ubb.ideasmanager.log.TAG
 import ro.ubb.ideasmanager.model.IdeaModel
 
-class IdeaListAdapter(private val dataSet: DataSource) :
+class IdeaListAdapter :
     RecyclerView.Adapter<IdeaListAdapter.ViewHolder>(){
 
     var onItemClick: ((IdeaModel) -> Unit)? = null
+
+    var dataSet = emptyList<IdeaModel>()
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
 
     /**
      * Provide a reference to the type of views that you are using
@@ -22,15 +27,6 @@ class IdeaListAdapter(private val dataSet: DataSource) :
      */
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.textView)
-        init {
-            itemView.setOnClickListener {
-                dataSet.getFlowerList().value?.get(adapterPosition)?.let { it1 ->
-                    onItemClick?.invoke(
-                        it1
-                    )
-                }
-            }
-        }
     }
 
     // Create new views (invoked by the layout manager)
@@ -45,11 +41,11 @@ class IdeaListAdapter(private val dataSet: DataSource) :
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         Log.v(TAG, "onBindViewHolder $position")
-        val idea = dataSet.getFlowerList().value?.get(position)
-        viewHolder.textView.text = idea?.text
+        val idea = dataSet[position]
+        viewHolder.textView.text = idea.text
         viewHolder.itemView.tag = idea
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount(): Int = dataSet.getFlowerList().value?.size!!
+    override fun getItemCount(): Int = dataSet.size
 }
