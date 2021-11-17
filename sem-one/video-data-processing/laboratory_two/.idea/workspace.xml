@@ -5,6 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2b60896-a831-48a0-b1ac-eeb8dc4c328e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/java/ro/ubb/myapp/IdeasListFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/java/ro/ubb/myapp/MainFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/java/ro/ubb/myapp/adapter/IdeasListAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/java/ro/ubb/myapp/logger/LogExt.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/java/ro/ubb/myapp/model/Idea.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/java/ro/ubb/myapp/view_model/IdeaViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/res/layout/fragment_ideas_list.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/res/layout/fragment_main.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/res/layout/view_idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/res/xml/fragment_ideas_list_xml_constraintlayout_scene.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/java/ro/ubb/myapp/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/java/ro/ubb/myapp/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../mobile-app-development/training/android-test-app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../mobile-app-development/training/ionic-angular-app" beforeDir="false" afterPath="$PROJECT_DIR$/../../mobile-app-development/training/ionic-angular-app" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../mobile-app-development/training/pokemons-application/pokemons-ui-react/pokemons-ui-app" beforeDir="false" afterPath="$PROJECT_DIR$/../../mobile-app-development/training/pokemons-application/pokemons-ui-react/pokemons-ui-app" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory_one/image.ppm" beforeDir="false" />
@@ -35,6 +53,13 @@
       <change beforePath="$PROJECT_DIR$/../laboratory_one/target/classes/model/RGBPair.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory_one/target/classes/model/ValueSignature.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory_one/target/test-classes/model/EncoderBlockServiceTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image.ppm" beforeDir="false" afterPath="$PROJECT_DIR$/image.ppm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/DecoderBlockService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/DecoderBlockService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/EncoderBlockService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/EncoderBlockService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/CustomFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/CustomFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ProgramInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/ProgramInitializer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +75,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../../.." value="laboratory-2-video-and-data-processing" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="ProjectId" id="20ofHZ94ITgBozrcZ6uBml4fPYx" />
@@ -112,7 +142,8 @@
       <option name="presentableId" value="Default" />
       <updated>1636715774585</updated>
       <workItem from="1636715775751" duration="198000" />
-      <workItem from="1636715984447" duration="12673000" />
+      <workItem from="1636715984447" duration="12874000" />
+      <workItem from="1636983867038" duration="4228000" />
     </task>
     <servers />
   </component>
@@ -129,14 +160,15 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/service/EncoderBlockService.java</url>
-          <line>108</line>
-          <option name="timeStamp" value="8" />
+          <url>file://$PROJECT_DIR$/src/main/java/Main.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

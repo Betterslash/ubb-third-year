@@ -9,7 +9,7 @@ public final class ProgramInitializer {
     public static boolean IS_INITIALIZED = false;
     public static String IMAGES_FOLDER_PATH;
     public static String TEST_IMAGE_PATH;
-
+    public static double CONST = (double)1/4;
     public static double[][] QUANTIZATION_MATRIX = {
             {6, 4, 4, 6, 10, 16, 20, 24},
             {5, 5, 6, 8, 10, 23, 24, 22},

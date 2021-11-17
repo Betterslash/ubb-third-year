@@ -18,30 +18,20 @@ public class Main {
             var blockU = EncoderBlockService.scaleEightByEight(image, ValueSignature.U);
             var blockV = EncoderBlockService.scaleEightByEight(image, ValueSignature.V);
 
-            blockY.printStorage();
-            blockU.printStorage();
-            blockV.printStorage();
-
             var expandedU = DecoderBlockService.expandUV(blockU);
             var expandedV = DecoderBlockService.expandUV(blockV);
-            DecoderBlockService.decodeImage(blockY, expandedU, expandedV);
 
             var yGBlockRepository = EncoderBlockService.applyForwardDCTOnBlocks(blockY);
             var uGBlockRepository = EncoderBlockService.applyForwardDCTOnBlocks(expandedU);
             var vGBlockRepository = EncoderBlockService.applyForwardDCTOnBlocks(expandedV);
 
-            yGBlockRepository.printStorage();
-            uGBlockRepository.printStorage();
-            vGBlockRepository.printStorage();
 
             var decodedY = DecoderBlockService.applyInverseDCTOnBlocks(yGBlockRepository);
             var decoedeU = DecoderBlockService.applyInverseDCTOnBlocks(uGBlockRepository);
             var decodedV = DecoderBlockService.applyInverseDCTOnBlocks(vGBlockRepository);
 
-            decodedY.printStorage();
-            decoedeU.printStorage();
-            decodedV.printStorage();
 
+            DecoderBlockService.decodeImage(decodedY, decoedeU, decodedV);
         }
     }
 }

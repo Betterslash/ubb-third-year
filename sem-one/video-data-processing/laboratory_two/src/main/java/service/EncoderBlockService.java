@@ -8,8 +8,10 @@ import repository.BlockRepository;
 import repository.BlockRepositoryImpl;
 import repository.GBlockRepository;
 import utils.CustomFunctions;
+import utils.ProgramInitializer;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public final class EncoderBlockService {
 
@@ -78,21 +80,21 @@ public final class EncoderBlockService {
     }
 
     public static AbstractBlockRepository applyForwardDCTOnBlocks(BlockRepository blocks){
-        var result =  new GBlockRepository(new ArrayList<>());
-        blocks.getStorage()
+        var result = blocks.getStorage()
                 .stream()
-                .map(EncoderBlockService::applySubtraction)
+                //.map(EncoderBlockService::applySubtraction)
                 .map(EncoderBlockService::applyForwardDCTOnBlock)
                 .map(EncoderBlockService::applyQuantization)
-                .forEach(result::addToStorage);
-        return result;
+                .collect(Collectors.toList());
+        return new GBlockRepository(result);
     }
 
     private static Block applyForwardDCTOnBlock(Block block){
+        var representation = block.getRepresentation();
         var G = new double[8][8];
         for (int u = 0; u < 8; u++) {
             for (int v = 0; v < 8; v++) {
-                G[u][v] = 0.25 * CustomFunctions.alpha(u) * CustomFunctions.alpha(v) * CustomFunctions.outerSum(block.getRepresentation(), u, v);
+                G[u][v] = ProgramInitializer.CONST * CustomFunctions.alpha(u) * CustomFunctions.alpha(v) * outerSum(representation, u, v);
             }
         }
         return Block.builder()
@@ -101,15 +103,30 @@ public final class EncoderBlockService {
     }
 
     private static Block applySubtraction(Block block) {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                block.getRepresentation()[i][j] -= 128;
-            }
-        }
-        return block;
+        return CustomFunctions.subtract(block);
     }
 
     private static Block applyQuantization(Block block) {
         return CustomFunctions.divide(block);
+    }
+
+    public static double outerSum(double[][] block, int u, int v) {
+        var sum = 0.0;
+        for (int x = 0; x < 8; x++)
+            sum += innerSum(block, u, v, x);
+        return sum;
+    }
+
+    private static double innerSum(double[][] block, int u, int v, int x) {
+        var sum = 0.0;
+        for (int y = 0; y < 8; y++)
+            sum += product(block[x][y], x, y, u, v);
+        return sum;
+    }
+
+    private static double product(double value, int x, int y, int u, int v) {
+        var cosU = Math.cos((2 * x + 1) * u * Math.PI / 16);
+        var cosV = Math.cos((2 * y + 1) * v * Math.PI / 16);
+        return value * cosU * cosV;
     }
 }

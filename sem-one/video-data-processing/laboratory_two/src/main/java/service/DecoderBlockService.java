@@ -7,12 +7,15 @@ import repository.BlockRepository;
 import repository.BlockRepositoryImpl;
 import repository.GBlockRepository;
 import utils.CustomFunctions;
+import utils.ProgramInitializer;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import static utils.CustomFunctions.alpha;
 
 public final class DecoderBlockService {
 
@@ -100,22 +103,51 @@ public final class DecoderBlockService {
         var representation = abstractBlockRepository
                 .getStorage()
                 .stream()
+                .map(DecoderBlockService::applyDeQuantization)
                 .map(DecoderBlockService::applyInverseDCTOnBlock)
-                .map(CustomFunctions::multiply)
-                .map(CustomFunctions::add)
+                //.map(DecoderBlockService::applyAddition)
                 .collect(Collectors.toList());
         return new GBlockRepository(representation);
     }
 
     private static Block applyInverseDCTOnBlock(Block block){
+        var representation = block.getRepresentation();
         var f = new double[8][8];
-        for (int x = 0; x < 8; x++)
-            for (int y = 0; y < 8; y++)
-            {
-                f[x][y] = 0.25 * CustomFunctions.outerSum(block.getRepresentation(), x, y);
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                f[x][y] = ProgramInitializer.CONST * outerSum(representation, x, y);
             }
+        }
         return Block.builder()
                 .representation(f)
                 .build();
+    }
+
+    private static Block applyDeQuantization(Block block){
+        return CustomFunctions.multiply(block);
+    }
+
+    private static Block applyAddition(Block block){
+        return CustomFunctions.multiply(block);
+    }
+
+    private static double outerSum(double[][] matrix, int x, int y) {
+        double sum = 0.0;
+        for (int u = 0; u < 8; u++)
+            sum += innerSum(matrix, x, y, u);
+        return sum;
+    }
+
+    private static double innerSum(double[][] matrix, int x, int y, int u) {
+        double sum = 0.0;
+        for (int v = 0; v < 8; v++)
+            sum += product(matrix[u][v], x, y, u, v);
+        return sum;
+    }
+
+    private static double product(double matrixValue, int x, int y, int u, int v) {
+        var cosU = Math.cos((2 * x + 1) * u * Math.PI / 16);
+        var cosV = Math.cos((2 * y + 1) * v * Math.PI / 16);
+        return alpha(u) * alpha(v) * matrixValue * cosU * cosV;
     }
 }
