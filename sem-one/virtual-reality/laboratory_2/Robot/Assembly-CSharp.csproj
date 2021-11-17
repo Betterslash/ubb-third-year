@@ -53,13 +53,13 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\MoveArmSideWaysRight.cs" />
-     <Compile Include="Assets\PointToCursor.cs" />
-     <Compile Include="Assets\MoveArmSideWaysLeft.cs" />
-     <Compile Include="Assets\MoveLeftArmDown.cs" />
+     <Compile Include="Assets\MoveRightFoot.cs" />
      <Compile Include="Assets\MoveRightArmDown.cs" />
      <Compile Include="Assets\MoveShoulders.cs" />
      <Compile Include="Assets\MoveLeftFoot.cs" />
-     <Compile Include="Assets\MoveRightFoot.cs" />
+     <Compile Include="Assets\MoveLeftArmDown.cs" />
+     <Compile Include="Assets\PointToCursor.cs" />
+     <Compile Include="Assets\MoveArmSideWaysLeft.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.8f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

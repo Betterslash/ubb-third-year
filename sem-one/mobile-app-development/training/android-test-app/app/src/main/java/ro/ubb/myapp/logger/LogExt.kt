@@ -1,4 +1,4 @@
-package com.ilazar.myapp2
+package ro.ubb.myapp.logger
 
 val Any.TAG: String
     get() {

@@ -105,7 +105,7 @@ public final class DecoderBlockService {
                 .stream()
                 .map(DecoderBlockService::applyDeQuantization)
                 .map(DecoderBlockService::applyInverseDCTOnBlock)
-                //.map(DecoderBlockService::applyAddition)
+                .map(DecoderBlockService::applyAddition)
                 .collect(Collectors.toList());
         return new GBlockRepository(representation);
     }
@@ -128,7 +128,7 @@ public final class DecoderBlockService {
     }
 
     private static Block applyAddition(Block block){
-        return CustomFunctions.multiply(block);
+        return CustomFunctions.add(block);
     }
 
     private static double outerSum(double[][] matrix, int x, int y) {

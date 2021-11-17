@@ -45,13 +45,17 @@ public final class CustomFunctions {
                 .build();
     }
 
-    public static Block add(Block firstMatrix){
+    public static Block add(Block block){
+        var representation = block.getRepresentation();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                firstMatrix.getRepresentation()[i][j] += 128;
+                representation[i][j] += 128;
             }
         }
-        return firstMatrix;
+        return Block
+                .builder()
+                .representation(representation)
+                .build();
     }
 
     public static List<Block> fromListOfMtrixesToListOfBlocks(List<double[][]> matrixes){
@@ -62,11 +66,15 @@ public final class CustomFunctions {
     }
 
     public static Block subtract(Block block){
+        var representation = block.getRepresentation();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                block.getRepresentation()[i][j] -= 128;
+                representation[i][j] -= 128;
             }
         }
-        return block;
+        return Block
+                .builder()
+                .representation(representation)
+                .build();
     }
 }

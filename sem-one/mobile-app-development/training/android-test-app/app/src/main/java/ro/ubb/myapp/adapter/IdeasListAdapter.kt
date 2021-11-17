@@ -11,13 +11,13 @@ import ro.ubb.myapp.R
 import ro.ubb.myapp.logger.TAG
 import ro.ubb.myapp.model.Idea
 
-class IdeaListAdapter(
+class IdeasListAdapter(
     private val fragment: Fragment,
     private val items: List<Idea>
-) : RecyclerView.Adapter<IdeaListAdapter.ViewHolder>{
+) : RecyclerView.Adapter<IdeasListAdapter.ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.view_item, parent, false)
+            .inflate(R.layout.view_idea, parent, false)
         Log.v(TAG, "onCreateViewHolder")
         return ViewHolder(view)
     }
@@ -25,17 +25,13 @@ class IdeaListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.v(TAG, "onBindViewHolder $position")
         val item = items[position]
-        holder.textView.text = item.text
+        holder.textView.text = item.title
         holder.itemView.tag = item
     }
 
     override fun getItemCount() = items.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
-
-        init {
-            textView = view.findViewById(R.id.text)
-        }
+        val textView: TextView = view.findViewById(R.id.text)
     }
 }

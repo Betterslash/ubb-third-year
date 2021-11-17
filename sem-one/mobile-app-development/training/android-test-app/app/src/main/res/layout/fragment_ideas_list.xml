@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IdeasListViewFragment">
+    tools:context=".IdeasListFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/ideas_list_toolbar"
@@ -16,36 +18,15 @@
             android:layout_height="63dp"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            android:theme="?attr/actionBarTheme" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ideas_list"
             android:layout_width="391dp"
             android:layout_height="786dp"
             android:layout_marginTop="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ideas_list_toolbar" />
+            app:layoutManager="LinearLayoutManager" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_idea_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:src="@android:drawable/ic_menu_add"
-            app:layout_constraintBottom_toBottomOf="@+id/ideas_list"
-            app:layout_constraintEnd_toEndOf="@+id/ideas_list"
-            app:layout_constraintHorizontal_bias="0.955"
-            app:layout_constraintStart_toStartOf="@+id/ideas_list"
-            app:layout_constraintTop_toBottomOf="@+id/ideas_list_toolbar"
-            app:layout_constraintVertical_bias="0.979" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </FrameLayout>

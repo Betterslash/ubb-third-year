@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Uni/sem-one/mobile-app-development/training/android-test-app/app/src/main/res/layout/activity_main.xml" value="0.28894927536231885" />
+        <entry key="..\:/Uni/sem-one/mobile-app-development/training/android-test-app/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Uni/sem-one/mobile-app-development/training/android-test-app/app/src/main/res/layout/fragment_ideas_list.xml" value="0.27052489905787347" />
+        <entry key="..\:/Uni/sem-one/mobile-app-development/training/android-test-app/app/src/main/res/layout/fragment_main.xml" value="0.22" />
+        <entry key="..\:/Uni/sem-one/mobile-app-development/training/android-test-app/app/src/main/res/layout/idea_list_view_fragment.xml" value="0.33" />
+        <entry key="..\:/Uni/sem-one/mobile-app-development/training/android-test-app/app/src/main/res/layout/view_idea.xml" value="0.2" />
       </map>
     </option>
   </component>

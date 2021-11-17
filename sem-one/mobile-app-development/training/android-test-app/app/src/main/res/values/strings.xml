@@ -2,4 +2,7 @@
     <string name="app_name">My App</string>
     <string name="_0">0</string>
     <string name="increment">Increment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="view_ideas">View Ideas</string>
+    <string name="todo">TODO</string>
 </resources>

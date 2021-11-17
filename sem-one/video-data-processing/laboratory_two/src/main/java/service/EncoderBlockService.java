@@ -80,9 +80,10 @@ public final class EncoderBlockService {
     }
 
     public static AbstractBlockRepository applyForwardDCTOnBlocks(BlockRepository blocks){
-        var result = blocks.getStorage()
+        var result = blocks
+                .getStorage()
                 .stream()
-                //.map(EncoderBlockService::applySubtraction)
+                .map(EncoderBlockService::applySubtraction)
                 .map(EncoderBlockService::applyForwardDCTOnBlock)
                 .map(EncoderBlockService::applyQuantization)
                 .collect(Collectors.toList());

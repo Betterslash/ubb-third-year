@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">IdeasManager</string>
+    <string name="increment">Increment</string>
+    <string name="_0">0</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ideas">Ideas</string>
+    <string name="element_text">element_text</string>
+    <string name="idea_title">idea_title</string>
+    <string name="idea_text">idea_text</string>
+    <string name="idea_needed_budget">idea_needed_budget</string>
+    <string name="idea_current_budget">idea_current_budget</string>
+</resources>

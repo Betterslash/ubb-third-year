@@ -688,6 +688,7 @@ GameObject:
   - component: {fileID: 278882824}
   - component: {fileID: 278882823}
   - component: {fileID: 278882822}
+  - component: {fileID: 278882825}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -771,6 +772,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278882820}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &278882825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278882820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd2ec3b453691f428569a65ce9efbfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &309827574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,7 +1263,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 827256160}
-  - component: {fileID: 827256161}
   m_Layer: 0
   m_Name: NeckJoint
   m_TagString: Untagged
@@ -1274,18 +1286,6 @@ Transform:
   m_Father: {fileID: 631172146}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &827256161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827256159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efd2ec3b453691f428569a65ce9efbfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &868294578
 GameObject:
   m_ObjectHideFlags: 0
