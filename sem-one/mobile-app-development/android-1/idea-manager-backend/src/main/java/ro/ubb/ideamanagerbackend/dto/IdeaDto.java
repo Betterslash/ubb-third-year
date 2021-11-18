@@ -1,6 +1,9 @@
 package ro.ubb.ideamanagerbackend.dto;
 
 import lombok.*;
+import ro.ubb.ideamanagerbackend.shared.IdeaDomain;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -20,4 +23,12 @@ public class IdeaDto {
     private Long currentBudget;
 
     private Integer rating;
+
+    private Long user;
+
+    private IdeaDomain domain;
+
+    private LocalDate localDate;
+
+    private Long rateCount;
 }

@@ -1,8 +1,10 @@
 package ro.ubb.ideamanagerbackend.model;
 
 import lombok.*;
+import ro.ubb.ideamanagerbackend.shared.IdeaDomain;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity(name = "idea")
 @Getter
@@ -28,4 +30,10 @@ public class IdeaEntity {
 
     @ManyToOne
     private UserEntity user;
+
+    private IdeaDomain domain;
+
+    private LocalDate localDate;
+
+    private Long rateCount;
 }
