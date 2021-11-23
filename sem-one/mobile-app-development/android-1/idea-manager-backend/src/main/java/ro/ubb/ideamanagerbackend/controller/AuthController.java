@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ro.ubb.ideamanagerbackend.payload.LoginRequest;
 import ro.ubb.ideamanagerbackend.payload.RegisterRequest;
+import ro.ubb.ideamanagerbackend.payload.TokenHolder;
 import ro.ubb.ideamanagerbackend.service.AuthService;
 
 @RestController
@@ -18,9 +19,12 @@ public class AuthController {
     private final AuthService userService;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+    public TokenHolder authenticateUser(@RequestBody LoginRequest loginRequest) {
         String token = userService.login(loginRequest);
-        return ResponseEntity.ok(token);
+        return TokenHolder
+                .builder()
+                .token(token)
+                .build();
     }
 
     @PostMapping("/register")

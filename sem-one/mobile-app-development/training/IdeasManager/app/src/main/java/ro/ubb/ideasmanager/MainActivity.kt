@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.navigation.findNavController
 import ro.ubb.ideasmanager.databinding.ActivityMainBinding
-import ro.ubb.ideasmanager.log.TAG
+import ro.ubb.ideasmanager.core.log.TAG
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding

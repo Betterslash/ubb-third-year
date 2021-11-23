@@ -5,9 +5,11 @@
       <map>
         <entry key="..\:/Uni/sem-one/mobile-app-development/training/IdeasManager/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Uni/sem-one/mobile-app-development/training/IdeasManager/app/src/main/res/layout/content_main.xml" value="0.25" />
+        <entry key="..\:/Uni/sem-one/mobile-app-development/training/IdeasManager/app/src/main/res/layout/fragment_idea_edit.xml" value="0.38697916666666665" />
         <entry key="..\:/Uni/sem-one/mobile-app-development/training/IdeasManager/app/src/main/res/layout/fragment_idea_list.xml" value="0.21875" />
         <entry key="..\:/Uni/sem-one/mobile-app-development/training/IdeasManager/app/src/main/res/layout/fragment_idea_list_view.xml" value="0.38697916666666665" />
         <entry key="..\:/Uni/sem-one/mobile-app-development/training/IdeasManager/app/src/main/res/layout/fragment_item_edit.xml" value="0.21875" />
+        <entry key="..\:/Uni/sem-one/mobile-app-development/training/IdeasManager/app/src/main/res/layout/fragment_login.xml" value="0.21145833333333333" />
         <entry key="..\:/Uni/sem-one/mobile-app-development/training/IdeasManager/app/src/main/res/layout/fragment_main.xml" value="0.33" />
         <entry key="..\:/Uni/sem-one/mobile-app-development/training/IdeasManager/app/src/main/res/layout/idea_list_view.xml" value="0.21875" />
         <entry key="..\:/Uni/sem-one/mobile-app-development/training/IdeasManager/app/src/main/res/layout/view_idea_list.xml" value="0.21875" />

@@ -1,7 +1,7 @@
 package ro.ubb.ideasmanager.data
 
 import android.util.Log
-import ro.ubb.ideasmanager.log.TAG
+import ro.ubb.ideasmanager.core.log.TAG
 import ro.ubb.ideasmanager.model.IdeaModel
 import java.util.*
 import kotlin.collections.ArrayList
