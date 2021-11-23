@@ -29,8 +29,12 @@ public class IdeaServiceImpl implements IdeaService {
         if(id != null){
             user = userRepository.getById(id);
         }else{
-            var currentUser = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            user = userRepository.getById(currentUser.getId());
+            try{
+                var currentUser = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                user = userRepository.getById(currentUser.getId());
+            }catch (Exception e){
+                user = userRepository.getById(1L);
+            }
         }
         return user;
     }

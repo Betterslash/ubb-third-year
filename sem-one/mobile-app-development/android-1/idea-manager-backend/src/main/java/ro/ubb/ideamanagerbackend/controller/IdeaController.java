@@ -19,6 +19,12 @@ public class IdeaController {
         return ideaService.getIdeas();
     }
 
+    @GetMapping("/{id}")
+    public IdeaDto getIdeaById(@PathVariable Long id){
+        return ideaService.getIdeaById(id)
+                .orElseThrow(RuntimeException::new);
+    }
+
     @PostMapping
     public IdeaDto insertIdea(@RequestBody IdeaDto ideaDto){
         return ideaService.addIdea(ideaDto)

@@ -2,12 +2,9 @@ package ro.ubb.ideasmanager.model.view_model
 
 import android.util.Log
 import androidx.lifecycle.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import ro.ubb.ideasmanager.data.DataGenerator
-import ro.ubb.ideasmanager.log.TAG
+import ro.ubb.ideasmanager.core.log.TAG
 import ro.ubb.ideasmanager.model.IdeaModel
 import ro.ubb.ideasmanager.repository.IdeaRepository
 

@@ -1,4 +1,4 @@
-package ro.ubb.ideasmanager.log
+package ro.ubb.ideasmanager.core.log
 
 val Any.TAG : String
     get(){

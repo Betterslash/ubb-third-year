@@ -11,8 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ro.ubb.ideasmanager.R
 import ro.ubb.ideasmanager.adapter.IdeaListAdapter
+import ro.ubb.ideasmanager.core.auth.AuthRepository
 import ro.ubb.ideasmanager.databinding.FragmentIdeaListBinding
-import ro.ubb.ideasmanager.log.TAG
+import ro.ubb.ideasmanager.core.log.TAG
 import ro.ubb.ideasmanager.model.view_model.IdeaListViewModel
 
 class IdeaListFragment : Fragment() {
@@ -34,14 +35,19 @@ class IdeaListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (!AuthRepository.isLoggedIn) {
+            findNavController().navigate(R.id.loginFragment)
+            return
+        }
         setupItemList()
         binding.addIdeaButton.setOnClickListener{
-
+            Log.v(TAG, "add new idea")
+            findNavController().navigate(R.id.ideaEditFragment)
         }
     }
 
     private fun setupItemList() {
-        ideaListAdapter = IdeaListAdapter()
+        ideaListAdapter = IdeaListAdapter(this)
         binding.recyclerView.adapter = ideaListAdapter
         ideasModel = ViewModelProvider(this).get(IdeaListViewModel::class.java)
         ideasModel.ideas.observe(viewLifecycleOwner, { value ->

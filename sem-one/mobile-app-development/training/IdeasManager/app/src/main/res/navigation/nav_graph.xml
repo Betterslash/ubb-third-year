@@ -22,4 +22,8 @@
             android:id="@+id/action_ideaEditFragment_to_ideaListFragment2"
             app:destination="@id/ideaListFragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="ro.ubb.ideasmanager.fragment.LoginFragment"
+        android:label="LoginFragment" />
 </navigation>
