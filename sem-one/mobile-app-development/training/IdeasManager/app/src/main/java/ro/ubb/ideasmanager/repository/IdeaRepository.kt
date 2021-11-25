@@ -37,4 +37,14 @@ object IdeaRepository {
         }
         return updatedItem
     }
+
+    suspend fun delete(ideaId: String): IdeaModel {
+        Log.i(TAG, "delete")
+        val deletedItem = IdeaService.service.delete(ideaId)
+        val index = cachedItems?.indexOfFirst { it.id == ideaId }
+        if (index != null) {
+            cachedItems?.set(index, deletedItem)
+        }
+        return deletedItem
+    }
 }

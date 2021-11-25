@@ -26,10 +26,12 @@
 
                 <EditText
                     android:id="@+id/idea_title_view"
-                    android:layout_width="match_parent"
+                    android:layout_width="353dp"
                     android:layout_height="wrap_content"
-                    android:minHeight="48dp"
-                    android:text="@string/idea_title" />
+                    android:hint="@string/title"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:minHeight="48dp" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -37,9 +39,11 @@
 
                 <EditText
                     android:id="@+id/idea_text_view"
-                    android:layout_width="match_parent"
+                    android:layout_width="353dp"
                     android:layout_height="48dp"
-                    android:text="@string/idea_text" />
+                    android:hint="@string/text"
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -47,9 +51,12 @@
 
                 <EditText
                     android:id="@+id/idea_needed_budget_view"
-                    android:layout_width="match_parent"
+                    android:layout_width="206dp"
                     android:layout_height="48dp"
-                    android:text="@string/idea_needed_budget" />
+                    android:hint="@string/needed_budget"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    tools:ignore="TextContrastCheck" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -57,40 +64,68 @@
 
                 <EditText
                     android:id="@+id/idea_current_budget_view"
-                    android:layout_width="match_parent"
+                    android:layout_width="206dp"
                     android:layout_height="48dp"
-                    android:text="@string/idea_current_budget" />
+                    android:hint="@string/current_budget"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    tools:ignore="TextContrastCheck" />
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="75dp" />
+                    android:layout_height="16dp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="370dp">
+                    android:layout_height="match_parent">
 
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="?android:attr/progressBarStyle"
+                    <RatingBar
+                        android:id="@+id/ratingBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toTopOf="@+id/update_idea_button"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/update_idea_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:src="@android:drawable/ic_menu_upload"
+                        android:numStars="5"
+                        android:rating="0"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
                         tools:ignore="SpeakableTextPresentCheck" />
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="379dp"
+                        android:layout_height="349dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ratingBar">
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="96dp"
+                            android:layout_height="89dp"
+                            app:layout_constraintBottom_toTopOf="@+id/update_idea_button"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/update_idea_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:contentDescription="@string/modify_the_idea"
+                            android:focusable="true"
+                            android:src="@android:drawable/ic_menu_upload"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.498"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.626"
+                            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>

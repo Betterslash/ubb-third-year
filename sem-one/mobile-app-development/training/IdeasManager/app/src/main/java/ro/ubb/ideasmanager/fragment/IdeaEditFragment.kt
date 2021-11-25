@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ro.ubb.ideasmanager.databinding.FragmentIdeaEditBinding
 import ro.ubb.ideasmanager.core.log.TAG
+import ro.ubb.ideasmanager.model.IdeaModel
 import ro.ubb.ideasmanager.model.view_model.IdeaEditViewModel
 
 
@@ -43,7 +44,14 @@ class IdeaEditFragment : Fragment() {
         binding.updateIdeaButton.setOnClickListener{
             binding.updateIdeaButton.setOnClickListener {
                 Log.v(TAG, "save item")
-                viewModel.saveOrUpdateItem(binding.ideaTextView.text.toString())
+                val ideaModel = IdeaModel("",
+                    binding.ideaTitleView.text.toString(),
+                    binding.ideaTextView.text.toString(),
+                    Integer.parseInt(binding.ideaNeededBudgetView.text.toString()),
+                    Integer.parseInt(binding.ideaCurrentBudgetView.text.toString()),
+                    0)
+                Log.v(TAG, ideaModel.toString())
+                viewModel.saveOrUpdateItem(ideaModel)
             }
         }
         binding.ideaTextView.setText(ideaId)
@@ -53,7 +61,10 @@ class IdeaEditFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(IdeaEditViewModel::class.java)
         viewModel.idea.observe(viewLifecycleOwner, { item ->
             Log.v(TAG, "update items")
+            binding.ideaCurrentBudgetView.setText(item.currentBudget.toString())
             binding.ideaTextView.setText(item.text)
+            binding.ideaNeededBudgetView.setText(item.neededBudget.toString())
+            binding.ideaTitleView.setText(item.title)
         })
         viewModel.fetching.observe(viewLifecycleOwner, { fetching ->
             Log.v(TAG, "update fetching")

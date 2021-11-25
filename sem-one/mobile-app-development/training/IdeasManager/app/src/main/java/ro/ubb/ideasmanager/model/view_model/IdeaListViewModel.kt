@@ -15,7 +15,6 @@ class IdeaListViewModel : ViewModel(){
         value = emptyList()
     }
 
-
     val loading: LiveData<Boolean> = mutableLoading
     val loadingError: LiveData<Exception> = mutableException
     val ideas : LiveData<List<IdeaModel>> = mutableIdeas
@@ -31,19 +30,20 @@ class IdeaListViewModel : ViewModel(){
 
     fun loadItems() {
         viewModelScope.launch {
-            Log.v(TAG, "loadItems...");
+            Log.v(TAG, "load idea...")
             mutableLoading.value = true
             mutableException.value = null
             try {
                 mutableIdeas.value = IdeaRepository.getAll()
-                Log.d(TAG, "loadItems succeeded");
+                Log.d(TAG, "load idea succeeded")
                 mutableLoading.value = false
             } catch (e: Exception) {
-                Log.w(TAG, "loadItems failed", e);
+                Log.w(TAG, "load idea failed", e)
                 mutableException.value = e
                 mutableLoading.value = false
             }
         }
     }
+
 }
 

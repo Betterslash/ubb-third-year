@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import ro.ubb.ideasmanager.R
 import ro.ubb.ideasmanager.adapter.IdeaListAdapter
 import ro.ubb.ideasmanager.core.auth.AuthRepository
-import ro.ubb.ideasmanager.databinding.FragmentIdeaListBinding
 import ro.ubb.ideasmanager.core.log.TAG
+import ro.ubb.ideasmanager.databinding.FragmentIdeaListBinding
 import ro.ubb.ideasmanager.model.view_model.IdeaListViewModel
 
 class IdeaListFragment : Fragment() {
@@ -44,6 +44,11 @@ class IdeaListFragment : Fragment() {
             Log.v(TAG, "add new idea")
             findNavController().navigate(R.id.ideaEditFragment)
         }
+        binding.logoutButton.setOnClickListener{
+            Log.v(TAG, "logout...")
+            AuthRepository.logout()
+            findNavController().navigate(R.id.loginFragment)
+        }
     }
 
     private fun setupItemList() {
@@ -53,7 +58,6 @@ class IdeaListFragment : Fragment() {
         ideasModel.ideas.observe(viewLifecycleOwner, { value ->
             ideaListAdapter.dataSet = value
         })
-
         ideasModel.loading.observe(viewLifecycleOwner, { loading ->
             Log.i(TAG, "update loading")
             binding.progress.visibility = if (loading) View.VISIBLE else View.GONE
