@@ -1,7 +1,9 @@
 package ro.ubb.ideamanagerbackend.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ro.ubb.ideamanagerbackend.dto.UserDto;
@@ -23,9 +25,8 @@ public class AuthServiceImpl implements AuthService {
     private final UserMapper mapper;
 
     @Override
-    public String login(LoginRequest request) {
-        var user = repository.findByUsername(request.username);
-        var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+    public String login(Authentication authentication) {
+
         return jwtTokenProvider.generateToken(authentication);
     }
 

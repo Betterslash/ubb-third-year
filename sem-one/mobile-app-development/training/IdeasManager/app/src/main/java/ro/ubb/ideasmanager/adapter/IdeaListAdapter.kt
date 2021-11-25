@@ -9,10 +9,15 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.view_idea_list.view.*
+import kotlinx.coroutines.*
 import ro.ubb.ideasmanager.R
-import ro.ubb.ideasmanager.fragment.IdeaEditFragment
 import ro.ubb.ideasmanager.core.log.TAG
+import ro.ubb.ideasmanager.fragment.IdeaEditFragment
+import ro.ubb.ideasmanager.fragment.IdeaListFragment
 import ro.ubb.ideasmanager.model.IdeaModel
+import ro.ubb.ideasmanager.model.view_model.IdeaListViewModel
+import ro.ubb.ideasmanager.repository.IdeaRepository
 
 class IdeaListAdapter(
     private val fragment : Fragment
@@ -38,8 +43,17 @@ class IdeaListAdapter(
         fragment.findNavController().navigate(R.id.ideaEditFragment, Bundle().apply {
             putString(IdeaEditFragment.IDEA_ID, idea.id)
         })
-    };
+    }
 
+    private var onDeleteButtonClick: View.OnClickListener = View.OnClickListener { view ->
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        scope.launch {
+            val ideaId = ((view.parent.parent as View).tag as IdeaModel).id
+            IdeaRepository.delete(ideaId)
+            dataSet = dataSet.filter { e -> e.id != ideaId }
+            Log.i(TAG, ideaId)
+        }
+    }
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
@@ -53,9 +67,10 @@ class IdeaListAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         Log.v(TAG, "onBindViewHolder $position")
         val idea = dataSet[position]
-        viewHolder.textView.text = idea.text
+        viewHolder.textView.text = idea.title
         viewHolder.itemView.tag = idea
         viewHolder.itemView.setOnClickListener(onItemClick)
+        viewHolder.itemView.delete_button.setOnClickListener(onDeleteButtonClick)
     }
 
     // Return the size of your dataset (invoked by the layout manager)

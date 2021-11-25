@@ -37,19 +37,39 @@ public class UserEntity implements UserDetails {
     private List<IdeaEntity> ideas;
 
     @Transient
-    private boolean isAccountNonExpired;
+    private boolean isAccountNonExpired = true;
 
     @Transient
-    private boolean isAccountNonLocked;
+    private boolean isAccountNonLocked = true;
 
     @Transient
-    private boolean isCredentialsNonExpired;
+    private boolean isCredentialsNonExpired = true;
 
     @Transient
-    private boolean isEnabled;
+    private boolean isEnabled = true;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.getRole().getGrantedAuthorities();
+    }
+
+    @Override
+    public boolean isAccountNonLocked(){
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled(){
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonExpired(){
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired(){
+        return true;
     }
 }

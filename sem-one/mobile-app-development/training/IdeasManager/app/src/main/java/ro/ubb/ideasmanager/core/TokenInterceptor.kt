@@ -13,7 +13,7 @@ class TokenInterceptor : Interceptor {
             return chain.proceed(original)
         }
         val requestBuilder = original.newBuilder()
-            .addHeader("Authorization", "Bearer $token")
+            .addHeader("Authorization", "Bearer : $token")
             .url(originalUrl)
         val request = requestBuilder.build()
         return chain.proceed(request)

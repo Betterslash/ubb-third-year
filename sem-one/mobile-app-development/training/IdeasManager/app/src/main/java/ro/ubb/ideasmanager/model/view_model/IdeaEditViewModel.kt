@@ -11,7 +11,7 @@ import ro.ubb.ideasmanager.model.IdeaModel
 import ro.ubb.ideasmanager.repository.IdeaRepository
 
 class IdeaEditViewModel : ViewModel() {
-    private val mutableIdea = MutableLiveData<IdeaModel>().apply { value = IdeaModel("", "", 0, 0, 0) }
+    private val mutableIdea = MutableLiveData<IdeaModel>().apply { value = IdeaModel("", "", "", 0, 0, 0) }
     private val mutableFetching = MutableLiveData<Boolean>().apply { value = false }
     private val mutableCompleted = MutableLiveData<Boolean>().apply { value = false }
     private val mutableException = MutableLiveData<Exception>().apply { value = null }
@@ -39,14 +39,15 @@ class IdeaEditViewModel : ViewModel() {
         }
     }
 
-    fun saveOrUpdateItem(text: String) {
+    fun saveOrUpdateItem(ideaModel : IdeaModel) {
         viewModelScope.launch {
             Log.i(TAG, "saveOrUpdateItem...")
             val idea = mutableIdea.value ?: return@launch
-            idea.text = text
-            idea.currentBudget = 0
-            idea.neededBudget = 1000
-            idea.rating = 0
+            idea.title = ideaModel.title
+            idea.text = ideaModel.text
+            idea.currentBudget = ideaModel.currentBudget
+            idea.neededBudget = ideaModel.neededBudget
+            idea.rating = ideaModel.rating
             mutableFetching.value = true
             mutableException.value = null
             try {

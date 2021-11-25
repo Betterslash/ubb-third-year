@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class JwtTokenProviderImpl implements JwtTokenProvider {
+
     @Override
     public String generateToken(Authentication authentication) {
         long now = System.currentTimeMillis();

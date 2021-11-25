@@ -47,12 +47,13 @@ class DataGenerator {
 
     fun createObject() : IdeaModel{
         val alphabet = initializeAlphabet()
-        val title = generateTitle(alphabet)
+        val title = "title"
+        val text = generateTitle(alphabet)
         val neededBudget = generateNeededBudget()
         val currentBudget = 0
         val description = generateDescription(alphabet)
         val rating = 0
-        return IdeaModel(title, description, neededBudget, currentBudget, rating)
+        return IdeaModel(title, text, description, neededBudget, currentBudget, rating)
     }
 
     fun generateObjects() : List<IdeaModel>{
