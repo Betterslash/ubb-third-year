@@ -5,8 +5,6 @@ import ro.ubb.ideasmanager.core.TokenInterceptor
 import ro.ubb.ideasmanager.model.IdeaModel
 
 object IdeaService {
-    private const val URL = "http://192.168.1.4:8080/"
-    val tokenInterceptor = TokenInterceptor()
     interface Service {
         @GET("/api/v1/ideas")
         suspend fun getAll(): List<IdeaModel>

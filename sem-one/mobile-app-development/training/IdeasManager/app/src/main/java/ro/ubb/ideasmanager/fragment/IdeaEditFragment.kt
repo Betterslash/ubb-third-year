@@ -20,10 +20,10 @@ class IdeaEditFragment : Fragment() {
     private val binding get() : FragmentIdeaEditBinding = _binding!!
     private lateinit var viewModel : IdeaEditViewModel
     companion object {
-        const val IDEA_ID = ""
+        const val IDEA_ID = "IDEA_ID"
     }
     private var ideaId : String? = null
-
+    private var idea: IdeaModel? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,7 +44,8 @@ class IdeaEditFragment : Fragment() {
         binding.updateIdeaButton.setOnClickListener{
             binding.updateIdeaButton.setOnClickListener {
                 Log.v(TAG, "save item")
-                val ideaModel = IdeaModel("",
+                val ideaModel = IdeaModel(
+                    idea?.id!!,
                     binding.ideaTitleView.text.toString(),
                     binding.ideaTextView.text.toString(),
                     Integer.parseInt(binding.ideaNeededBudgetView.text.toString()),
@@ -59,12 +60,12 @@ class IdeaEditFragment : Fragment() {
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(this).get(IdeaEditViewModel::class.java)
-        viewModel.idea.observe(viewLifecycleOwner, { item ->
+        viewModel.idea.observe(viewLifecycleOwner, { idea ->
             Log.v(TAG, "update items")
-            binding.ideaCurrentBudgetView.setText(item.currentBudget.toString())
-            binding.ideaTextView.setText(item.text)
-            binding.ideaNeededBudgetView.setText(item.neededBudget.toString())
-            binding.ideaTitleView.setText(item.title)
+            binding.ideaCurrentBudgetView.setText(idea.currentBudget.toString())
+            binding.ideaTextView.setText(idea.text)
+            binding.ideaNeededBudgetView.setText(idea.neededBudget.toString())
+            binding.ideaTitleView.setText(idea.title)
         })
         viewModel.fetching.observe(viewLifecycleOwner, { fetching ->
             Log.v(TAG, "update fetching")
@@ -87,8 +88,20 @@ class IdeaEditFragment : Fragment() {
             }
         })
         val id = ideaId
-        if (id != null) {
-            viewModel.loadIdea(id)
+        if (id == null) {
+            idea = IdeaModel("", "", "", 0, 0, 0)
+        } else {
+            viewModel.loadIdea(id).observe(viewLifecycleOwner, {
+                Log.v(TAG, "update items")
+                if (it != null) {
+                    idea = it
+                    binding.ideaTitleView.setText(it.title)
+                    binding.ideaTextView.setText(it.text)
+                    binding.ideaNeededBudgetView.setText(it.neededBudget.toString())
+                    binding.ideaCurrentBudgetView.setText(it.currentBudget.toString())
+                    binding.ratingBar.rating = it.rating.toFloat()
+                }
+            })
         }
     }
 }

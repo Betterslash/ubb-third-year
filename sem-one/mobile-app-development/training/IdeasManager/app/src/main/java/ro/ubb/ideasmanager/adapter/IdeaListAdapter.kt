@@ -7,23 +7,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.view_idea_list.view.*
 import kotlinx.coroutines.*
 import ro.ubb.ideasmanager.R
 import ro.ubb.ideasmanager.core.log.TAG
+import ro.ubb.ideasmanager.data.database.IdeaDatabase
 import ro.ubb.ideasmanager.fragment.IdeaEditFragment
-import ro.ubb.ideasmanager.fragment.IdeaListFragment
 import ro.ubb.ideasmanager.model.IdeaModel
-import ro.ubb.ideasmanager.model.view_model.IdeaListViewModel
-import ro.ubb.ideasmanager.repository.IdeaRepository
+import ro.ubb.ideasmanager.repository.IdeaRepo
 
 class IdeaListAdapter(
     private val fragment : Fragment
 ) :
     RecyclerView.Adapter<IdeaListAdapter.ViewHolder>(){
+    private val ideaRepository : IdeaRepo
 
+    init {
+        val ideaDao = IdeaDatabase.getDatabase(fragment.requireContext(), fragment.lifecycleScope).ideaDao()
+        ideaRepository = IdeaRepo(ideaDao)
+    }
     var dataSet = emptyList<IdeaModel>()
     set(value) {
         field = value
@@ -49,7 +54,7 @@ class IdeaListAdapter(
         val scope = CoroutineScope(Job() + Dispatchers.Main)
         scope.launch {
             val ideaId = ((view.parent.parent as View).tag as IdeaModel).id
-            IdeaRepository.delete(ideaId)
+            ideaRepository.delete(ideaId)
             dataSet = dataSet.filter { e -> e.id != ideaId }
             Log.i(TAG, ideaId)
         }
