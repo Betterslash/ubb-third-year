@@ -1,3 +1,13 @@
 package ro.ubb.ideasmanager.model
 
-data class IdeaModel(val id: String,var title: String, var text: String, var neededBudget: Int, var currentBudget: Int, var rating: Int)
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "ideas")
+data class IdeaModel(@PrimaryKey @ColumnInfo(name="_id") val id: String,
+                     @ColumnInfo(name="title")var title: String,
+                     @ColumnInfo(name="text")var text: String,
+                     @ColumnInfo(name="needed_budget")var neededBudget: Int,
+                     @ColumnInfo(name="current_budget")var currentBudget: Int,
+                     @ColumnInfo(name="rating")var rating: Int)

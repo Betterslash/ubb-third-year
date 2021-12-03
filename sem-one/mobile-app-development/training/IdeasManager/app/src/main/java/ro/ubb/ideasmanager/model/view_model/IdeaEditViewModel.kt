@@ -1,16 +1,16 @@
 package ro.ubb.ideasmanager.model.view_model
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
+import ro.ubb.ideasmanager.core.auth.Result
 import ro.ubb.ideasmanager.core.log.TAG
+import ro.ubb.ideasmanager.data.database.IdeaDatabase
 import ro.ubb.ideasmanager.model.IdeaModel
-import ro.ubb.ideasmanager.repository.IdeaRepository
+import ro.ubb.ideasmanager.repository.IdeaRepo
 
-class IdeaEditViewModel : ViewModel() {
+class IdeaEditViewModel(application: Application) : AndroidViewModel(application) {
     private val mutableIdea = MutableLiveData<IdeaModel>().apply { value = IdeaModel("", "", "", 0, 0, 0) }
     private val mutableFetching = MutableLiveData<Boolean>().apply { value = false }
     private val mutableCompleted = MutableLiveData<Boolean>().apply { value = false }
@@ -21,49 +21,44 @@ class IdeaEditViewModel : ViewModel() {
     val fetchingError: LiveData<Exception> = mutableException
     val completed: LiveData<Boolean> = mutableCompleted
 
-    fun loadIdea(ideaId: String) {
-        viewModelScope.launch {
-            Log.i(TAG, "loadIdea...")
-            mutableFetching.value = true
-            mutableException.value = null
-            try {
-                mutableIdea.value = IdeaRepository.load(ideaId)
-                Log.i(TAG, "loadIdea succeeded")
-                Log.i(TAG, mutableIdea.value.toString())
-                mutableFetching.value = false
-            } catch (e: Exception) {
-                Log.w(TAG, "loadIdea failed", e)
-                mutableException.value = e
-                mutableFetching.value = false
-            }
-        }
+
+    private val ideaRepo: IdeaRepo
+
+    init {
+        val ideaDao = IdeaDatabase.getDatabase(application, viewModelScope).ideaDao()
+        ideaRepo = IdeaRepo(ideaDao)
+    }
+
+    fun loadIdea(ideaId: String): LiveData<IdeaModel> {
+        Log.v(TAG, "getIdeaById...")
+        return ideaRepo.getById(ideaId)
     }
 
     fun saveOrUpdateItem(ideaModel : IdeaModel) {
         viewModelScope.launch {
             Log.i(TAG, "saveOrUpdateItem...")
-            val idea = mutableIdea.value ?: return@launch
-            idea.title = ideaModel.title
-            idea.text = ideaModel.text
-            idea.currentBudget = ideaModel.currentBudget
-            idea.neededBudget = ideaModel.neededBudget
-            idea.rating = ideaModel.rating
+
             mutableFetching.value = true
             mutableException.value = null
-            try {
-                if (idea.id.isNotEmpty()) {
-                    mutableIdea.value = IdeaRepository.update(idea)
-                } else {
-                    mutableIdea.value = IdeaRepository.save(idea)
-                }
-                Log.i(TAG, "saveOrUpdateItem succeeded");
-                mutableCompleted.value = true
-                mutableFetching.value = false
-            } catch (e: Exception) {
-                Log.w(TAG, "saveOrUpdateItem failed", e);
-                mutableException.value = e
-                mutableFetching.value = false
+
+            val result: Result<IdeaModel> = if (ideaModel.id.isNotEmpty()) {
+                Log.i(TAG, "update $ideaModel")
+                ideaRepo.update(ideaModel)
+            } else {
+                Log.i(TAG, "save $ideaModel")
+                ideaRepo.save(ideaModel)
             }
+            when(result) {
+                is Result.Success -> {
+                    Log.d(TAG, "saveOrUpdateIdea succeeded");
+                }
+                is Result.Error -> {
+                    Log.w(TAG, "saveOrUpdateIdea failed", result.exception);
+                    mutableException.value = result.exception
+                }
+            }
+            mutableCompleted.value = true
+            mutableFetching.value = false
         }
     }
 }

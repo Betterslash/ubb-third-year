@@ -1,49 +1,49 @@
 package ro.ubb.ideasmanager.model.view_model
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ro.ubb.ideasmanager.data.DataGenerator
 import ro.ubb.ideasmanager.core.log.TAG
+import ro.ubb.ideasmanager.data.database.IdeaDatabase
 import ro.ubb.ideasmanager.model.IdeaModel
-import ro.ubb.ideasmanager.repository.IdeaRepository
+import ro.ubb.ideasmanager.repository.IdeaRepo
 
-class IdeaListViewModel : ViewModel(){
+class IdeaListViewModel(application: Application) : AndroidViewModel(application){
     private val mutableLoading = MutableLiveData<Boolean>().apply { value = false }
     private val mutableException = MutableLiveData<Exception>().apply { value = null }
-    private val mutableIdeas = MutableLiveData<List<IdeaModel>>().apply {
-        value = emptyList()
-    }
+    private val mutableIdeas = MutableLiveData<List<IdeaModel>>().apply { value = emptyList() }
+
+    private val ideaRepo: IdeaRepo
 
     val loading: LiveData<Boolean> = mutableLoading
     val loadingError: LiveData<Exception> = mutableException
-    val ideas : LiveData<List<IdeaModel>> = mutableIdeas
-
-    private var index = 100
-
-    private fun createIdea() {
-        val list = mutableListOf<IdeaModel>()
-        list.addAll(mutableIdeas.value!!)
-        list.add(DataGenerator().createObject())
-        mutableIdeas.value = list
+    var ideas : LiveData<List<IdeaModel>> = mutableIdeas
+    init {
+        val itemDao = IdeaDatabase.getDatabase(application, viewModelScope).ideaDao()
+        ideaRepo = IdeaRepo(itemDao)
+        ideas = ideaRepo.ideas
     }
 
-    fun loadItems() {
+    fun refresh() {
         viewModelScope.launch {
-            Log.v(TAG, "load idea...")
+            Log.v(TAG, "refresh...");
             mutableLoading.value = true
             mutableException.value = null
-            try {
-                mutableIdeas.value = IdeaRepository.getAll()
-                Log.d(TAG, "load idea succeeded")
-                mutableLoading.value = false
-            } catch (e: Exception) {
-                Log.w(TAG, "load idea failed", e)
-                mutableException.value = e
-                mutableLoading.value = false
+            when (val result = ideaRepo.refresh()) {
+                is ro.ubb.ideasmanager.core.auth.Result.Success -> {
+                    Log.d(TAG, "refresh succeeded");
+                }
+                is ro.ubb.ideasmanager.core.auth.Result.Error -> {
+                    Log.w(TAG, "refresh failed", result.exception);
+                    mutableException.value = result.exception
+                }
             }
+            mutableLoading.value = false
         }
     }
-
 }
 
