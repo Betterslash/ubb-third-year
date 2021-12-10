@@ -11,4 +11,6 @@ public interface IdeaService {
     Optional<IdeaDto> addIdea(IdeaDto dto);
     Optional<IdeaDto> updateIdea(Long id, IdeaDto dto);
     Optional<IdeaDto> deleteIdeaById(Long id);
+
+    List<IdeaDto> syncIdeas(List<IdeaDto> ideas);
 }

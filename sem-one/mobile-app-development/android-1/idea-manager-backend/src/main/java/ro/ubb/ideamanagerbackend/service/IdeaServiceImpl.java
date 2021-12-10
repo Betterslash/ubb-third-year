@@ -11,6 +11,7 @@ import ro.ubb.ideamanagerbackend.model.UserEntity;
 import ro.ubb.ideamanagerbackend.repository.IdeaRepository;
 import ro.ubb.ideamanagerbackend.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -94,5 +95,19 @@ public class IdeaServiceImpl implements IdeaService {
                 .orElse(null));
         ideaRepository.deleteById(id);
         return Optional.of(resource);
+    }
+
+    @Override
+    public List<IdeaDto> syncIdeas(List<IdeaDto> ideas) {
+        var result = new ArrayList<IdeaDto>();
+        ideas.forEach(e -> {
+            if(e.getId() != null){
+                this.updateIdea(e.getId(), e);
+            }else{
+                this.addIdea(e);
+            }
+            result.add(e);
+        });
+        return result;
     }
 }

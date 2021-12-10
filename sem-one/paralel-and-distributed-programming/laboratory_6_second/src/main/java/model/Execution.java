@@ -9,7 +9,7 @@ import java.util.concurrent.locks.Lock;
 
 @Getter
 @RequiredArgsConstructor
-public class Task implements Runnable {
+public class Execution implements Runnable {
 
     private final Graph graph;
     private final int startingNode;
@@ -27,6 +27,7 @@ public class Task implements Runnable {
         this.lock.lock();
         this.result.clear();
         this.result.addAll(this.path);
+        System.out.println(path);
         this.lock.unlock();
     }
 

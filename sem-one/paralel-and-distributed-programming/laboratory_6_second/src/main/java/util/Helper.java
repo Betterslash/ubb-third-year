@@ -1,11 +1,9 @@
 package util;
 
 import model.Graph;
-import model.Task;
+import model.Execution;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +36,7 @@ public final class Helper {
         var lock = new ReentrantLock();
         var result = new ArrayList<Integer>(graph.size());
         for (int i = 0; i < graph.size(); i++){
-            pool.execute(new Task(graph, i, lock, result));
+            pool.execute(new Execution(graph, i, lock, result));
         }
         pool.shutdown();
         pool.awaitTermination(10, TimeUnit.SECONDS);

@@ -42,4 +42,9 @@ public class IdeaController {
         return ideaService.deleteIdeaById(id)
                 .orElseThrow(RuntimeException::new);
     }
+
+    @PostMapping("/sync")
+    public List<IdeaDto> syncIdeas(@RequestBody List<IdeaDto> ideas){
+        return ideaService.syncIdeas(ideas);
+    }
 }
