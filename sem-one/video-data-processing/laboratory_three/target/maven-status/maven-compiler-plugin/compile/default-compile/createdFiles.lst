@@ -1,0 +1,11 @@
+model\DecoderBlockService.class
+model\ImageReader.class
+model\EncoderBlockService.class
+model\RGBPair.class
+model\ValueSignature.class
+exception\InitializerException.class
+Main.class
+model\PPMImage.class
+ProgramInitializer.class
+model\PPMImage$PPMImageBuilder.class
+model\EncoderBlockService$1.class

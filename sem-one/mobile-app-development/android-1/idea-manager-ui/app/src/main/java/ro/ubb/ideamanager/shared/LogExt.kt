@@ -1,4 +1,4 @@
-package com.ilazar.myapp2.core
+package ro.ubb.ideamanager.shared
 
 val Any.TAG: String
     get() {

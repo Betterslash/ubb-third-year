@@ -9,16 +9,16 @@ import static util.Helper.generateHamiltonian;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        var GRAPHS_COUNT = 101;
+        var GRAPHS_COUNT = 2;
         var graphs = new ArrayList<Graph>();
         for (int i = 1; i <= GRAPHS_COUNT; i++) {
             graphs.add(generateHamiltonian(i * 10));
         }
 
-        System.out.println("Sequential");
+        System.out.println("Simple");
         testMany(graphs, 1);
 
-        System.out.println("Parallel");
+        System.out.println("Threaded");
         testMany(graphs, Runtime.getRuntime().availableProcessors());
 
     }

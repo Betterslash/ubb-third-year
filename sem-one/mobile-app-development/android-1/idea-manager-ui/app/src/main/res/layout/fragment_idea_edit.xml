@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IdeaEditFragment">
+
+    <EditText
+        android:id="@+id/editTextIdeaCurrentBudget"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="Current Budget"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextIdeaText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextIdeaText"
+        app:layout_constraintTop_toBottomOf="@+id/editTextIdeaText" />
+
+    <EditText
+        android:id="@+id/editTextIdeaTitle"
+        android:layout_width="305dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="Title"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.134" />
+
+    <EditText
+        android:id="@+id/editTextIdeaText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Text"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextIdeaCurrentBudget"
+        app:layout_constraintEnd_toEndOf="@+id/editTextIdeaTitle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextIdeaTitle"
+        app:layout_constraintTop_toBottomOf="@+id/editTextIdeaTitle"
+        app:layout_constraintVertical_bias="0.459" />
+
+    <EditText
+        android:id="@+id/editTextIdeaNeededBudget"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="84dp"
+        android:ems="10"
+        android:hint="Needed Budget"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/ratingBarIdeaRating"
+        app:layout_constraintEnd_toEndOf="@+id/editTextIdeaCurrentBudget"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextIdeaCurrentBudget"
+        app:layout_constraintTop_toBottomOf="@+id/editTextIdeaCurrentBudget"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <RatingBar
+        android:id="@+id/ratingBarIdeaRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="156dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonModifyIdea"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/buttonModifyIdea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="Modify"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

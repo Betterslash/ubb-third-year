@@ -55,7 +55,7 @@ Minilanguage Specification :
     expression ::= expression "+" term | expression "-" term | expression "/" term | expression "*" term | expression "DIV" term | expression "MOD" term | expression "^" term | term
     term ::= term "*" factor | term "^" factor | factor
     factor ::= "(" expression ")" | IDENTIFIER
-    iostmt ::= "READ"  "(" IDENTIFIER ")" | "WRITE" "(" IDENTIFIER ")" | "READLN"  "(" IDENTIFIER ")" | "WRITELN" "(" IDENTIFIER ")"
+    iostmt ::= "READ (" IDENTIFIER ")" | "WRITE" "(" IDENTIFIER ")" | "READLN"  "(" IDENTIFIER ")" | "WRITELN" "(" IDENTIFIER ")"
     structstmt ::= cmpdstmt | ifstmt | whilestmt
     ifstmt ::= "IF" "(" condition ")" cmpdstmt |"IF" "(" condition ")" cmpdstmt "ELSE" cmpdstmt
     whilestmt ::= "WHILE" "(" condition ")" cmpdstmt
