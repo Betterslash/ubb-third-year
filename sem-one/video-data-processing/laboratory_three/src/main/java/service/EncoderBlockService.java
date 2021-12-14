@@ -81,7 +81,6 @@ public final class EncoderBlockService {
                 .build();
     }
 
-    public static List<Integer> entropy = new ArrayList<>();
 
     public static AbstractBlockRepository applyForwardDCTOnBlocks(BlockRepository blocks){
         var result = blocks
@@ -135,26 +134,27 @@ public final class EncoderBlockService {
         return value * cosU * cosV;
     }
 
-    public static void entropyEncoding(Block block){
-        var entropyList = CustomFunctions.applyZigZagTransform(block.getRepresentation(), 8, 8);
-        var DCsize = entropyList.size();
-        entropy.addAll(List.of(DCsize));
-        for (int i = 0; i < 64; i++) {
-            var cnt = 0;
+    public static List<List<Integer>> entropyEncoding(Block block){
+        var entropy = new ArrayList<List<Integer>>();
+        var entropyList = CustomFunctions.applyZigZagTransform(block);
+        entropy.add(Arrays.asList(getPlaceInTable(entropyList.get(0)), entropyList.get(0).intValue()));
+        for (int i = 1; i <=63; i++) {
+            var RUN_LENGTH = 0;
             while(entropyList.get(i) == 0){
-                cnt++;
+                RUN_LENGTH++;
                 i++;
                 if(i == 64){
                     break;
                 }
             }
             if (i == 64 )
-                entropy.addAll(Arrays.asList(0, 0));
+                entropy.add(Arrays.asList(0, 0));
             else
             {
-                entropy.addAll(Arrays.asList(cnt, getPlaceInTable(entropyList.get(i)), entropyList.get(i).intValue()));
+                entropy.add(Arrays.asList(RUN_LENGTH, getPlaceInTable(entropyList.get(i)), entropyList.get(i).intValue()));
             }
         }
+        return entropy;
     }
 
     private static Integer getPlaceInTable(Double aDouble) {
@@ -167,5 +167,24 @@ public final class EncoderBlockService {
             }
         }
         return result;
+    }
+
+    public static List<List<Integer>> getDCList(List<Block> yBlocks, List<Block> uBlocks, List<Block> vBlocks){
+        var size =  yBlocks.size();
+        var result = new ArrayList<List<Integer>>();
+        for (int i = 0; i < size; i++) {
+            getEntropiesListForBlocks(yBlocks.get(i), uBlocks.get(i), vBlocks.get(i), result);
+        }
+        return result;
+    }
+
+    private static void getEntropiesListForBlocks(Block yBlock, Block uBlock, Block vBlock, List<List<Integer>> result){
+        var yArray = entropyEncoding(yBlock);
+        var uArray = entropyEncoding(uBlock);
+        var vArray = entropyEncoding(vBlock);
+
+        result.addAll(yArray);
+        result.addAll(uArray);
+        result.addAll(vArray);
     }
 }

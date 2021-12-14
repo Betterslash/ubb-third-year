@@ -1,6 +1,8 @@
 import model.PPMImage;
 import model.ValueSignature;
 import model.block.Block;
+import repository.AbstractBlockRepository;
+import repository.BlockRepository;
 import service.DecoderBlockService;
 import service.EncoderBlockService;
 import utils.CustomFunctions;
@@ -27,26 +29,14 @@ public class Main {
             var uGBlockRepository = EncoderBlockService.applyForwardDCTOnBlocks(expandedU);
             var vGBlockRepository = EncoderBlockService.applyForwardDCTOnBlocks(expandedV);
 
-            var decodedY = DecoderBlockService.applyInverseDCTOnBlocks(yGBlockRepository);
-            var decoedeU = DecoderBlockService.applyInverseDCTOnBlocks(uGBlockRepository);
-            var decodedV = DecoderBlockService.applyInverseDCTOnBlocks(vGBlockRepository);
+            var bytesList = EncoderBlockService.getDCList(yGBlockRepository.getStorage(), uGBlockRepository.getStorage(), vGBlockRepository.getStorage());
+            var blockRepositories = DecoderBlockService.decodeEntropies(bytesList);
+
+            var decodedY = DecoderBlockService.applyInverseDCTOnBlocks((BlockRepository)blockRepositories.get(0));
+            var decoedeU = DecoderBlockService.applyInverseDCTOnBlocks((BlockRepository)blockRepositories.get(1));
+            var decodedV = DecoderBlockService.applyInverseDCTOnBlocks((BlockRepository)blockRepositories.get(2));
 
             DecoderBlockService.decodeImage(decodedY, decoedeU, decodedV);
-
-            var mockBlock = new double[][]{
-                    {150, 80, 20, 4, 1, 0, 0, 0},
-                    {92, 75, 18, 3, 1, 0, 0, 0},
-                    {26, 19, 13, 2, 1, 0, 0, 0},
-                    {3, 2, 2, 1, 0, 0, 0, 0},
-                    {1, 0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0}
-            };
-            System.out.println(CustomFunctions.applyZigZagTransform(mockBlock, 8, 8).stream().map(Double::intValue).toList());
-            System.out.println(ProgramInitializer.coefficientTable);
-            EncoderBlockService.entropyEncoding(Block.builder().representation(mockBlock).build());
-            System.out.println(EncoderBlockService.entropy);
         }
     }
 }
