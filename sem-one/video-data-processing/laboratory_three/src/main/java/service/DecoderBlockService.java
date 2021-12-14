@@ -13,11 +13,28 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static utils.CustomFunctions.alpha;
 
 public final class DecoderBlockService {
+
+    private static int[][] POSITIONS = new int[][]{
+            {0, 0}, {0, 1}, {1, 0}, {2, 0}, {1, 1}, {0, 2},
+            {0, 3}, {1, 2}, {2, 1}, {3, 0}, {4, 0}, {3, 1},
+            {2, 2}, {1, 3}, {0, 4}, {0, 5}, {1, 4}, {2, 3},
+            {3, 2}, {4, 1}, {5, 0}, {6, 0}, {5, 1}, {4, 2},
+            {3, 3}, {2, 4}, {1, 5}, {0, 6}, {0, 7}, {1, 6},
+            {2, 5}, {3, 4}, {4, 3}, {5, 2}, {6, 1}, {7, 0},
+
+            {7, 1}, {6, 2}, {5, 3}, {4, 4}, {3, 5}, {2, 6},
+            {1, 7}, {2, 7}, {3, 6}, {4, 5}, {5, 4}, {6, 3},
+            {7, 2}, {7, 3}, {6, 4}, {5, 5}, {4, 6}, {3, 7},
+            {4, 7}, {5, 6}, {6, 5}, {7, 4}, {7, 5}, {6, 6},
+            {5, 7}, {6, 7}, {7, 6}, {7, 7}
+    };
 
     public static BlockRepository expandUV(BlockRepository uvParam){
         var size = uvParam.getStorage().size();
@@ -65,9 +82,9 @@ public final class DecoderBlockService {
      * @return decoded matrix coresponding to the block type introduced
      */
     private static double[][] decodeBlock(BlockRepository blocks){
-        double[][] matrix = new double[600][800];
-        int line = 0;
-        int column = 0;
+        var matrix = new double[600][800];
+        var line = 0;
+        var column = 0;
         for (var block : blocks.getStorage())
         {
             for (int i = 0; i < 8; i++)
@@ -99,7 +116,7 @@ public final class DecoderBlockService {
         writer.close();
     }
 
-    public static AbstractBlockRepository applyInverseDCTOnBlocks(AbstractBlockRepository abstractBlockRepository){
+    public static AbstractBlockRepository applyInverseDCTOnBlocks(BlockRepository abstractBlockRepository){
         var representation = abstractBlockRepository
                 .getStorage()
                 .stream()
@@ -149,5 +166,61 @@ public final class DecoderBlockService {
         var cosU = Math.cos((2 * x + 1) * u * Math.PI / 16);
         var cosV = Math.cos((2 * y + 1) * v * Math.PI / 16);
         return alpha(u) * alpha(v) * matrixValue * cosU * cosV;
+    }
+
+    public static List<? super AbstractBlockRepository> decodeEntropies(List<List<Integer>> encodedEntropy){
+        var yBlocks = BlockRepositoryImpl.builder()
+                .storage(new ArrayList<>())
+                .build();
+        var uBlocks = BlockRepositoryImpl.builder()
+                .storage(new ArrayList<>())
+                .build();;
+        var vBlcoks = BlockRepositoryImpl.builder()
+                .storage(new ArrayList<>())
+                .build();;
+        var result = new ArrayList<BlockRepository>(Arrays.asList(yBlocks, uBlocks, vBlcoks));
+        var blockType = -1;
+        int i = 0;
+        var currentBlock = new ArrayList<List<Integer>>();
+        for (int j = 0; j < encodedEntropy.size(); j++) {
+            var current = encodedEntropy.get(i);
+            if(current.size() == 2) {
+                if(current.get(0) != 0 || current.get(1) != 0){
+                    if (blockType == 2) {
+                        blockType = 0;
+                    } else {
+                        blockType += 1;
+                    }
+                    result.get(blockType).getStorage().add(applyEntropyDecodingOnBlock(currentBlock));
+                    currentBlock = new ArrayList<>();
+                }
+            }
+            if(current.get(0) != 0 || current.get(1) != 0) {
+                currentBlock.add(encodedEntropy.get(i));
+            }
+        }
+        return result;
+    }
+
+    public static Block applyEntropyDecodingOnBlock(List<List<Integer>> currentBlock) {
+        var result = new ArrayList<Integer>();
+        currentBlock.forEach(e -> {
+            if(e.size() > 2){
+                for (int i = 0; i < e.get(0); i++) {
+                    result.add(0);
+                }
+                result.add(e.get(2));
+            } else{
+                result.add(e.get(1));
+            }
+        });
+        while(result.size() < 64){
+            result.add(0);
+        }
+        var matr = new double[8][8];
+        for (int i = 0; i < 64; i++) {
+            matr[POSITIONS[i][0]][POSITIONS[i][1]] = result.get(i);
+        }
+        return Block.builder().representation(matr).build();
     }
 }

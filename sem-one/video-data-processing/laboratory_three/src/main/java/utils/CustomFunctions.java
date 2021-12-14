@@ -79,7 +79,7 @@ public final class CustomFunctions {
                 .build();
     }
 
-    public static List<Double> applyZigZagTransform(double[][] arr, int n, int m) {
+    public static List<Double> zigZagTransform(double[][] arr, int n, int m) {
         int row = 0, col = 0;
         var result = new ArrayList<Double>();
         // Boolean variable that will true if we
@@ -168,5 +168,9 @@ public final class CustomFunctions {
             }
         }
         return result;
+    }
+
+    public static List<Double> applyZigZagTransform(Block block){
+        return zigZagTransform(block.getRepresentation(), 8, 8);
     }
 }
