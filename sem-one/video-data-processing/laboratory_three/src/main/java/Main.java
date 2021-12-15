@@ -1,7 +1,6 @@
 import model.PPMImage;
 import model.ValueSignature;
 import model.block.Block;
-import repository.AbstractBlockRepository;
 import repository.BlockRepository;
 import service.DecoderBlockService;
 import service.EncoderBlockService;
@@ -32,9 +31,9 @@ public class Main {
             var bytesList = EncoderBlockService.getDCList(yGBlockRepository.getStorage(), uGBlockRepository.getStorage(), vGBlockRepository.getStorage());
             var blockRepositories = DecoderBlockService.decodeEntropies(bytesList);
 
-            var decodedY = DecoderBlockService.applyInverseDCTOnBlocks((BlockRepository)blockRepositories.get(0));
-            var decoedeU = DecoderBlockService.applyInverseDCTOnBlocks((BlockRepository)blockRepositories.get(1));
-            var decodedV = DecoderBlockService.applyInverseDCTOnBlocks((BlockRepository)blockRepositories.get(2));
+            var decodedY = DecoderBlockService.applyInverseDCTOnBlocks((BlockRepository) blockRepositories.get(0));
+            var decoedeU = DecoderBlockService.applyInverseDCTOnBlocks((BlockRepository) blockRepositories.get(1));
+            var decodedV = DecoderBlockService.applyInverseDCTOnBlocks((BlockRepository) blockRepositories.get(2));
 
             DecoderBlockService.decodeImage(decodedY, decoedeU, decodedV);
         }
