@@ -96,7 +96,6 @@ public final class DecoderBlockService {
                 column = 0;
             }
         }
-
         return matrix;
     }
 
@@ -180,23 +179,26 @@ public final class DecoderBlockService {
                 .build();;
         var result = new ArrayList<BlockRepository>(Arrays.asList(yBlocks, uBlocks, vBlcoks));
         var blockType = -1;
-        int i = 0;
+        var i = 0;
         var currentBlock = new ArrayList<List<Integer>>();
-        for (int j = 0; j < encodedEntropy.size(); j++) {
-            var current = encodedEntropy.get(i);
-            if(current.size() == 2) {
-                if(current.get(0) != 0 || current.get(1) != 0){
-                    if (blockType == 2) {
+        while(i < encodedEntropy.size()){
+            var currentByte = encodedEntropy.get(i);
+            while(currentByte.size() == 3){
+                currentBlock.add(currentByte);
+                ++i;
+                currentByte = encodedEntropy.get(i);
+            }
+            if(currentByte.size() == 2){
+                if (currentByte.get(0) != 0 || currentByte.get(1) != 0) {
+                    if(blockType == 2){
                         blockType = 0;
-                    } else {
+                    }else{
                         blockType += 1;
                     }
                     result.get(blockType).getStorage().add(applyEntropyDecodingOnBlock(currentBlock));
-                    currentBlock = new ArrayList<>();
                 }
-            }
-            if(current.get(0) != 0 || current.get(1) != 0) {
-                currentBlock.add(encodedEntropy.get(i));
+                currentBlock = new ArrayList<>();
+                ++i;
             }
         }
         return result;
