@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object Api {
-    private const val URL = "http://192.168.1.4:8080/"
+    private const val URL = "http://192.168.1.5:8080/"
 
     private val client: OkHttpClient = OkHttpClient.Builder().apply {}.build()
 
