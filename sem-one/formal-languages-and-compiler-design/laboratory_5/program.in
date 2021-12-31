@@ -1,0 +1,5 @@
+PROGRAM
+VAR e : INT;
+{
+    READLN(e);
+}
