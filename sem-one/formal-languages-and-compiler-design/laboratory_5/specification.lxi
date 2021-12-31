@@ -1,0 +1,73 @@
+%{
+    #include <math.h>
+    #include <stdio.h>
+    #include "scanner.h"
+
+    int lines = 0;
+%}
+
+%option noyywrap
+
+DIGIT               [0-9]
+WORD                ["]([a-zA-Z])*["]
+NUMBER		        [1-9][0-9]*|0
+NR_REAL		        {NUMBER}+"."{DIGIT}*
+CONST		        {WORD}|{NUMBER}|{NR_REAL}
+ID 		            [a-zA-Z][a-zA-Z0-9]{0,7}
+
+%%
+
+"IF"        {printf("Keyword : %s\n", yytext); return IF;}               
+"VAR"       {printf("Keyword : %s\n", yytext); return VAR;}
+"PROGRAM"   {printf("Keyword : %s\n", yytext); return PROGRAM;}
+"WHILE"     {printf("Keyword : %s\n", yytext); return WHILE;}
+"ELSE"      {printf("Keyword : %s\n", yytext); return ELSE;}
+"FOR"       {printf("Keyword : %s\n", yytext); return FOR;}
+"INT"       {printf("Keyword : %s\n", yytext); return INT;}
+"BOOL"      {printf("Keyword : %s\n", yytext); return BOOL;}
+"CHAR"      {printf("Keyword : %s\n", yytext); return CHAR;}
+"ARRAY"     {printf("Keyword : %s\n", yytext); return ARRAY;}
+"TYPEDEF"   {printf("Keyword : %s\n", yytext); return TYPEDEF;}
+"DIV"       {printf("Keyword : %s\n", yytext); return DIV;}
+"MOD"       {printf("Keyword : %s\n", yytext); return MOD;}
+"WRITE"     {printf("Keyword : %s\n", yytext); return WRITE;}
+"WRITELN"   {printf("Keyword : %s\n", yytext); return WRITELN;}
+"READ"      {printf("Keyword : %s\n", yytext); return READ;}
+"READLN"    {printf("Keyword : %s\n", yytext); return READLN;}
+
+
+{ID}	{printf( "Identifier: %s\n", yytext ); return IDENTIFIER;}
+{CONST}	{printf( "Constant: %s\n", yytext ); return CONST;}
+
+
+":"	    {printf( "Separator: %s\n", yytext ); return COLON;}
+";"	    {printf( "Separator: %s\n", yytext ); return SEMI_COLON;}
+","	    {printf( "Separator: %s\n", yytext ); return COMA;}
+"::"    {printf( "Separator: %s\n", yytext ); return DOTS;}
+"+"	    {printf( "Operator: %s\n", yytext ); return PLUS;}
+"-"	    {printf( "Operator: %s\n", yytext ); return MINUS;}
+"*"	    {printf( "Operator: %s\n", yytext ); return MULTIPLY;}
+"/"	    {printf( "Operator: %s\n", yytext ); return DIVISION;}
+"("	    {printf( "Separator: %s\n", yytext ); return OPEN_ROUND_PARENTHESIS;}
+")"	    {printf( "Separator: %s\n", yytext ); return CLOSE_ROUND_PARENTHESIS;}
+"["	    {printf( "Separator: %s\n", yytext ); return OPEN_SQUARE_PARENTHESIS;}
+"]"	    {printf( "Separator: %s\n", yytext ); return CLOSE_SQUARE_PARENTHESIS;}
+"{"	    {printf( "Separator: %s\n", yytext ); return OPEN_CURLY_PARENTHESIS;}
+"}"	    {printf( "Separator: %s\n", yytext ); return CLOSE_CURLY_PARENTHESIS;}
+"<"	    {printf( "Operator: %s\n", yytext ); return LESS_THAN;}
+">"	    {printf( "Operator: %s\n", yytext ); return GREATER_THAN;}
+"<="	{printf( "Operator: %s\n", yytext ); return LESS_OR_EQUAL_THAN;}
+">="	{printf( "Operator: %s\n", yytext ); return GREATER_OR_EQUAL_THAN;}
+"!="	{printf( "Operator: %s\n", yytext ); return DIFFERENT;}
+"="	    {printf( "Operator: %s\n", yytext ); return EQUAL;}
+"<-"	{printf( "Separator: %s\n", yytext ); return ASSIGNMENT;}
+"|"	    {printf( "Separator: %s\n", yytext ); return BAR;}
+"^"     {printf( "Operator: %s\n", yytext); return POW;}
+"?"     {printf( "Operator: %s\n", yytext); return QUESTION_MARK;}
+"ϵ"     {printf( "Operator: %s\n", yytext); return EPSILON;}
+
+"{"[^}\n]*"}"	 {}
+[ \t]+	         {}
+[\n]+	         {++lines;}
+
+%%
