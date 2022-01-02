@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mobile-app-development/training/ionic-angular-app" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mobile-app-development/training/pokemons-application/pokemons-ui-react/pokemons-ui-app" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/virtual-reality/ray-tracer-Betterslash" vcs="Git" />
-  </component>
-</project>
