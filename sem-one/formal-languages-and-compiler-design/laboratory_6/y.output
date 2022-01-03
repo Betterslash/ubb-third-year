@@ -1,0 +1,1199 @@
+
+
+Terminals which are not used:
+
+   CONSTANT
+   THEN
+
+
+State 5 contains 1 shift/reduce conflict.
+
+Grammar
+rule 1    program -> VAR decllist SEMI_COLON compoundStmt
+rule 2    decllist -> declaration SEMI_COLON decllist
+rule 3    decllist -> declaration
+rule 4    declaration -> IDENTIFIER COLON type
+rule 5    declaration -> mltiDeclaration
+rule 6    declaration -> arrayDeclaration
+rule 7    arrayDeclaration -> ARRAY OPEN_SQUARE_PARENTHESIS NUMBER CLOSE_SQUARE_PARENTHESIS DOTS type
+rule 8    mltiDeclaration -> IDENTIFIER COMA decllist
+rule 9    type -> primitiveType
+rule 10   type -> userDefinedType
+rule 11   primitiveType -> INT
+rule 12   primitiveType -> BOOL
+rule 13   primitiveType -> CHAR
+rule 14   userDefinedType -> TYPEDEF DOTS IDENTIFIER OPEN_CURLY_PARENTHESIS decllist CLOSE_CURLY_PARENTHESIS
+rule 15   compoundStmt -> OPEN_CURLY_PARENTHESIS stmtlist CLOSE_CURLY_PARENTHESIS
+rule 16   stmtlist -> stmt SEMI_COLON stmtlist
+rule 17   stmtlist -> stmt
+rule 18   stmt -> simplestmt
+rule 19   stmt -> structstmt
+rule 20   simplestmt -> assignstmt
+rule 21   simplestmt -> iostmt
+rule 22   assignstmt -> IDENTIFIER ASSIGNMENT expression
+rule 23   expression -> term
+rule 24   expression -> term PLUS expression
+rule 25   expression -> term MINUS expression
+rule 26   expression -> term MULTIPLY expression
+rule 27   expression -> term DIVISION expression
+rule 28   term -> IDENTIFIER
+rule 29   term -> NUMBER
+rule 30   term -> WORD
+rule 31   iostmt -> READ OPEN_ROUND_PARENTHESIS IDENTIFIER CLOSE_ROUND_PARENTHESIS
+rule 32   iostmt -> READLN OPEN_ROUND_PARENTHESIS IDENTIFIER CLOSE_ROUND_PARENTHESIS
+rule 33   iostmt -> WRITE OPEN_ROUND_PARENTHESIS IDENTIFIER CLOSE_ROUND_PARENTHESIS
+rule 34   iostmt -> WRITELN OPEN_ROUND_PARENTHESIS IDENTIFIER CLOSE_ROUND_PARENTHESIS
+rule 35   structstmt -> compoundStmt
+rule 36   structstmt -> ifStmt
+rule 37   structstmt -> whileStmt
+rule 38   structstmt -> forStmt
+rule 39   ifStmt -> IF OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS compoundStmt
+rule 40   ifStmt -> IF OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS compoundStmt ELSE compoundStmt
+rule 41   whileStmt -> WHILE OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS compoundStmt
+rule 42   forStmt -> FOR OPEN_ROUND_PARENTHESIS assignstmt SEMI_COLON relation SEMI_COLON expression CLOSE_ROUND_PARENTHESIS compoundStmt
+rule 43   condition -> expression relation expression
+rule 44   relation -> DIFFERENT
+rule 45   relation -> LESS_OR_EQUAL_THAN
+rule 46   relation -> LESS_THAN
+rule 47   relation -> GREATER_OR_EQUAL_THAN
+rule 48   relation -> GREATER_THAN
+rule 49   relation -> EQUAL
+
+Terminals, with rules where they appear
+
+$ (-1)
+error (256)
+IDENTIFIER (258) 4 8 14 22 28 31 32 33 34
+CONSTANT (259)
+WHILE (260) 41
+IF (261) 39 40
+THEN (262)
+FOR (263) 42
+LESS_THAN (264) 46
+GREATER_THAN (265) 48
+LESS_OR_EQUAL_THAN (266) 45
+GREATER_OR_EQUAL_THAN (267) 47
+SEMI_COLON (268) 1 2 16 42
+COMA (269) 8
+ASSIGNMENT (270) 22
+EQUAL (271) 49
+MULTIPLY (272) 26
+MINUS (273) 25
+PLUS (274) 24
+DIVISION (275) 27
+VAR (276) 1
+BOOL (277) 12
+INT (278) 11
+CHAR (279) 13
+DOTS (280) 7 14
+OPEN_ROUND_PARENTHESIS (281) 31 32 33 34 39 40 41 42
+CLOSE_ROUND_PARENTHESIS (282) 31 32 33 34 39 40 41 42
+OPEN_SQUARE_PARENTHESIS (283) 7
+CLOSE_SQUARE_PARENTHESIS (284) 7
+OPEN_CURLY_PARENTHESIS (285) 14 15
+CLOSE_CURLY_PARENTHESIS (286) 14 15
+WRITE (287) 33
+WRITELN (288) 34
+READ (289) 31
+READLN (290) 32
+ELSE (291) 40
+DIFFERENT (292) 44
+COLON (293) 4
+TYPEDEF (294) 14
+NUMBER (295) 7 29
+WORD (296) 30
+ARRAY (297) 7
+
+Nonterminals, with rules where they appear
+
+program (43)
+    on left: 1
+decllist (44)
+    on left: 2 3, on right: 1 2 8 14
+declaration (45)
+    on left: 4 5 6, on right: 2 3
+arrayDeclaration (46)
+    on left: 7, on right: 6
+mltiDeclaration (47)
+    on left: 8, on right: 5
+type (48)
+    on left: 9 10, on right: 4 7
+primitiveType (49)
+    on left: 11 12 13, on right: 9
+userDefinedType (50)
+    on left: 14, on right: 10
+compoundStmt (51)
+    on left: 15, on right: 1 35 39 40 41 42
+stmtlist (52)
+    on left: 16 17, on right: 15 16
+stmt (53)
+    on left: 18 19, on right: 16 17
+simplestmt (54)
+    on left: 20 21, on right: 18
+assignstmt (55)
+    on left: 22, on right: 20 42
+expression (56)
+    on left: 23 24 25 26 27, on right: 22 24 25 26 27 42 43
+term (57)
+    on left: 28 29 30, on right: 23 24 25 26 27
+iostmt (58)
+    on left: 31 32 33 34, on right: 21
+structstmt (59)
+    on left: 35 36 37 38, on right: 19
+ifStmt (60)
+    on left: 39 40, on right: 36
+whileStmt (61)
+    on left: 41, on right: 37
+forStmt (62)
+    on left: 42, on right: 38
+condition (63)
+    on left: 43, on right: 39 40 41
+relation (64)
+    on left: 44 45 46 47 48 49, on right: 42 43
+
+
+state 0
+
+    VAR 	shift, and go to state 1
+
+    program	go to state 107
+
+
+
+state 1
+
+    program  ->  VAR . decllist SEMI_COLON compoundStmt   (rule 1)
+
+    IDENTIFIER	shift, and go to state 2
+    ARRAY	shift, and go to state 3
+
+    decllist	go to state 4
+    declaration	go to state 5
+    arrayDeclaration	go to state 6
+    mltiDeclaration	go to state 7
+
+
+
+state 2
+
+    declaration  ->  IDENTIFIER . COLON type   (rule 4)
+    mltiDeclaration  ->  IDENTIFIER . COMA decllist   (rule 8)
+
+    COMA	shift, and go to state 8
+    COLON	shift, and go to state 9
+
+
+
+state 3
+
+    arrayDeclaration  ->  ARRAY . OPEN_SQUARE_PARENTHESIS NUMBER CLOSE_SQUARE_PARENTHESIS DOTS type   (rule 7)
+
+    OPEN_SQUARE_PARENTHESIS	shift, and go to state 10
+
+
+
+state 4
+
+    program  ->  VAR decllist . SEMI_COLON compoundStmt   (rule 1)
+
+    SEMI_COLON	shift, and go to state 11
+
+
+
+state 5
+
+    decllist  ->  declaration . SEMI_COLON decllist   (rule 2)
+    decllist  ->  declaration .   (rule 3)
+
+    SEMI_COLON	shift, and go to state 12
+
+    SEMI_COLON	[reduce using rule 3 (decllist)]
+    $default	reduce using rule 3 (decllist)
+
+
+
+state 6
+
+    declaration  ->  arrayDeclaration .   (rule 6)
+
+    $default	reduce using rule 6 (declaration)
+
+
+
+state 7
+
+    declaration  ->  mltiDeclaration .   (rule 5)
+
+    $default	reduce using rule 5 (declaration)
+
+
+
+state 8
+
+    mltiDeclaration  ->  IDENTIFIER COMA . decllist   (rule 8)
+
+    IDENTIFIER	shift, and go to state 2
+    ARRAY	shift, and go to state 3
+
+    decllist	go to state 13
+    declaration	go to state 5
+    arrayDeclaration	go to state 6
+    mltiDeclaration	go to state 7
+
+
+
+state 9
+
+    declaration  ->  IDENTIFIER COLON . type   (rule 4)
+
+    BOOL	shift, and go to state 14
+    INT 	shift, and go to state 15
+    CHAR	shift, and go to state 16
+    TYPEDEF	shift, and go to state 17
+
+    type	go to state 18
+    primitiveType	go to state 19
+    userDefinedType	go to state 20
+
+
+
+state 10
+
+    arrayDeclaration  ->  ARRAY OPEN_SQUARE_PARENTHESIS . NUMBER CLOSE_SQUARE_PARENTHESIS DOTS type   (rule 7)
+
+    NUMBER	shift, and go to state 21
+
+
+
+state 11
+
+    program  ->  VAR decllist SEMI_COLON . compoundStmt   (rule 1)
+
+    OPEN_CURLY_PARENTHESIS	shift, and go to state 22
+
+    compoundStmt	go to state 23
+
+
+
+state 12
+
+    decllist  ->  declaration SEMI_COLON . decllist   (rule 2)
+
+    IDENTIFIER	shift, and go to state 2
+    ARRAY	shift, and go to state 3
+
+    decllist	go to state 24
+    declaration	go to state 5
+    arrayDeclaration	go to state 6
+    mltiDeclaration	go to state 7
+
+
+
+state 13
+
+    mltiDeclaration  ->  IDENTIFIER COMA decllist .   (rule 8)
+
+    $default	reduce using rule 8 (mltiDeclaration)
+
+
+
+state 14
+
+    primitiveType  ->  BOOL .   (rule 12)
+
+    $default	reduce using rule 12 (primitiveType)
+
+
+
+state 15
+
+    primitiveType  ->  INT .   (rule 11)
+
+    $default	reduce using rule 11 (primitiveType)
+
+
+
+state 16
+
+    primitiveType  ->  CHAR .   (rule 13)
+
+    $default	reduce using rule 13 (primitiveType)
+
+
+
+state 17
+
+    userDefinedType  ->  TYPEDEF . DOTS IDENTIFIER OPEN_CURLY_PARENTHESIS decllist CLOSE_CURLY_PARENTHESIS   (rule 14)
+
+    DOTS	shift, and go to state 25
+
+
+
+state 18
+
+    declaration  ->  IDENTIFIER COLON type .   (rule 4)
+
+    $default	reduce using rule 4 (declaration)
+
+
+
+state 19
+
+    type  ->  primitiveType .   (rule 9)
+
+    $default	reduce using rule 9 (type)
+
+
+
+state 20
+
+    type  ->  userDefinedType .   (rule 10)
+
+    $default	reduce using rule 10 (type)
+
+
+
+state 21
+
+    arrayDeclaration  ->  ARRAY OPEN_SQUARE_PARENTHESIS NUMBER . CLOSE_SQUARE_PARENTHESIS DOTS type   (rule 7)
+
+    CLOSE_SQUARE_PARENTHESIS	shift, and go to state 26
+
+
+
+state 22
+
+    compoundStmt  ->  OPEN_CURLY_PARENTHESIS . stmtlist CLOSE_CURLY_PARENTHESIS   (rule 15)
+
+    IDENTIFIER	shift, and go to state 27
+    WHILE	shift, and go to state 28
+    IF  	shift, and go to state 29
+    FOR 	shift, and go to state 30
+    OPEN_CURLY_PARENTHESIS	shift, and go to state 22
+    WRITE	shift, and go to state 31
+    WRITELN	shift, and go to state 32
+    READ	shift, and go to state 33
+    READLN	shift, and go to state 34
+
+    compoundStmt	go to state 35
+    stmtlist	go to state 36
+    stmt	go to state 37
+    simplestmt	go to state 38
+    assignstmt	go to state 39
+    iostmt	go to state 40
+    structstmt	go to state 41
+    ifStmt	go to state 42
+    whileStmt	go to state 43
+    forStmt	go to state 44
+
+
+
+state 23
+
+    program  ->  VAR decllist SEMI_COLON compoundStmt .   (rule 1)
+
+    $default	reduce using rule 1 (program)
+
+
+
+state 24
+
+    decllist  ->  declaration SEMI_COLON decllist .   (rule 2)
+
+    $default	reduce using rule 2 (decllist)
+
+
+
+state 25
+
+    userDefinedType  ->  TYPEDEF DOTS . IDENTIFIER OPEN_CURLY_PARENTHESIS decllist CLOSE_CURLY_PARENTHESIS   (rule 14)
+
+    IDENTIFIER	shift, and go to state 45
+
+
+
+state 26
+
+    arrayDeclaration  ->  ARRAY OPEN_SQUARE_PARENTHESIS NUMBER CLOSE_SQUARE_PARENTHESIS . DOTS type   (rule 7)
+
+    DOTS	shift, and go to state 46
+
+
+
+state 27
+
+    assignstmt  ->  IDENTIFIER . ASSIGNMENT expression   (rule 22)
+
+    ASSIGNMENT	shift, and go to state 47
+
+
+
+state 28
+
+    whileStmt  ->  WHILE . OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 41)
+
+    OPEN_ROUND_PARENTHESIS	shift, and go to state 48
+
+
+
+state 29
+
+    ifStmt  ->  IF . OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 39)
+    ifStmt  ->  IF . OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS compoundStmt ELSE compoundStmt   (rule 40)
+
+    OPEN_ROUND_PARENTHESIS	shift, and go to state 49
+
+
+
+state 30
+
+    forStmt  ->  FOR . OPEN_ROUND_PARENTHESIS assignstmt SEMI_COLON relation SEMI_COLON expression CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 42)
+
+    OPEN_ROUND_PARENTHESIS	shift, and go to state 50
+
+
+
+state 31
+
+    iostmt  ->  WRITE . OPEN_ROUND_PARENTHESIS IDENTIFIER CLOSE_ROUND_PARENTHESIS   (rule 33)
+
+    OPEN_ROUND_PARENTHESIS	shift, and go to state 51
+
+
+
+state 32
+
+    iostmt  ->  WRITELN . OPEN_ROUND_PARENTHESIS IDENTIFIER CLOSE_ROUND_PARENTHESIS   (rule 34)
+
+    OPEN_ROUND_PARENTHESIS	shift, and go to state 52
+
+
+
+state 33
+
+    iostmt  ->  READ . OPEN_ROUND_PARENTHESIS IDENTIFIER CLOSE_ROUND_PARENTHESIS   (rule 31)
+
+    OPEN_ROUND_PARENTHESIS	shift, and go to state 53
+
+
+
+state 34
+
+    iostmt  ->  READLN . OPEN_ROUND_PARENTHESIS IDENTIFIER CLOSE_ROUND_PARENTHESIS   (rule 32)
+
+    OPEN_ROUND_PARENTHESIS	shift, and go to state 54
+
+
+
+state 35
+
+    structstmt  ->  compoundStmt .   (rule 35)
+
+    $default	reduce using rule 35 (structstmt)
+
+
+
+state 36
+
+    compoundStmt  ->  OPEN_CURLY_PARENTHESIS stmtlist . CLOSE_CURLY_PARENTHESIS   (rule 15)
+
+    CLOSE_CURLY_PARENTHESIS	shift, and go to state 55
+
+
+
+state 37
+
+    stmtlist  ->  stmt . SEMI_COLON stmtlist   (rule 16)
+    stmtlist  ->  stmt .   (rule 17)
+
+    SEMI_COLON	shift, and go to state 56
+
+    $default	reduce using rule 17 (stmtlist)
+
+
+
+state 38
+
+    stmt  ->  simplestmt .   (rule 18)
+
+    $default	reduce using rule 18 (stmt)
+
+
+
+state 39
+
+    simplestmt  ->  assignstmt .   (rule 20)
+
+    $default	reduce using rule 20 (simplestmt)
+
+
+
+state 40
+
+    simplestmt  ->  iostmt .   (rule 21)
+
+    $default	reduce using rule 21 (simplestmt)
+
+
+
+state 41
+
+    stmt  ->  structstmt .   (rule 19)
+
+    $default	reduce using rule 19 (stmt)
+
+
+
+state 42
+
+    structstmt  ->  ifStmt .   (rule 36)
+
+    $default	reduce using rule 36 (structstmt)
+
+
+
+state 43
+
+    structstmt  ->  whileStmt .   (rule 37)
+
+    $default	reduce using rule 37 (structstmt)
+
+
+
+state 44
+
+    structstmt  ->  forStmt .   (rule 38)
+
+    $default	reduce using rule 38 (structstmt)
+
+
+
+state 45
+
+    userDefinedType  ->  TYPEDEF DOTS IDENTIFIER . OPEN_CURLY_PARENTHESIS decllist CLOSE_CURLY_PARENTHESIS   (rule 14)
+
+    OPEN_CURLY_PARENTHESIS	shift, and go to state 57
+
+
+
+state 46
+
+    arrayDeclaration  ->  ARRAY OPEN_SQUARE_PARENTHESIS NUMBER CLOSE_SQUARE_PARENTHESIS DOTS . type   (rule 7)
+
+    BOOL	shift, and go to state 14
+    INT 	shift, and go to state 15
+    CHAR	shift, and go to state 16
+    TYPEDEF	shift, and go to state 17
+
+    type	go to state 58
+    primitiveType	go to state 19
+    userDefinedType	go to state 20
+
+
+
+state 47
+
+    assignstmt  ->  IDENTIFIER ASSIGNMENT . expression   (rule 22)
+
+    IDENTIFIER	shift, and go to state 59
+    NUMBER	shift, and go to state 60
+    WORD	shift, and go to state 61
+
+    expression	go to state 62
+    term	go to state 63
+
+
+
+state 48
+
+    whileStmt  ->  WHILE OPEN_ROUND_PARENTHESIS . condition CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 41)
+
+    IDENTIFIER	shift, and go to state 59
+    NUMBER	shift, and go to state 60
+    WORD	shift, and go to state 61
+
+    expression	go to state 64
+    term	go to state 63
+    condition	go to state 65
+
+
+
+state 49
+
+    ifStmt  ->  IF OPEN_ROUND_PARENTHESIS . condition CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 39)
+    ifStmt  ->  IF OPEN_ROUND_PARENTHESIS . condition CLOSE_ROUND_PARENTHESIS compoundStmt ELSE compoundStmt   (rule 40)
+
+    IDENTIFIER	shift, and go to state 59
+    NUMBER	shift, and go to state 60
+    WORD	shift, and go to state 61
+
+    expression	go to state 64
+    term	go to state 63
+    condition	go to state 66
+
+
+
+state 50
+
+    forStmt  ->  FOR OPEN_ROUND_PARENTHESIS . assignstmt SEMI_COLON relation SEMI_COLON expression CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 42)
+
+    IDENTIFIER	shift, and go to state 27
+
+    assignstmt	go to state 67
+
+
+
+state 51
+
+    iostmt  ->  WRITE OPEN_ROUND_PARENTHESIS . IDENTIFIER CLOSE_ROUND_PARENTHESIS   (rule 33)
+
+    IDENTIFIER	shift, and go to state 68
+
+
+
+state 52
+
+    iostmt  ->  WRITELN OPEN_ROUND_PARENTHESIS . IDENTIFIER CLOSE_ROUND_PARENTHESIS   (rule 34)
+
+    IDENTIFIER	shift, and go to state 69
+
+
+
+state 53
+
+    iostmt  ->  READ OPEN_ROUND_PARENTHESIS . IDENTIFIER CLOSE_ROUND_PARENTHESIS   (rule 31)
+
+    IDENTIFIER	shift, and go to state 70
+
+
+
+state 54
+
+    iostmt  ->  READLN OPEN_ROUND_PARENTHESIS . IDENTIFIER CLOSE_ROUND_PARENTHESIS   (rule 32)
+
+    IDENTIFIER	shift, and go to state 71
+
+
+
+state 55
+
+    compoundStmt  ->  OPEN_CURLY_PARENTHESIS stmtlist CLOSE_CURLY_PARENTHESIS .   (rule 15)
+
+    $default	reduce using rule 15 (compoundStmt)
+
+
+
+state 56
+
+    stmtlist  ->  stmt SEMI_COLON . stmtlist   (rule 16)
+
+    IDENTIFIER	shift, and go to state 27
+    WHILE	shift, and go to state 28
+    IF  	shift, and go to state 29
+    FOR 	shift, and go to state 30
+    OPEN_CURLY_PARENTHESIS	shift, and go to state 22
+    WRITE	shift, and go to state 31
+    WRITELN	shift, and go to state 32
+    READ	shift, and go to state 33
+    READLN	shift, and go to state 34
+
+    compoundStmt	go to state 35
+    stmtlist	go to state 72
+    stmt	go to state 37
+    simplestmt	go to state 38
+    assignstmt	go to state 39
+    iostmt	go to state 40
+    structstmt	go to state 41
+    ifStmt	go to state 42
+    whileStmt	go to state 43
+    forStmt	go to state 44
+
+
+
+state 57
+
+    userDefinedType  ->  TYPEDEF DOTS IDENTIFIER OPEN_CURLY_PARENTHESIS . decllist CLOSE_CURLY_PARENTHESIS   (rule 14)
+
+    IDENTIFIER	shift, and go to state 2
+    ARRAY	shift, and go to state 3
+
+    decllist	go to state 73
+    declaration	go to state 5
+    arrayDeclaration	go to state 6
+    mltiDeclaration	go to state 7
+
+
+
+state 58
+
+    arrayDeclaration  ->  ARRAY OPEN_SQUARE_PARENTHESIS NUMBER CLOSE_SQUARE_PARENTHESIS DOTS type .   (rule 7)
+
+    $default	reduce using rule 7 (arrayDeclaration)
+
+
+
+state 59
+
+    term  ->  IDENTIFIER .   (rule 28)
+
+    $default	reduce using rule 28 (term)
+
+
+
+state 60
+
+    term  ->  NUMBER .   (rule 29)
+
+    $default	reduce using rule 29 (term)
+
+
+
+state 61
+
+    term  ->  WORD .   (rule 30)
+
+    $default	reduce using rule 30 (term)
+
+
+
+state 62
+
+    assignstmt  ->  IDENTIFIER ASSIGNMENT expression .   (rule 22)
+
+    $default	reduce using rule 22 (assignstmt)
+
+
+
+state 63
+
+    expression  ->  term .   (rule 23)
+    expression  ->  term . PLUS expression   (rule 24)
+    expression  ->  term . MINUS expression   (rule 25)
+    expression  ->  term . MULTIPLY expression   (rule 26)
+    expression  ->  term . DIVISION expression   (rule 27)
+
+    MULTIPLY	shift, and go to state 74
+    MINUS	shift, and go to state 75
+    PLUS	shift, and go to state 76
+    DIVISION	shift, and go to state 77
+
+    $default	reduce using rule 23 (expression)
+
+
+
+state 64
+
+    condition  ->  expression . relation expression   (rule 43)
+
+    LESS_THAN	shift, and go to state 78
+    GREATER_THAN	shift, and go to state 79
+    LESS_OR_EQUAL_THAN	shift, and go to state 80
+    GREATER_OR_EQUAL_THAN	shift, and go to state 81
+    EQUAL	shift, and go to state 82
+    DIFFERENT	shift, and go to state 83
+
+    relation	go to state 84
+
+
+
+state 65
+
+    whileStmt  ->  WHILE OPEN_ROUND_PARENTHESIS condition . CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 41)
+
+    CLOSE_ROUND_PARENTHESIS	shift, and go to state 85
+
+
+
+state 66
+
+    ifStmt  ->  IF OPEN_ROUND_PARENTHESIS condition . CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 39)
+    ifStmt  ->  IF OPEN_ROUND_PARENTHESIS condition . CLOSE_ROUND_PARENTHESIS compoundStmt ELSE compoundStmt   (rule 40)
+
+    CLOSE_ROUND_PARENTHESIS	shift, and go to state 86
+
+
+
+state 67
+
+    forStmt  ->  FOR OPEN_ROUND_PARENTHESIS assignstmt . SEMI_COLON relation SEMI_COLON expression CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 42)
+
+    SEMI_COLON	shift, and go to state 87
+
+
+
+state 68
+
+    iostmt  ->  WRITE OPEN_ROUND_PARENTHESIS IDENTIFIER . CLOSE_ROUND_PARENTHESIS   (rule 33)
+
+    CLOSE_ROUND_PARENTHESIS	shift, and go to state 88
+
+
+
+state 69
+
+    iostmt  ->  WRITELN OPEN_ROUND_PARENTHESIS IDENTIFIER . CLOSE_ROUND_PARENTHESIS   (rule 34)
+
+    CLOSE_ROUND_PARENTHESIS	shift, and go to state 89
+
+
+
+state 70
+
+    iostmt  ->  READ OPEN_ROUND_PARENTHESIS IDENTIFIER . CLOSE_ROUND_PARENTHESIS   (rule 31)
+
+    CLOSE_ROUND_PARENTHESIS	shift, and go to state 90
+
+
+
+state 71
+
+    iostmt  ->  READLN OPEN_ROUND_PARENTHESIS IDENTIFIER . CLOSE_ROUND_PARENTHESIS   (rule 32)
+
+    CLOSE_ROUND_PARENTHESIS	shift, and go to state 91
+
+
+
+state 72
+
+    stmtlist  ->  stmt SEMI_COLON stmtlist .   (rule 16)
+
+    $default	reduce using rule 16 (stmtlist)
+
+
+
+state 73
+
+    userDefinedType  ->  TYPEDEF DOTS IDENTIFIER OPEN_CURLY_PARENTHESIS decllist . CLOSE_CURLY_PARENTHESIS   (rule 14)
+
+    CLOSE_CURLY_PARENTHESIS	shift, and go to state 92
+
+
+
+state 74
+
+    expression  ->  term MULTIPLY . expression   (rule 26)
+
+    IDENTIFIER	shift, and go to state 59
+    NUMBER	shift, and go to state 60
+    WORD	shift, and go to state 61
+
+    expression	go to state 93
+    term	go to state 63
+
+
+
+state 75
+
+    expression  ->  term MINUS . expression   (rule 25)
+
+    IDENTIFIER	shift, and go to state 59
+    NUMBER	shift, and go to state 60
+    WORD	shift, and go to state 61
+
+    expression	go to state 94
+    term	go to state 63
+
+
+
+state 76
+
+    expression  ->  term PLUS . expression   (rule 24)
+
+    IDENTIFIER	shift, and go to state 59
+    NUMBER	shift, and go to state 60
+    WORD	shift, and go to state 61
+
+    expression	go to state 95
+    term	go to state 63
+
+
+
+state 77
+
+    expression  ->  term DIVISION . expression   (rule 27)
+
+    IDENTIFIER	shift, and go to state 59
+    NUMBER	shift, and go to state 60
+    WORD	shift, and go to state 61
+
+    expression	go to state 96
+    term	go to state 63
+
+
+
+state 78
+
+    relation  ->  LESS_THAN .   (rule 46)
+
+    $default	reduce using rule 46 (relation)
+
+
+
+state 79
+
+    relation  ->  GREATER_THAN .   (rule 48)
+
+    $default	reduce using rule 48 (relation)
+
+
+
+state 80
+
+    relation  ->  LESS_OR_EQUAL_THAN .   (rule 45)
+
+    $default	reduce using rule 45 (relation)
+
+
+
+state 81
+
+    relation  ->  GREATER_OR_EQUAL_THAN .   (rule 47)
+
+    $default	reduce using rule 47 (relation)
+
+
+
+state 82
+
+    relation  ->  EQUAL .   (rule 49)
+
+    $default	reduce using rule 49 (relation)
+
+
+
+state 83
+
+    relation  ->  DIFFERENT .   (rule 44)
+
+    $default	reduce using rule 44 (relation)
+
+
+
+state 84
+
+    condition  ->  expression relation . expression   (rule 43)
+
+    IDENTIFIER	shift, and go to state 59
+    NUMBER	shift, and go to state 60
+    WORD	shift, and go to state 61
+
+    expression	go to state 97
+    term	go to state 63
+
+
+
+state 85
+
+    whileStmt  ->  WHILE OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS . compoundStmt   (rule 41)
+
+    OPEN_CURLY_PARENTHESIS	shift, and go to state 22
+
+    compoundStmt	go to state 98
+
+
+
+state 86
+
+    ifStmt  ->  IF OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS . compoundStmt   (rule 39)
+    ifStmt  ->  IF OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS . compoundStmt ELSE compoundStmt   (rule 40)
+
+    OPEN_CURLY_PARENTHESIS	shift, and go to state 22
+
+    compoundStmt	go to state 99
+
+
+
+state 87
+
+    forStmt  ->  FOR OPEN_ROUND_PARENTHESIS assignstmt SEMI_COLON . relation SEMI_COLON expression CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 42)
+
+    LESS_THAN	shift, and go to state 78
+    GREATER_THAN	shift, and go to state 79
+    LESS_OR_EQUAL_THAN	shift, and go to state 80
+    GREATER_OR_EQUAL_THAN	shift, and go to state 81
+    EQUAL	shift, and go to state 82
+    DIFFERENT	shift, and go to state 83
+
+    relation	go to state 100
+
+
+
+state 88
+
+    iostmt  ->  WRITE OPEN_ROUND_PARENTHESIS IDENTIFIER CLOSE_ROUND_PARENTHESIS .   (rule 33)
+
+    $default	reduce using rule 33 (iostmt)
+
+
+
+state 89
+
+    iostmt  ->  WRITELN OPEN_ROUND_PARENTHESIS IDENTIFIER CLOSE_ROUND_PARENTHESIS .   (rule 34)
+
+    $default	reduce using rule 34 (iostmt)
+
+
+
+state 90
+
+    iostmt  ->  READ OPEN_ROUND_PARENTHESIS IDENTIFIER CLOSE_ROUND_PARENTHESIS .   (rule 31)
+
+    $default	reduce using rule 31 (iostmt)
+
+
+
+state 91
+
+    iostmt  ->  READLN OPEN_ROUND_PARENTHESIS IDENTIFIER CLOSE_ROUND_PARENTHESIS .   (rule 32)
+
+    $default	reduce using rule 32 (iostmt)
+
+
+
+state 92
+
+    userDefinedType  ->  TYPEDEF DOTS IDENTIFIER OPEN_CURLY_PARENTHESIS decllist CLOSE_CURLY_PARENTHESIS .   (rule 14)
+
+    $default	reduce using rule 14 (userDefinedType)
+
+
+
+state 93
+
+    expression  ->  term MULTIPLY expression .   (rule 26)
+
+    $default	reduce using rule 26 (expression)
+
+
+
+state 94
+
+    expression  ->  term MINUS expression .   (rule 25)
+
+    $default	reduce using rule 25 (expression)
+
+
+
+state 95
+
+    expression  ->  term PLUS expression .   (rule 24)
+
+    $default	reduce using rule 24 (expression)
+
+
+
+state 96
+
+    expression  ->  term DIVISION expression .   (rule 27)
+
+    $default	reduce using rule 27 (expression)
+
+
+
+state 97
+
+    condition  ->  expression relation expression .   (rule 43)
+
+    $default	reduce using rule 43 (condition)
+
+
+
+state 98
+
+    whileStmt  ->  WHILE OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS compoundStmt .   (rule 41)
+
+    $default	reduce using rule 41 (whileStmt)
+
+
+
+state 99
+
+    ifStmt  ->  IF OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS compoundStmt .   (rule 39)
+    ifStmt  ->  IF OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS compoundStmt . ELSE compoundStmt   (rule 40)
+
+    ELSE	shift, and go to state 101
+
+    $default	reduce using rule 39 (ifStmt)
+
+
+
+state 100
+
+    forStmt  ->  FOR OPEN_ROUND_PARENTHESIS assignstmt SEMI_COLON relation . SEMI_COLON expression CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 42)
+
+    SEMI_COLON	shift, and go to state 102
+
+
+
+state 101
+
+    ifStmt  ->  IF OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS compoundStmt ELSE . compoundStmt   (rule 40)
+
+    OPEN_CURLY_PARENTHESIS	shift, and go to state 22
+
+    compoundStmt	go to state 103
+
+
+
+state 102
+
+    forStmt  ->  FOR OPEN_ROUND_PARENTHESIS assignstmt SEMI_COLON relation SEMI_COLON . expression CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 42)
+
+    IDENTIFIER	shift, and go to state 59
+    NUMBER	shift, and go to state 60
+    WORD	shift, and go to state 61
+
+    expression	go to state 104
+    term	go to state 63
+
+
+
+state 103
+
+    ifStmt  ->  IF OPEN_ROUND_PARENTHESIS condition CLOSE_ROUND_PARENTHESIS compoundStmt ELSE compoundStmt .   (rule 40)
+
+    $default	reduce using rule 40 (ifStmt)
+
+
+
+state 104
+
+    forStmt  ->  FOR OPEN_ROUND_PARENTHESIS assignstmt SEMI_COLON relation SEMI_COLON expression . CLOSE_ROUND_PARENTHESIS compoundStmt   (rule 42)
+
+    CLOSE_ROUND_PARENTHESIS	shift, and go to state 105
+
+
+
+state 105
+
+    forStmt  ->  FOR OPEN_ROUND_PARENTHESIS assignstmt SEMI_COLON relation SEMI_COLON expression CLOSE_ROUND_PARENTHESIS . compoundStmt   (rule 42)
+
+    OPEN_CURLY_PARENTHESIS	shift, and go to state 22
+
+    compoundStmt	go to state 106
+
+
+
+state 106
+
+    forStmt  ->  FOR OPEN_ROUND_PARENTHESIS assignstmt SEMI_COLON relation SEMI_COLON expression CLOSE_ROUND_PARENTHESIS compoundStmt .   (rule 42)
+
+    $default	reduce using rule 42 (forStmt)
+
+
+
+state 107
+
+    $   	go to state 108
+
+
+
+state 108
+
+    $   	go to state 109
+
+
+
+state 109
+
+    $default	accept

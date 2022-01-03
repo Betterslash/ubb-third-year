@@ -1,0 +1,23 @@
+VAR nfc : INT; 
+i : INT; 
+stop : INT; 
+checker : INT; 
+ok : BOOLEAN; 
+{ 
+ok <- "true"; 
+READLN(nfc); 
+FOR ( i <- 9;
+i < stop;
+i <- i + 1)
+{ 
+checker <- nfc MOD i; 
+IF(checker = 0){ 
+ok <- false; 
+} 
+} 
+IF(ok = true){ 
+WRITELN("Number is prime!"); 
+}ELSE{ 
+WRITELN("Number is not prime!"); 
+} 
+} 

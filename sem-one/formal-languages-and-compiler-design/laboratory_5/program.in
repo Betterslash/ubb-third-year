@@ -1,5 +1,23 @@
-PROGRAM
-VAR e : INT;
-{
-    READLN(e);
+VAR a, b, c : INT; 
+max : INT; 
+{ 
+max <- 0; 
+IF(a >= b){ 
+IF(1a >= c){ 
+max <- a; 
+WRITELN(a); 
+} 
+} 
+IF(b >= a){ 
+IF(b >= c){ 
+max <- b; 
+WRITELN(b); 
+} 
+} 
+IF(c >= b){ 
+IF(c >= a){ 
+max <- c; 
+WRITELN(c); 
+} 
+} 
 }
