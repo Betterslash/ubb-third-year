@@ -56,6 +56,7 @@ class IdeaEditFragment : Fragment() {
             }
         }
         binding.ideaTextView.setText(ideaId)
+        revealRating()
     }
 
     private fun setupViewModel() {
@@ -100,8 +101,21 @@ class IdeaEditFragment : Fragment() {
                     binding.ideaNeededBudgetView.setText(it.neededBudget.toString())
                     binding.ideaCurrentBudgetView.setText(it.currentBudget.toString())
                     binding.ratingBar.rating = it.rating.toFloat()
+                    binding.ratingText.text = it.rating.toFloat().toString()
                 }
             })
+        }
+    }
+
+    private fun revealRating(){
+
+        binding.ratingText.apply {
+            alpha = 0f
+            visibility = View.VISIBLE
+            animate()
+                .alpha(1f)
+                .setDuration(2000)
+                .setListener(null)
         }
     }
 }
