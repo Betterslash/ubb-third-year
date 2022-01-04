@@ -45,7 +45,7 @@ class IdeaListAdapter(
 
     private var onItemClick: View.OnClickListener = View.OnClickListener { view ->
         val idea = view.tag as IdeaModel
-        fragment.findNavController().navigate(R.id.ideaEditFragment, Bundle().apply {
+        fragment.findNavController().navigate(R.id.action_ideaListFragment2_to_ideaEditFragment, Bundle().apply {
             putString(IdeaEditFragment.IDEA_ID, idea.id)
         })
     }

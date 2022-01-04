@@ -36,18 +36,24 @@ class IdeaListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (!AuthRepository.isLoggedIn) {
-            findNavController().navigate(R.id.loginFragment)
+            findNavController().navigate(R.id.action_ideaListFragment2_to_loginFragment)
             return
         }
         setupItemList()
+
+        binding.cameraButton.setOnClickListener{
+            Log.v(TAG, "take a photo...")
+            findNavController().navigate(R.id.action_ideaListFragment2_to_takePhotoFragment)
+        }
+
         binding.addIdeaButton.setOnClickListener{
             Log.v(TAG, "add new idea")
-            findNavController().navigate(R.id.ideaEditFragment)
+            findNavController().navigate(R.id.action_ideaListFragment2_to_ideaEditFragment)
         }
         binding.logoutButton.setOnClickListener{
             Log.v(TAG, "logout...")
             AuthRepository.logout()
-            findNavController().navigate(R.id.loginFragment)
+            findNavController().navigate(R.id.action_ideaListFragment2_to_loginFragment)
         }
     }
 

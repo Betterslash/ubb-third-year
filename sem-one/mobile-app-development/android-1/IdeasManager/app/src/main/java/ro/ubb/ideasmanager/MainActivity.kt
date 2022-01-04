@@ -1,11 +1,18 @@
 package ro.ubb.ideasmanager
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.net.*
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +20,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.work.*
 import ro.ubb.ideasmanager.databinding.ActivityMainBinding
@@ -24,11 +33,18 @@ import ro.ubb.ideasmanager.core.notification.TargetActivity
 import ro.ubb.ideasmanager.core.worker.SyncWorker
 import ro.ubb.ideasmanager.repository.IdeaRepo
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var binding : ActivityMainBinding
     private lateinit var connectivityManager: ConnectivityManager
     private lateinit var connectivityLiveData: ConnectivityLiveData
-    val CHANNEL_ID = "CHANNEL_ID"
+    private lateinit var sensorManager: SensorManager
+    private var light: Sensor? = null
+    private val CHANNEL_ID = "CHANNEL_ID"
+    private val REQUEST_PERMISSION = 10
+    private val REQUEST_IMAGE_CAPTURE = 1
+    private val REQUEST_PICK_IMAGE = 2
+
+    lateinit var currentPhotoPath: String
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,6 +111,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         Log.i(TAG, "onDestroy")
         super.onDestroy()
+        sensorManager.unregisterListener(this)
     }
 
     override fun onRestart() {
@@ -166,6 +183,31 @@ class MainActivity : AppCompatActivity() {
                 })
         }
         Toast.makeText(this, "Job $workId enqueued", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSensorChanged(event: SensorEvent) {
+        val lux = event.values[0]
+        Log.d(TAG, "onSensorChanged $lux")
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+        Log.d(TAG, "onAccuracyChanged $accuracy")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        light?.also {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
+        }
+        checkCameraPermission()
+    }
+    private fun checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.CAMERA),
+                REQUEST_PERMISSION)
+        }
     }
 
 }

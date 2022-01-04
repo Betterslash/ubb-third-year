@@ -19,4 +19,7 @@
     <string name="needed_budget">Needed Budget</string>
     <string name="current_budget">Current Budget</string>
     <string name="modify_the_idea">Modify the idea</string>
+    <string name="capture_photo">Capture Photo</string>
+    <string name="open_gallery">Open Gallery</string>
+    <string name="todo">TODO</string>
 </resources>
