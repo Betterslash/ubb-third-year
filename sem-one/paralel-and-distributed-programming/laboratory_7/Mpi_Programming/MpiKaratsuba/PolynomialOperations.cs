@@ -5,10 +5,10 @@ using MPI;
 
 namespace MpiKaratsuba
 {
-    public class PolynomialOperations
+    public static class PolynomialOperations
     {
 
-        public static Polynomial MPIMultiply(Polynomial polynomial1, Polynomial polynomial2, int begin, int end)
+        public static Polynomial MpiMultiply(Polynomial polynomial1, Polynomial polynomial2, int begin, int end)
         {
             var maxDegree = Math.Max(polynomial1.Degree, polynomial2.Degree);
             var result = new Polynomial(maxDegree * 2);
@@ -29,11 +29,11 @@ namespace MpiKaratsuba
 
             return result;
         }
-        
-        public static int[] AsynchronousKaratsubaMultiplyRecursive(int[] coefficients1, int[] coefficients2)
+
+        private static int[] AsynchronousKaratsubaMultiplyRecursive(int[] coefficients1, int[] coefficients2)
         {
 
-            int[] product = new int[2 * coefficients1.Length];
+            var product = new int[2 * coefficients1.Length];
 
             //Handle the base case where the polynomial has only one coefficient
             if (coefficients1.Length == 1)
@@ -54,7 +54,7 @@ namespace MpiKaratsuba
             var coefficients2LowHigh = new int[halfArraySize];
 
             //Fill in the low and high arrays
-            for (int halfSizeIndex = 0; halfSizeIndex < halfArraySize; halfSizeIndex++)
+            for (var halfSizeIndex = 0; halfSizeIndex < halfArraySize; halfSizeIndex++)
             {
 
                 coefficients1Low[halfSizeIndex] = coefficients1[halfSizeIndex];
@@ -95,7 +95,7 @@ namespace MpiKaratsuba
 
         }
 
-        public static void MPIKaratsubaMultiply()
+        public static void MpiKaratsubaMultiply()
         {
 
             var from = Communicator.world.Receive<int>(Communicator.anySource, 0);
