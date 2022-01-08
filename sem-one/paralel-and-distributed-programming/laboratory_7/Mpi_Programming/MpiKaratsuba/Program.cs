@@ -58,7 +58,7 @@ namespace MpiKaratsuba
             var begin = Communicator.world.Receive<int>(0, 0);
             var end = Communicator.world.Receive<int>(0, 0);
 
-            var result = PolynomialOperations.MPIMultiply(polynomial1, polynomial2, begin, end);
+            var result = PolynomialOperations.MpiMultiply(polynomial1, polynomial2, begin, end);
 
             Communicator.world.Send(result, 0, 0);
         }
@@ -92,7 +92,7 @@ namespace MpiKaratsuba
 
         static void MPIKaratsubaWorker()
         {
-            PolynomialOperations.MPIKaratsubaMultiply();
+            PolynomialOperations.MpiKaratsubaMultiply();
         }
 
         private static void Main(string[] args)

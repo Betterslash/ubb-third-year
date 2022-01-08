@@ -21,15 +21,13 @@ namespace MpiKaratsuba
         {
             Random rnd = new();
 
-            for (int i = 0; i < Size; i++)
+            for (var i = 0; i < Size; i++)
             {
                 Coefficients[i] = rnd.Next(-10, 10);
-                if(i == Size - 1)
+                if (i != Size - 1) continue;
+                while(Coefficients[i] == 0)
                 {
-                    while(Coefficients[i] == 0)
-                    {
-                        Coefficients[i] = rnd.Next(-10, 10);
-                    }
+                    Coefficients[i] = rnd.Next(-10, 10);
                 }
             }
         }
@@ -79,7 +77,7 @@ namespace MpiKaratsuba
         {
             Polynomial result = new(m - 1);
 
-            for (int i = 0; i < m; i++)
+            for (var i = 0; i < m; i++)
             {
                 result.Coefficients[i] = Coefficients[i];
             }
@@ -161,7 +159,7 @@ namespace MpiKaratsuba
 
         internal Polynomial Difference(Polynomial b)
         {
-            var size1 = Size;
+            var size1 = Size; 
             var size2 = b.Size;
 
             var sizeMax = (size1 > size2) ? size1 : size2;

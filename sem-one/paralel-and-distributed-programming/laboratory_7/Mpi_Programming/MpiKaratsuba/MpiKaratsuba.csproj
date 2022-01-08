@@ -2,10 +2,10 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="MPI.NET" Version="1.4.0" />
     </ItemGroup>
-
 </Project>
