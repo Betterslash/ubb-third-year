@@ -1,4 +1,4 @@
-package service.descendent_recursive_parser;
+package service;
 
 import lombok.Builder;
 import lombok.Data;

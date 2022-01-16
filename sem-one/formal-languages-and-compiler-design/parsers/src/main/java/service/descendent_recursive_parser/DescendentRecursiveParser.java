@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import model.Grammar;
 import service.Parser;
+import service.ProductionMapKey;
 
 import java.util.*;
 
@@ -55,7 +56,7 @@ public class DescendentRecursiveParser extends Parser {
 
     private DescendentRecursiveParserConfig momentaryInsuccess(){
         var config = this.configuration;
-        config.setState(ParseState.B);
+        config.setState(DescendentRecursiveParserState.B);
         return config;
     }
 
@@ -82,24 +83,24 @@ public class DescendentRecursiveParser extends Parser {
             var production = new ArrayList<>(nextProduction.getValue());
             config.getInputStack().remove(0);
             production.forEach(e -> config.getInputStack().push(e));
-            config.setState(ParseState.Q);
+            config.setState(DescendentRecursiveParserState.Q);
             config.getWorkingStack().push(nextProduction.getKey().getProductionLeftHandside() + nextProduction.getKey().getProductionNumber());
             this.beforeProductionMapKey.setProductionNumber(this.beforeProductionMapKey.getProductionNumber() + 1);
             return config;
         }else if(config.getPosition() != 1 || !Objects.equals(this.configuration.getWorkingStack().firstElement(), grammar.getS())){
             var res = this.beforeConfiguration.copy();
-            res.setState(ParseState.B);
+            res.setState(DescendentRecursiveParserState.B);
             return res;
         }else{
             var res = this.beforeConfiguration.copy();
-            res.setState(ParseState.E);
+            res.setState(DescendentRecursiveParserState.E);
             return res;
         }
     }
 
     private DescendentRecursiveParserConfig success(){
         var config = this.configuration;
-        config.setState(ParseState.F);
+        config.setState(DescendentRecursiveParserState.F);
         return config;
     }
 
@@ -126,8 +127,8 @@ public class DescendentRecursiveParser extends Parser {
         var state = config.getState();
         var pos = config.getPosition();
         var headInput = config.getInputStack().firstElement();
-        while(state != ParseState.F && state != ParseState.E){
-            if(state == ParseState.Q){
+        while(state != DescendentRecursiveParserState.F && state != DescendentRecursiveParserState.E){
+            if(state == DescendentRecursiveParserState.Q){
                 if(pos == sequence.size() + 1 && config.getInputStack().empty()){
                     this.configuration = success();
                     break;
@@ -148,7 +149,7 @@ public class DescendentRecursiveParser extends Parser {
 
             }
             else {
-                if (state == ParseState.B){
+                if (state == DescendentRecursiveParserState.B){
                     if(grammar.isInTerminals(this.configuration.getWorkingStack().firstElement())){
                         this.configuration = back();
                     }else{

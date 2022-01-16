@@ -10,7 +10,7 @@ import java.util.Stack;
 @Setter
 @Builder
 public class DescendentRecursiveParserConfig{
-    private ParseState state;
+    private DescendentRecursiveParserState state;
 
     private int position;
 
@@ -22,7 +22,7 @@ public class DescendentRecursiveParserConfig{
         var startStack = new Stack<String>();
         startStack.push(startSymbol);
         return DescendentRecursiveParserConfig.builder()
-                .state(ParseState.Q)
+                .state(DescendentRecursiveParserState.Q)
                 .position(1)
                 .workingStack(new Stack<>())
                 .inputStack(startStack)
