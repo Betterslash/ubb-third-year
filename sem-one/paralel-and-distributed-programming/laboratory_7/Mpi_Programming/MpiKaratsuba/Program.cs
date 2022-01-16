@@ -17,7 +17,7 @@ namespace MpiKaratsuba
             return result;
         }
 
-        static void MPIMultiplicationMaster(Polynomial polynomial1, Polynomial polynomial2)
+        private static void MpiMultiplicationMaster(Polynomial polynomial1, Polynomial polynomial2)
         {
             var start = DateTime.Now;
 
@@ -46,10 +46,10 @@ namespace MpiKaratsuba
             var result = ComputeFinalResult(results);
 
             double time = (DateTime.Now - start).Milliseconds;
-            Console.WriteLine("MPI Multiplication: " + result.ToString() + "\n" + "TIME: " + time.ToString(CultureInfo.InvariantCulture) + " milliseconds");
+            Console.WriteLine("MPI Multiplication: " + result + "\n" + "TIME: " + time.ToString(CultureInfo.InvariantCulture) + " milliseconds");
         }
 
-        static void MPIMultiplicationWorker()
+        private static void MpiMultiplicationWorker()
         {
             //Console.WriteLine("Child");
             var polynomial1 = Communicator.world.Receive<Polynomial>(0, 0);
@@ -63,18 +63,18 @@ namespace MpiKaratsuba
             Communicator.world.Send(result, 0, 0);
         }
 
-        static void MPIKaratsubaMaster(Polynomial polynomial1, Polynomial polynomial2)
+        public static void MpiKaratsubaMaster(Polynomial polynomial1, Polynomial polynomial2)
         {
             var start = DateTime.Now;
 
             var result = new Polynomial(polynomial1.Degree * 2);
             if (Communicator.world.Size == 1)
             {
-                result = PolynomialOperations.AsynchronousKaratsubaMultiply(polynomial1, polynomial2);
+                result = PolynomialOperations.KaratsubaMultiply(polynomial1, polynomial2);
             }
             else
             {
-                Communicator.world.Send<int>(0, 1, 0);
+                Communicator.world.Send(0, 1, 0);
                 Communicator.world.Send<int[]>(polynomial1.Coefficients, 1, 0);
                 Communicator.world.Send<int[]>(polynomial2.Coefficients, 1, 0);
                 Communicator.world.Send<int[]>(
@@ -82,15 +82,15 @@ namespace MpiKaratsuba
                         ? Array.Empty<int>()
                         : Enumerable.Range(2, Communicator.world.Size - 2).ToArray(), 1, 0);
 
-                var coefs = Communicator.world.Receive<int[]>(1, 0);
-                result.Coefficients = coefs;
+                var coefficients = Communicator.world.Receive<int[]>(1, 0);
+                result.Coefficients = coefficients;
             }
 
-            double time = (DateTime.Now - start).Milliseconds;
+            var time = (DateTime.Now - start).Milliseconds;
             Console.WriteLine("MPI  Karatsuba: " + result + "\n" + "TIME: " + time.ToString(CultureInfo.InvariantCulture) + " milliseconds");
         }
 
-        static void MPIKaratsubaWorker()
+        private static void MpiKaratsubaWorker()
         {
             PolynomialOperations.MpiKaratsubaMultiply();
         }
@@ -104,8 +104,8 @@ namespace MpiKaratsuba
                     //master process
                     var totalProcessors = Communicator.world.Size - 1;
 
-                    const int firstLength = 7;
-                    const int secondLength = 7;
+                    const int firstLength = 63;
+                    const int secondLength = 63;
                     var polynomial1 = new Polynomial(firstLength);
                     polynomial1.GenerateRandom();
                     Thread.Sleep(500);
@@ -115,15 +115,15 @@ namespace MpiKaratsuba
                     Console.WriteLine("p1 { size = " + polynomial1.Size + " }, degree = " + polynomial1.Degree + "}: \n" + polynomial1);
                     Console.WriteLine("\np2 { size = " + polynomial2.Size + " }, degree = " + polynomial2.Degree + "}:\n" + polynomial2 + "\n");
                     
-                    MPIMultiplicationMaster(polynomial1, polynomial2);
+                    MpiMultiplicationMaster(polynomial1, polynomial2);
                     Console.WriteLine("\n");
-                    MPIKaratsubaMaster(polynomial1, polynomial2);
+                    MpiKaratsubaMaster(polynomial1, polynomial2);
                 }
                 else
                 {
                     //child process
-                    MPIMultiplicationWorker();
-                    MPIKaratsubaWorker();
+                    MpiMultiplicationWorker();
+                    MpiKaratsubaWorker();
                 }
             }
         }

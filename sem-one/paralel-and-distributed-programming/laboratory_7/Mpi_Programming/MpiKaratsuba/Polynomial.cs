@@ -25,7 +25,7 @@ namespace MpiKaratsuba
             {
                 Coefficients[i] = rnd.Next(-10, 10);
                 if (i != Size - 1) continue;
-                while(Coefficients[i] == 0)
+                while (Coefficients[i] == 0)
                 {
                     Coefficients[i] = rnd.Next(-10, 10);
                 }
@@ -36,7 +36,7 @@ namespace MpiKaratsuba
         {
             var sb = new StringBuilder();
 
-            for(var i = Size - 1; i >= 0; i--)
+            for (var i = Size - 1; i >= 0; i--)
             {
                 switch (Coefficients[i])
                 {
@@ -51,18 +51,19 @@ namespace MpiKaratsuba
                         {
                             sb.Append('+');
                         }
+
                         sb.Append(Coefficients[i]);
                         break;
                     }
                 }
-
-
+                
+                
                 if (i == 1)
                 {
                     sb.Append('*');
                     sb.Append('X');
                 }
-                else if(i != 0)
+                else if (i != 0)
                 {
                     sb.Append('*');
                     sb.Append("X^");
@@ -83,7 +84,6 @@ namespace MpiKaratsuba
             }
 
             return result;
-            
         }
 
         internal Polynomial GetFirst(int m)
@@ -108,17 +108,19 @@ namespace MpiKaratsuba
 
             var result = new Polynomial(sizeMax - 1);
 
-            for(var i = 0; i < sizeMax; i++)
+            for (var i = 0; i < sizeMax; i++)
             {
                 var res = 0;
-                if(i < size1)
+                if (i < size1)
                 {
                     res += Coefficients[i];
                 }
-                if(i < size2)
+
+                if (i < size2)
                 {
                     res += b.Coefficients[i];
                 }
+
                 result.Coefficients[i] = res;
             }
 
@@ -127,19 +129,19 @@ namespace MpiKaratsuba
 
         internal Polynomial AddZerosLeft(int v)
         {
-            
-            var newCoef = new int[Size + v];
+            var coefficients = new int[Size + v];
 
-            for(var i = 0; i < Size; i++)
+            for (var i = 0; i < Size; i++)
             {
-                newCoef[i] = Coefficients[i];
-            }
-            for (var i = Size; i < Size +v; i++)
-            {
-                newCoef[i] = 0;
+                coefficients[i] = Coefficients[i];
             }
 
-            Coefficients = newCoef;
+            for (var i = Size; i < Size + v; i++)
+            {
+                coefficients[i] = 0;
+            }
+
+            Coefficients = coefficients;
             Size = Coefficients.Length;
 
             return this;
@@ -159,7 +161,7 @@ namespace MpiKaratsuba
 
         internal Polynomial Difference(Polynomial b)
         {
-            var size1 = Size; 
+            var size1 = Size;
             var size2 = b.Size;
 
             var sizeMax = (size1 > size2) ? size1 : size2;
@@ -173,10 +175,12 @@ namespace MpiKaratsuba
                 {
                     res = Coefficients[i];
                 }
+
                 if (i < size2)
                 {
                     res -= b.Coefficients[i];
                 }
+
                 result.Coefficients[i] = res;
             }
 

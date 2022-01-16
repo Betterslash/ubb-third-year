@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using MPI;
 
 namespace MpiKaratsuba
@@ -20,29 +20,29 @@ namespace MpiKaratsuba
             return result;
         }
 
-        public static Polynomial AsynchronousKaratsubaMultiply(Polynomial p1, Polynomial p2)
+        public static Polynomial KaratsubaMultiply(Polynomial p1, Polynomial p2)
         {
             var result = new Polynomial(p1.Degree + p2.Degree)
             {
-                Coefficients = AsynchronousKaratsubaMultiplyRecursive(p1.Coefficients, p2.Coefficients)
+                Coefficients = KaratsubaMultiplyRecursive(p1.Coefficients, p2.Coefficients)
             };
 
             return result;
         }
 
-        private static int[] AsynchronousKaratsubaMultiplyRecursive(int[] coefficients1, int[] coefficients2)
+        private static int[] KaratsubaMultiplyRecursive(IReadOnlyList<int> coefficients1, IReadOnlyList<int> coefficients2)
         {
 
-            var product = new int[2 * coefficients1.Length];
+            var product = new int[2 * coefficients1.Count];
 
             //Handle the base case where the polynomial has only one coefficient
-            if (coefficients1.Length == 1)
+            if (coefficients1.Count == 1)
             {
                 product[0] = coefficients1[0] * coefficients2[0];
                 return product;
             }
 
-            var halfArraySize = coefficients1.Length / 2;
+            var halfArraySize = coefficients1.Count / 2;
 
             //Declare arrays to hold halved factors
             var coefficients1Low = new int[halfArraySize];
@@ -68,26 +68,22 @@ namespace MpiKaratsuba
             }
 
             //Recursively call method on smaller arrays and construct the low and high parts of the product
-            var t1 = Task<int[]>.Factory.StartNew(() => AsynchronousKaratsubaMultiplyRecursive(coefficients1Low, coefficients2Low));
+            var firstThread =  KaratsubaMultiplyRecursive(coefficients1Low, coefficients2Low);
 
-            var t2 = Task<int[]>.Factory.StartNew(() => AsynchronousKaratsubaMultiplyRecursive(coefficients1High, coefficients2High));
+            var secondThread = KaratsubaMultiplyRecursive(coefficients1High, coefficients2High);
 
-            var t3 = Task<int[]>.Factory.StartNew(() => AsynchronousKaratsubaMultiplyRecursive(coefficients1LowHigh, coefficients2LowHigh));
-
-            var productLow = t1.Result;
-            var productHigh = t2.Result;
-            var productLowHigh = t3.Result;
+            var thirdThread = KaratsubaMultiplyRecursive(coefficients1LowHigh, coefficients2LowHigh);
 
             //Construct the middle portion of the product
-            var productMiddle = new int[coefficients1.Length];
-            for (var halfSizeIndex = 0; halfSizeIndex < coefficients1.Length; halfSizeIndex++)
-                productMiddle[halfSizeIndex] = productLowHigh[halfSizeIndex] - productLow[halfSizeIndex] - productHigh[halfSizeIndex];
+            var productMiddle = new int[coefficients1.Count];
+            for (var halfSizeIndex = 0; halfSizeIndex < coefficients1.Count; halfSizeIndex++)
+                productMiddle[halfSizeIndex] = thirdThread[halfSizeIndex] - firstThread[halfSizeIndex] - secondThread[halfSizeIndex];
 
             //Assemble the product from the low, middle and high parts. Start with the low and high parts of the product.
-            for (int halfSizeIndex = 0, middleOffset = coefficients1.Length / 2; halfSizeIndex < coefficients1.Length; ++halfSizeIndex)
+            for (int halfSizeIndex = 0, middleOffset = coefficients1.Count / 2; halfSizeIndex < coefficients1.Count; ++halfSizeIndex)
             {
-                product[halfSizeIndex] += productLow[halfSizeIndex];
-                product[halfSizeIndex + coefficients1.Length] += productHigh[halfSizeIndex];
+                product[halfSizeIndex] += firstThread[halfSizeIndex];
+                product[halfSizeIndex + coefficients1.Count] += secondThread[halfSizeIndex];
                 product[halfSizeIndex + middleOffset] += productMiddle[halfSizeIndex];
             }
 
@@ -102,7 +98,7 @@ namespace MpiKaratsuba
             var coefficients1 = Communicator.world.Receive<int[]>(Communicator.anySource, 0);
             var coefficients2 = Communicator.world.Receive<int[]>(Communicator.anySource, 0);
             var sendTo = Communicator.world.Receive<int[]>(Communicator.anySource, 0);
-
+            Console.WriteLine("here...");
             var product = new int[2 * coefficients1.Length];
 
             //Handle the base case where the polynomial has only one coefficient
@@ -145,9 +141,9 @@ namespace MpiKaratsuba
             switch (sendTo.Length)
             {
                 case 0:
-                    productLow = AsynchronousKaratsubaMultiplyRecursive(coefficients1Low, coefficients2Low);
-                    productHigh = AsynchronousKaratsubaMultiplyRecursive(coefficients1High, coefficients2High);
-                    productLowHigh = AsynchronousKaratsubaMultiplyRecursive(coefficients1LowHigh, coefficients2LowHigh);
+                    productLow = KaratsubaMultiplyRecursive(coefficients1Low, coefficients2Low);
+                    productHigh = KaratsubaMultiplyRecursive(coefficients1High, coefficients2High);
+                    productLowHigh = KaratsubaMultiplyRecursive(coefficients1LowHigh, coefficients2LowHigh);
                     break;
                 case 1:
                     Communicator.world.Send(Communicator.world.Rank, sendTo[0], 0);
@@ -155,8 +151,8 @@ namespace MpiKaratsuba
                     Communicator.world.Send<int[]>(coefficients2Low, sendTo[0], 0);
                     Communicator.world.Send<int[]>(Array.Empty<int>(), sendTo[0], 0);
                 
-                    productHigh = AsynchronousKaratsubaMultiplyRecursive(coefficients1High, coefficients2High);
-                    productLowHigh = AsynchronousKaratsubaMultiplyRecursive(coefficients1LowHigh, coefficients2LowHigh);
+                    productHigh = KaratsubaMultiplyRecursive(coefficients1High, coefficients2High);
+                    productLowHigh = KaratsubaMultiplyRecursive(coefficients1LowHigh, coefficients2LowHigh);
 
                     productLow = Communicator.world.Receive<int[]>(sendTo[0], 0);
                     break;
@@ -171,7 +167,7 @@ namespace MpiKaratsuba
                     Communicator.world.Send<int[]>(coefficients2High, sendTo[1], 0);
                     Communicator.world.Send<int[]>(Array.Empty<int>(), sendTo[1], 0);
 
-                    productLowHigh = AsynchronousKaratsubaMultiplyRecursive(coefficients1LowHigh, coefficients2LowHigh);
+                    productLowHigh = KaratsubaMultiplyRecursive(coefficients1LowHigh, coefficients2LowHigh);
 
                     productLow = Communicator.world.Receive<int[]>(sendTo[0], 0);
                     productHigh = Communicator.world.Receive<int[]>(sendTo[1], 0);
@@ -224,14 +220,15 @@ namespace MpiKaratsuba
                 }
             }
 
-            //Construct the middle portion of the product
+            //Create the middle
             var productMiddle = new int[coefficients1.Length];
             for (var halfSizeIndex = 0; halfSizeIndex < coefficients1.Length; halfSizeIndex++)
             {
                 productMiddle[halfSizeIndex] = productLowHigh[halfSizeIndex] - productLow[halfSizeIndex] - productHigh[halfSizeIndex];
             }
-
-            //Assemble the product from the low, middle and high parts. Start with the low and high parts of the product.
+            Console.WriteLine(": here :");
+            //Assemble the product from the low, middle and high parts.
+            //Start with the low and high parts of the product.
             for (int halfSizeIndex = 0, middleOffset = coefficients1.Length / 2; halfSizeIndex < coefficients1.Length; ++halfSizeIndex)
             {
                 product[halfSizeIndex] += productLow[halfSizeIndex];
