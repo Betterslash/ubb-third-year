@@ -1,0 +1,16 @@
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\bin\Debug\net5.0\MColoringProblem.exe
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\bin\Debug\net5.0\MColoringProblem.deps.json
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\bin\Debug\net5.0\MColoringProblem.runtimeconfig.json
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\bin\Debug\net5.0\MColoringProblem.runtimeconfig.dev.json
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\bin\Debug\net5.0\MColoringProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\bin\Debug\net5.0\ref\MColoringProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\bin\Debug\net5.0\MColoringProblem.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\obj\Debug\net5.0\MColoringProblem.csproj.AssemblyReference.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\obj\Debug\net5.0\MColoringProblem.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\obj\Debug\net5.0\MColoringProblem.AssemblyInfoInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\obj\Debug\net5.0\MColoringProblem.AssemblyInfo.cs
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\obj\Debug\net5.0\MColoringProblem.csproj.CoreCompileInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\obj\Debug\net5.0\MColoringProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\obj\Debug\net5.0\ref\MColoringProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\obj\Debug\net5.0\MColoringProblem.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\MColoringProblem\obj\Debug\net5.0\MColoringProblem.genruntimeconfig.cache

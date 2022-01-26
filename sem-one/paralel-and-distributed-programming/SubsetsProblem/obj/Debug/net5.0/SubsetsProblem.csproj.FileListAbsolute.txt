@@ -1,0 +1,16 @@
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\bin\Debug\net5.0\SubsetsProblem.exe
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\bin\Debug\net5.0\SubsetsProblem.deps.json
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\bin\Debug\net5.0\SubsetsProblem.runtimeconfig.json
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\bin\Debug\net5.0\SubsetsProblem.runtimeconfig.dev.json
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\bin\Debug\net5.0\SubsetsProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\bin\Debug\net5.0\ref\SubsetsProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\bin\Debug\net5.0\SubsetsProblem.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\SubsetsProblem.csproj.AssemblyReference.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\SubsetsProblem.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\SubsetsProblem.AssemblyInfoInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\SubsetsProblem.AssemblyInfo.cs
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\SubsetsProblem.csproj.CoreCompileInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\SubsetsProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\ref\SubsetsProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\SubsetsProblem.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\SubsetsProblem.genruntimeconfig.cache
