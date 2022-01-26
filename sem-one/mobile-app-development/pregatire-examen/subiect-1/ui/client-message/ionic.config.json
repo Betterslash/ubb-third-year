@@ -1,0 +1,7 @@
+{
+  "name": "client-message",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

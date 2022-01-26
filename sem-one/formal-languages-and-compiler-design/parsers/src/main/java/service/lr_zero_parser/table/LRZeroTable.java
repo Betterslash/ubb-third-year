@@ -27,15 +27,16 @@ public class LRZeroTable {
         states.forEach(e -> {
             var action = chooseAction(e);
             var symbol = chooseSymbol(e);
-            var number =
         });
         return null;
     }
 
     private String chooseSymbol(LRZeroState e) {
+        return null;
     }
 
     private LRZeroAction chooseAction(LRZeroState e) {
+        return null;
     }
 
 

@@ -14,3 +14,5 @@ D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5
 D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\ref\SubsetsProblem.dll
 D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\SubsetsProblem.pdb
 D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\SubsetsProblem.genruntimeconfig.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\bin\Debug\net5.0\MPI.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\SubsetsProblem\obj\Debug\net5.0\SubsetsProblem.csproj.CopyComplete

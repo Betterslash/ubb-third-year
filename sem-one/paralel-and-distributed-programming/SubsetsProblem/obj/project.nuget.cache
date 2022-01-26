@@ -1,8 +1,20 @@
 {
   "version": 2,
-  "dgSpecHash": "KGg44hL8Lb3XdAoRRAJc9FeYblfdamml+H2B5qHrRvmppCwrtWtYLK6OTE041NXRetQV1y20lkIdDIAXlvjwDA==",
+  "dgSpecHash": "aNHF0MTp12y/exnFyhFNLO89QzgEWxw1tpjYhLvdLvR6I0ICYQzU/knWbJ5vvNtx07m9qYVKknW45YEU06bTqw==",
   "success": true,
   "projectFilePath": "D:\\Uni\\sem-one\\paralel-and-distributed-programming\\SubsetsProblem\\SubsetsProblem.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Dori\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Dori\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\Dori\\.nuget\\packages\\mpi.net\\1.4.0\\mpi.net.1.4.0.nupkg.sha512",
+    "C:\\Users\\Dori\\.nuget\\packages\\system.io\\4.3.0\\system.io.4.3.0.nupkg.sha512",
+    "C:\\Users\\Dori\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
+    "C:\\Users\\Dori\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
+    "C:\\Users\\Dori\\.nuget\\packages\\system.reflection.emit.lightweight\\4.3.0\\system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
+    "C:\\Users\\Dori\\.nuget\\packages\\system.reflection.primitives\\4.3.0\\system.reflection.primitives.4.3.0.nupkg.sha512",
+    "C:\\Users\\Dori\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
+    "C:\\Users\\Dori\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
+    "C:\\Users\\Dori\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512"
+  ],
   "logs": []
 }
