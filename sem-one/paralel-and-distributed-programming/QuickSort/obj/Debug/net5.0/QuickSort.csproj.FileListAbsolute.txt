@@ -1,0 +1,16 @@
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\bin\Debug\net5.0\QuickSort.exe
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\bin\Debug\net5.0\QuickSort.deps.json
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\bin\Debug\net5.0\QuickSort.runtimeconfig.json
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\bin\Debug\net5.0\QuickSort.runtimeconfig.dev.json
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\bin\Debug\net5.0\QuickSort.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\bin\Debug\net5.0\ref\QuickSort.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\bin\Debug\net5.0\QuickSort.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\obj\Debug\net5.0\QuickSort.csproj.AssemblyReference.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\obj\Debug\net5.0\QuickSort.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\obj\Debug\net5.0\QuickSort.AssemblyInfoInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\obj\Debug\net5.0\QuickSort.AssemblyInfo.cs
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\obj\Debug\net5.0\QuickSort.csproj.CoreCompileInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\obj\Debug\net5.0\QuickSort.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\obj\Debug\net5.0\ref\QuickSort.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\obj\Debug\net5.0\QuickSort.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\QuickSort\obj\Debug\net5.0\QuickSort.genruntimeconfig.cache

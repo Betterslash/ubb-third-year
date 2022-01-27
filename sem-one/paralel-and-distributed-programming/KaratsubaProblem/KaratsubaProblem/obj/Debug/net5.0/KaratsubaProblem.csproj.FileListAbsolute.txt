@@ -1,0 +1,16 @@
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\bin\Debug\net5.0\KaratsubaProblem.exe
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\bin\Debug\net5.0\KaratsubaProblem.deps.json
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\bin\Debug\net5.0\KaratsubaProblem.runtimeconfig.json
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\bin\Debug\net5.0\KaratsubaProblem.runtimeconfig.dev.json
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\bin\Debug\net5.0\KaratsubaProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\bin\Debug\net5.0\ref\KaratsubaProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\bin\Debug\net5.0\KaratsubaProblem.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\obj\Debug\net5.0\KaratsubaProblem.csproj.AssemblyReference.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\obj\Debug\net5.0\KaratsubaProblem.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\obj\Debug\net5.0\KaratsubaProblem.AssemblyInfoInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\obj\Debug\net5.0\KaratsubaProblem.AssemblyInfo.cs
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\obj\Debug\net5.0\KaratsubaProblem.csproj.CoreCompileInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\obj\Debug\net5.0\KaratsubaProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\obj\Debug\net5.0\ref\KaratsubaProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\obj\Debug\net5.0\KaratsubaProblem.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\KaratsubaProblem\KaratsubaProblem\obj\Debug\net5.0\KaratsubaProblem.genruntimeconfig.cache

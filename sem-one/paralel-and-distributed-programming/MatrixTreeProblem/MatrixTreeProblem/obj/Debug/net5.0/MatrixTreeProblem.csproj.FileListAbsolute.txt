@@ -1,0 +1,16 @@
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\bin\Debug\net5.0\MatrixTreeProblem.exe
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\bin\Debug\net5.0\MatrixTreeProblem.deps.json
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\bin\Debug\net5.0\MatrixTreeProblem.runtimeconfig.json
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\bin\Debug\net5.0\MatrixTreeProblem.runtimeconfig.dev.json
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\bin\Debug\net5.0\MatrixTreeProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\bin\Debug\net5.0\ref\MatrixTreeProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\bin\Debug\net5.0\MatrixTreeProblem.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\obj\Debug\net5.0\MatrixTreeProblem.csproj.AssemblyReference.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\obj\Debug\net5.0\MatrixTreeProblem.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\obj\Debug\net5.0\MatrixTreeProblem.AssemblyInfoInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\obj\Debug\net5.0\MatrixTreeProblem.AssemblyInfo.cs
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\obj\Debug\net5.0\MatrixTreeProblem.csproj.CoreCompileInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\obj\Debug\net5.0\MatrixTreeProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\obj\Debug\net5.0\ref\MatrixTreeProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\obj\Debug\net5.0\MatrixTreeProblem.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixTreeProblem\MatrixTreeProblem\obj\Debug\net5.0\MatrixTreeProblem.genruntimeconfig.cache

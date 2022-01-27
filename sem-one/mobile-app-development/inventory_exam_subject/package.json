@@ -1,0 +1,10 @@
+{
+  "name": "inventory_exam_subject",
+  "version": "1.0.0",
+  "dependencies": {
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-cors": "0.0.16",
+    "koa-router": "^10.1.1"
+  }
+}

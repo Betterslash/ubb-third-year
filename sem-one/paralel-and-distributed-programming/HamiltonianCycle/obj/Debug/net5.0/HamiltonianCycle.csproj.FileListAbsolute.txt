@@ -1,0 +1,16 @@
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\bin\Debug\net5.0\HamiltonianCycle.exe
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\bin\Debug\net5.0\HamiltonianCycle.deps.json
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\bin\Debug\net5.0\HamiltonianCycle.runtimeconfig.json
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\bin\Debug\net5.0\HamiltonianCycle.runtimeconfig.dev.json
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\bin\Debug\net5.0\HamiltonianCycle.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\bin\Debug\net5.0\ref\HamiltonianCycle.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\bin\Debug\net5.0\HamiltonianCycle.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\obj\Debug\net5.0\HamiltonianCycle.csproj.AssemblyReference.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\obj\Debug\net5.0\HamiltonianCycle.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\obj\Debug\net5.0\HamiltonianCycle.AssemblyInfoInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\obj\Debug\net5.0\HamiltonianCycle.AssemblyInfo.cs
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\obj\Debug\net5.0\HamiltonianCycle.csproj.CoreCompileInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\obj\Debug\net5.0\HamiltonianCycle.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\obj\Debug\net5.0\ref\HamiltonianCycle.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\obj\Debug\net5.0\HamiltonianCycle.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\HamiltonianCycle\obj\Debug\net5.0\HamiltonianCycle.genruntimeconfig.cache
