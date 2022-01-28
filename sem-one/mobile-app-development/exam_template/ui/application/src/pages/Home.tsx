@@ -18,7 +18,7 @@ export const Home: React.FC = () => {
     });
 
     useEffect(() => {
-        console.log(connectionStatus);
+        Logger.info(JSON.stringify(connectionStatus));
     }, [connectionStatus])
 
     return (

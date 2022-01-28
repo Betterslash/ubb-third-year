@@ -38,5 +38,14 @@ export class ApiService {
     ): Promise<Response> {
         return this._api.put(url, data, config);
     }
+
+    /*
+    * In case of login :
+    *   const authHeader = {
+            headers: {
+                Authorization: 'Bearer ' + varToken
+            }
+        } as Header;
+    * */
 }
 export default new ApiService();

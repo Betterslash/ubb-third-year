@@ -36,7 +36,7 @@ const App: React.FC = () => {
     return (
         <IonApp>
             <IonReactRouter>
-                <AppContext.Provider value={{connectionStatus: networkState.connected}}>
+                <AppContext.Provider value={{connectionStatus: networkState}}>
                     <IonRouterOutlet>
                         <Route exact path="/home">
                             <Home/>

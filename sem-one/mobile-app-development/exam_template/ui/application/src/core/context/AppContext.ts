@@ -1,7 +1,8 @@
 import React from "react";
+import {ConnectionStatus} from "@capacitor/network";
 
 export interface AppProps{
-    connectionStatus: boolean
+    connectionStatus: ConnectionStatus
 }
 
-export const AppContext = React.createContext({connectionStatus: true} as AppProps);
+export const AppContext = React.createContext({connectionStatus: {} as ConnectionStatus} as AppProps);
