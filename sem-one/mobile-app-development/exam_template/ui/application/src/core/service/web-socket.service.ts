@@ -16,7 +16,7 @@ export class WebSocketService{
     }
 
     public static onMessage = (): void => {
-        WebSocketService.wsInstance.onopen = function(e) {
+        WebSocketService.wsInstance.onmessage = function(e) {
             Logger.info(`${WebSocketService.name} received ... ${e}`);
         };
     }
