@@ -1,0 +1,16 @@
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\bin\Debug\net5.0\Exercises.exe
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\bin\Debug\net5.0\Exercises.deps.json
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\bin\Debug\net5.0\Exercises.runtimeconfig.json
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\bin\Debug\net5.0\Exercises.runtimeconfig.dev.json
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\bin\Debug\net5.0\Exercises.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\bin\Debug\net5.0\ref\Exercises.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\bin\Debug\net5.0\Exercises.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\obj\Debug\net5.0\Exercises.csproj.AssemblyReference.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\obj\Debug\net5.0\Exercises.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\obj\Debug\net5.0\Exercises.AssemblyInfoInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\obj\Debug\net5.0\Exercises.AssemblyInfo.cs
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\obj\Debug\net5.0\Exercises.csproj.CoreCompileInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\obj\Debug\net5.0\Exercises.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\obj\Debug\net5.0\ref\Exercises.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\obj\Debug\net5.0\Exercises.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\Exercises\obj\Debug\net5.0\Exercises.genruntimeconfig.cache
