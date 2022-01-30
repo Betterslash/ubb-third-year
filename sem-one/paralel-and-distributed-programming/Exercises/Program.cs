@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Exercises
 {
@@ -6,15 +7,29 @@ namespace Exercises
     {
         public static void Main(string[] args)
         {
-            ProducerConsumer.StartBackgroundTask();
-            for (var i = 0; i < 5; i++)
+            var acc1 = new AccountBalance
             {
-                ProducerConsumer.Enqueue(i);
-            }
-
-            var result = ProducerConsumer.GetResult();
-           
-            Console.WriteLine(result);
+                Id = 1,
+                Balance = 200
+            };
+            var acc2 = new AccountBalance
+            {
+                Id = 2,
+                Balance = 200
+            };
+            var t1 = new Task(() =>
+            {
+                AccountBalance.Transfer(acc1, acc2, 12);
+            });
+            var t2 = new Task(() =>
+            {
+                AccountBalance.Transfer(acc2, acc1, 13);
+            });
+            t1.Start();
+            t2.Start();
+            Task.WaitAll(t1, t2);
+            Console.WriteLine(acc1.Balance);
+            Console.WriteLine(acc2.Balance);
         }
     }
 }

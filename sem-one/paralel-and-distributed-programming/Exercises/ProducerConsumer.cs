@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,15 +6,10 @@ namespace Exercises
 {
     public static class ProducerConsumer
     {
-
         private static readonly List<int> ToBeAdded = new();
-
         private static readonly Mutex Mutex = new();
-        
         private static int _sum;
-
         private static bool _isClosed;
-        
         public static void StartBackgroundTask()
         {
             Task.Run(() =>
@@ -37,7 +31,6 @@ namespace Exercises
                 }        
             });
         }
-
         public static void Enqueue(int element)
         {
             lock (Mutex)
@@ -46,7 +39,6 @@ namespace Exercises
                 Monitor.Pulse(Mutex);
             }
         }
-
         public static int GetResult()
         {
             lock (Mutex)

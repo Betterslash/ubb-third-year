@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0fdb0c46-19bf-4f80-9cae-fa64c4011ee0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ExercisesOne.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProducerConsumer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ProducerConsumerQueue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountBalance.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../mobile-app-development/exam_2/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../mobile-app-development/exam_2/ui/application/src/components/modals/ModalBody.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../mobile-app-development/exam_2/ui/application/src/core/config/api.config.ts" beforeDir="false" />
@@ -26,6 +23,16 @@
       <change beforePath="$PROJECT_DIR$/../../mobile-app-development/laboratory_2/pokemons-app-ui/src/environment/Environment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../mobile-app-development/laboratory_2/pokemons-app-ui/src/environment/Environment.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../mobile-app-development/training/ionic-angular-app" beforeDir="false" afterPath="$PROJECT_DIR$/../../mobile-app-development/training/ionic-angular-app" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../mobile-app-development/training/pokemons-application/pokemons-ui-react/pokemons-ui-app" beforeDir="false" afterPath="$PROJECT_DIR$/../../mobile-app-development/training/pokemons-application/pokemons-ui-react/pokemons-ui-app" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Exercises/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Exercises/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProducerConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ProducerConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Exercises.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Exercises.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Exercises.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Exercises.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/Exercises.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/Exercises.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Exercises.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Exercises.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Exercises.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Exercises.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Exercises.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Exercises.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/Exercises.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/Exercises.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../MergeSort/ParallelProgram.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../MergeSort/ParallelProgram.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,6 +56,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -81,7 +89,7 @@
       <updated>1643540575137</updated>
       <workItem from="1643540582701" duration="3131000" />
       <workItem from="1643547679325" duration="1298000" />
-      <workItem from="1643562594055" duration="2344000" />
+      <workItem from="1643562594055" duration="3427000" />
     </task>
     <servers />
   </component>
