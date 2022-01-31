@@ -11,57 +11,26 @@ public class ProducerConsumerQueue<T> {
 
     public void enqueue(T v){
         mtx.lock();
-        //
         items.add(v);
         cv.signal();
-        //System.out.println("Unlock cv -> ");
         mtx.unlock();
     }
-    // [5]
-    // enque(3)
-    // dequeue()
-    // excepted => [2, 3]
-    /*
-        1
-        nrCols = 3 / 2 => 2
-        1 => 0, 0;
-             0, 1;
-             0, 2;
-             1, 0;
-             1, 1;
-             1, 2;
-             2, 0;
-             2, 1;
-             2, 2;
-        2 => 2, 0;
-             2, 1;
-             2, 2;
-             3, 0;
-             3, 1;
-             3, 2;
-
-    *  1 2 3   2 3 4
-    *  1 2 3   2 3 4
-    *  1 2 3   2 3 4
-    *
-    * */
-
     public T dequeue() throws InterruptedException {
-        mtx.lock();
+        mtx.lock(); //stmt 1
         while (items.isEmpty() && !isClosed){
-            //System.out.println("Before await -> " + mtx.toString());
-            mtx.unlock();
+            //place 1
             cv.await();
-            mtx.lock();
-            //System.out.println("After await -> " + mtx.toString());
+            //place 2
+
         }
-        mtx.unlock();
-        //
+        mtx.unlock();//stmt 2
         if(!items.isEmpty()){
             T ret = items.get(0);
             items.remove(0);
+            //place 3
             return ret;
         }
+        //place 4
         return null;
     }
 

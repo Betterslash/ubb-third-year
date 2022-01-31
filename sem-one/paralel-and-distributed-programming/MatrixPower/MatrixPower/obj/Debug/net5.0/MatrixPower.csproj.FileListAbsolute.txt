@@ -1,0 +1,16 @@
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\bin\Debug\net5.0\MatrixPower.exe
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\bin\Debug\net5.0\MatrixPower.deps.json
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\bin\Debug\net5.0\MatrixPower.runtimeconfig.json
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\bin\Debug\net5.0\MatrixPower.runtimeconfig.dev.json
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\bin\Debug\net5.0\MatrixPower.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\bin\Debug\net5.0\ref\MatrixPower.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\bin\Debug\net5.0\MatrixPower.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\obj\Debug\net5.0\MatrixPower.csproj.AssemblyReference.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\obj\Debug\net5.0\MatrixPower.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\obj\Debug\net5.0\MatrixPower.AssemblyInfoInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\obj\Debug\net5.0\MatrixPower.AssemblyInfo.cs
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\obj\Debug\net5.0\MatrixPower.csproj.CoreCompileInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\obj\Debug\net5.0\MatrixPower.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\obj\Debug\net5.0\ref\MatrixPower.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\obj\Debug\net5.0\MatrixPower.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\MatrixPower\MatrixPower\obj\Debug\net5.0\MatrixPower.genruntimeconfig.cache
