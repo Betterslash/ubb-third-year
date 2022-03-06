@@ -1,0 +1,15 @@
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\bin\Debug\net6.0\StockManagement.Application.exe
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\bin\Debug\net6.0\StockManagement.Application.deps.json
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\bin\Debug\net6.0\StockManagement.Application.runtimeconfig.json
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\bin\Debug\net6.0\StockManagement.Application.dll
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\bin\Debug\net6.0\ref\StockManagement.Application.dll
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\bin\Debug\net6.0\StockManagement.Application.pdb
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\obj\Debug\net6.0\StockManagement.Application.csproj.AssemblyReference.cache
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\obj\Debug\net6.0\StockManagement.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\obj\Debug\net6.0\StockManagement.Application.AssemblyInfoInputs.cache
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\obj\Debug\net6.0\StockManagement.Application.AssemblyInfo.cs
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\obj\Debug\net6.0\StockManagement.Application.csproj.CoreCompileInputs.cache
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\obj\Debug\net6.0\StockManagement.Application.dll
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\obj\Debug\net6.0\ref\StockManagement.Application.dll
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\obj\Debug\net6.0\StockManagement.Application.pdb
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Application\obj\Debug\net6.0\StockManagement.Application.genruntimeconfig.cache

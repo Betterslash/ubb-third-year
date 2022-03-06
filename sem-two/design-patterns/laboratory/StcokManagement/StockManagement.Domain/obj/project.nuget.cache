@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "zQ8SXl9m+ExW+KLHUM5kyezSjza8BlNZaxRwxFOLoDBFvcFNR+ypABiIjhNXNaliQAAOiYUR/eOMLBsyObtGFA==",
+  "success": true,
+  "projectFilePath": "D:\\Uni\\sem-two\\design-patterns\\laboratory\\StcokManagement\\StockManagement.Domain\\StockManagement.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Dori\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

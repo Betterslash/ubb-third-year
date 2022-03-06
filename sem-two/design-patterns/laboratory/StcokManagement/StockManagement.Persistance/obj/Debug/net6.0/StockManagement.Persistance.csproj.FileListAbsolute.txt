@@ -1,0 +1,15 @@
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\bin\Debug\net6.0\StockManagement.Persistance.exe
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\bin\Debug\net6.0\StockManagement.Persistance.deps.json
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\bin\Debug\net6.0\StockManagement.Persistance.runtimeconfig.json
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\bin\Debug\net6.0\StockManagement.Persistance.dll
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\bin\Debug\net6.0\ref\StockManagement.Persistance.dll
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\bin\Debug\net6.0\StockManagement.Persistance.pdb
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\obj\Debug\net6.0\StockManagement.Persistance.csproj.AssemblyReference.cache
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\obj\Debug\net6.0\StockManagement.Persistance.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\obj\Debug\net6.0\StockManagement.Persistance.AssemblyInfoInputs.cache
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\obj\Debug\net6.0\StockManagement.Persistance.AssemblyInfo.cs
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\obj\Debug\net6.0\StockManagement.Persistance.csproj.CoreCompileInputs.cache
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\obj\Debug\net6.0\StockManagement.Persistance.dll
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\obj\Debug\net6.0\ref\StockManagement.Persistance.dll
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\obj\Debug\net6.0\StockManagement.Persistance.pdb
+D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Persistance\obj\Debug\net6.0\StockManagement.Persistance.genruntimeconfig.cache
