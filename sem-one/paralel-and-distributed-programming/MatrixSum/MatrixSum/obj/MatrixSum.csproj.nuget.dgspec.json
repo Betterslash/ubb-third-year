@@ -1,0 +1,68 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Uni\\sem-one\\paralel-and-distributed-programming\\MatrixSum\\MatrixSum\\MatrixSum.csproj": {}
+  },
+  "projects": {
+    "D:\\Uni\\sem-one\\paralel-and-distributed-programming\\MatrixSum\\MatrixSum\\MatrixSum.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Uni\\sem-one\\paralel-and-distributed-programming\\MatrixSum\\MatrixSum\\MatrixSum.csproj",
+        "projectName": "MatrixSum",
+        "projectPath": "D:\\Uni\\sem-one\\paralel-and-distributed-programming\\MatrixSum\\MatrixSum\\MatrixSum.csproj",
+        "packagesPath": "C:\\Users\\Dori\\.nuget\\packages\\",
+        "outputPath": "D:\\Uni\\sem-one\\paralel-and-distributed-programming\\MatrixSum\\MatrixSum\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Dori\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "MPI.NET": {
+              "target": "Package",
+              "version": "[1.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

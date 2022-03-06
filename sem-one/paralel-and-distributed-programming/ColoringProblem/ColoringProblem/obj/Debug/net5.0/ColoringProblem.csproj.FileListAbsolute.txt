@@ -1,0 +1,16 @@
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\bin\Debug\net5.0\ColoringProblem.exe
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\bin\Debug\net5.0\ColoringProblem.deps.json
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\bin\Debug\net5.0\ColoringProblem.runtimeconfig.json
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\bin\Debug\net5.0\ColoringProblem.runtimeconfig.dev.json
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\bin\Debug\net5.0\ColoringProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\bin\Debug\net5.0\ref\ColoringProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\bin\Debug\net5.0\ColoringProblem.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\obj\Debug\net5.0\ColoringProblem.csproj.AssemblyReference.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\obj\Debug\net5.0\ColoringProblem.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\obj\Debug\net5.0\ColoringProblem.AssemblyInfoInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\obj\Debug\net5.0\ColoringProblem.AssemblyInfo.cs
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\obj\Debug\net5.0\ColoringProblem.csproj.CoreCompileInputs.cache
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\obj\Debug\net5.0\ColoringProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\obj\Debug\net5.0\ref\ColoringProblem.dll
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\obj\Debug\net5.0\ColoringProblem.pdb
+D:\Uni\sem-one\paralel-and-distributed-programming\ColoringProblem\ColoringProblem\obj\Debug\net5.0\ColoringProblem.genruntimeconfig.cache
