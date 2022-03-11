@@ -2,7 +2,7 @@
 pkg load econometrics;
 % 1
     
-    x = 0 : 0.1 : 1;
+    x = 0 : 0.01 : 1;
 
     % l1
     function lOne = l1(x)
@@ -40,9 +40,9 @@ pkg load econometrics;
     
 % 2
   % a 
-  function Tfun = T(n, t)
-    Tfun = cos(n * acos(t));
-  endfunction;  
+##  function Tfun = T(n, t)
+##    Tfun = cos(n * acos(t));
+##  endfunction;  
 ##  
 ##  t = -1 : 0.1 : 1;
 ##  
@@ -54,37 +54,38 @@ pkg load econometrics;
 ##  hold off;
   
   % b
-##  function x = resolver(N)
-##    clf; hold on;
-##    t0 = @(x) ones(size(x));
-##    fplot(t0, [-1,1])
-##    t1 = @(x) x;
-##    fplot(t1, [-1,1])
-##  
-##    for i=2:N
-##      aux = t1;
-##      t1 = @(x) 2*x.*t1(x)-t0(x);
-##      fplot(t1, [-1,1])
-##      t0=aux;
-##    endfor
-##  endfunction
-##  val = 0 : 3;
-##  resolver(val);
+  function x = resolver(N)
+    clf; hold on;
+    t0 = @(x) ones(size(x));
+    fplot(t0, [-1,1])
+    t1 = @(x) x;
+    fplot(t1, [-1,1])
   
-% 3
-##  function taylor(N)
-##    clf;
-##    hold on;
-##    T = @(x) ones(size(x));
-##    fplot(T, [-1, 3]);
-##    for n = 1 : N
-##      T = @(x) T(x) + (x.^n) / factorial(n);
-##      fplot(T, [-1, 3]);
-##    endfor
-##    fplot(@exp, [-1, 3], '-r');
-##  endfunction
+    for i=2:N
+      aux = t1;
+      t1 = @(x) 2*x.*t1(x)-t0(x);
+      fplot(t1, [-1,1])
+      t0=aux;
+    endfor
+  endfunction
+##  resolver(3);
+##  hold on;
+##  resolver(4);
+  
+ %3
+  function taylor(N)
+    clf;
+    hold on;
+    T = @(x) ones(size(x));
+    fplot(T, [-1, 3]);
+    for n = 1 : N
+      T = @(x) T(x) + (x.^n) / factorial(n);
+      fplot(T, [-1, 3]);
+    endfor
+    fplot(@exp, [-1, 3], '-r');
+  endfunction
 
-  %fplot(taylor, [1 : 6]);
+  #fplot(taylor(6), [-1: 3]);
   
 % 4
     a = ones(1, 7, 'double');
@@ -134,7 +135,7 @@ pkg load econometrics;
     'd(5,h)'; 
     'd(6,h)'];
     cols = num2str(a','%.2f');
-    #prettyprint(result, cols, lines);
+    prettyprint(result, cols, lines);
     
     
  ## Calculus Lab 2, Ex 4, Popa Alex Ovidiu 936/1
