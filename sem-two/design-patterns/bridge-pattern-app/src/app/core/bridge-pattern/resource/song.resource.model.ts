@@ -1,5 +1,5 @@
 import {ResourceModel} from "./resource.model";
-import {SongModel} from "./song.model";
+import {SongModel} from "../model/song.model";
 
 export class SongResourceModel implements ResourceModel{
 

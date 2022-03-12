@@ -1,5 +1,5 @@
 import {ResourceModel} from "./resource.model";
-import {MovieModel} from "./movie.model";
+import {MovieModel} from "../model/movie.model";
 
 export class MovieResourceModel implements ResourceModel {
 

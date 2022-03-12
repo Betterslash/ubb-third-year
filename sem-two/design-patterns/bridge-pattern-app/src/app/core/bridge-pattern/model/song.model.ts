@@ -1,4 +1,4 @@
-import {Guid} from "./util/guid.util";
+import {Guid} from "../../util/guid.util";
 
 export class SongModel{
   private readonly _id: string;

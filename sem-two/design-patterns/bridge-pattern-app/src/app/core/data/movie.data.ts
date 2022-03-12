@@ -1,4 +1,4 @@
-import {MovieModel} from "../movie.model";
+import {MovieModel} from "../bridge-pattern/model/movie.model";
 
 export const moviesData: MovieModel[] = [
   new MovieModel('The Batman', 'Lorem ipsum dolor sit amet, ' +

@@ -1,5 +1,5 @@
 import {ResourceModel} from "./resource.model";
-import {ArtistModel} from "./artist.model";
+import {ArtistModel} from "../model/artist.model";
 
 export class ArtistResourceModel implements ResourceModel {
 

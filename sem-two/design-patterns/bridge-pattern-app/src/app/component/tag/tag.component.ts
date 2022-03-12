@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ViewData} from "../../core/data/view.data";
+import {RandomizerUtil} from "../../core/util/randomizer.util";
 
 @Component({
   selector: 'app-tag',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tag.component.css']
 })
 export class TagComponent implements OnInit {
+  @Input() viewModel!: ViewData;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
-
+  update = () => {
+    this.viewModel = RandomizerUtil.getResource(TagComponent.name);
+  }
 }

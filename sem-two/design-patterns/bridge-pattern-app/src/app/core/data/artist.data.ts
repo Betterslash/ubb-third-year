@@ -1,4 +1,4 @@
-import {ArtistModel} from "../artist.model";
+import {ArtistModel} from "../bridge-pattern/model/artist.model";
 
 export const artistsData: ArtistModel[] = [
   new ArtistModel('Cheloo', 47, 'But I must explain to you how all this mistaken idea' +

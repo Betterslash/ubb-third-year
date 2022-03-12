@@ -1,0 +1,21 @@
+<div class="page-container">
+  <div class="page-header">
+
+  </div>
+
+  <div class="page-body">
+    <app-card [viewModel]="getResource('CardComponent')"></app-card>
+    <app-thumb [viewModel]="getResource('ThumbComponent')"></app-thumb>
+    <app-tag [viewModel]="getResource('TagComponent')"></app-tag>
+  </div>
+  <div class="button-container">
+    <button (click)="updateViews()"
+            mat-raised-button color="accent"
+            class="refresh-button">
+      <b>Refresh</b>
+    </button>
+  </div>
+  <footer class="page-footer">
+
+  </footer>
+</div>

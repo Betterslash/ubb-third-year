@@ -1,4 +1,4 @@
-import {Guid} from "./util/guid.util";
+import {Guid} from "../../util/guid.util";
 
 export class ArtistModel {
     private readonly _id: string;

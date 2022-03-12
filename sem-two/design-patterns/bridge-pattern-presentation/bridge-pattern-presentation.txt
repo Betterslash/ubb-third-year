@@ -1,0 +1,10 @@
+ 0. Introduction Slide -> Title + Who + Design Pattern Type (as subtitle) 
+ 1. Agenda -> 1. About Design Patterns (Detail about Structural Ones) -> 2 slide                                         # (1 should be the agenda/index)
+              2. About Bridge Pattern                                 -> 3-4 slides                                      Sergiu
+                I. Why?                                                 
+                II. How?
+                III. Pros/Cons
+              3. Our Implementation (demo + picture)                  -> 2 slides                                        Dori 
+              4. Open Source Code/Presentation                        -> 2-3 slides (why?, where?, example (link/image)) Darius  
+              5. Q&A section as End Slide                             -> 1 slide                                         #
+              Total:                                                  ~10 slides (3/person)

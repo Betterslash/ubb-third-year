@@ -1,4 +1,4 @@
-import {SongModel} from "../song.model";
+import {SongModel} from "../bridge-pattern/model/song.model";
 
 export const songsData: SongModel[] = [
   new SongModel('Avenged Sevenfold', 'Afterlife', 'Metal-Rock', 'Nightmare'),
