@@ -2,7 +2,11 @@
   <mat-card class="example-card">
     <mat-card-title>{{this.viewModel.header}}</mat-card-title>
     <mat-card-content>
-      {{this.viewModel.body}}
+      <span style="text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 400px;
+    display: flex;">{{this.viewModel.body}}</span>
     </mat-card-content>
   </mat-card>
 </div>

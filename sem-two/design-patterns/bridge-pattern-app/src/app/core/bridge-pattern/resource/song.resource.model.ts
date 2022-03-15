@@ -6,7 +6,7 @@ export class SongResourceModel implements ResourceModel{
   private readonly song: SongModel;
 
   getHeader(): string {
-    return `${this.song.artist} - ${this.song.artist}`;
+    return `${this.song.artist} - ${this.song.name}`;
   }
 
   getId(): string {

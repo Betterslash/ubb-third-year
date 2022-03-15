@@ -1,0 +1,24 @@
+List of features that we discovered:
+	- There is a sub-menu for all domain models:
+		- The sub-menu for Student entity contains:
+			- exit to main menu
+			- add a student - it works correctly unless the user inputs an empty string for an int field.   
+			- delete a student
+			- search a student
+			- modify a student
+			- display the list of students
+		- The sub-menu for Homework entity contains:
+			- exit to main menu
+			- add a homework - it works correctly unless the user inputs an empty string for an int field.
+			- reschedule a homework
+			- delete a homework
+			- search a homework
+			- modify a homework
+			- display the list of homeworks
+		- The sub-menufor Grade entity contains:	
+			- exit to main menu
+			- add a grade - it works correctly unless the user inputs an empty string for an int field.
+			- delete a grade
+			- search a grade
+			- display the list of grades
+	- There is a functionality which closes the application.
