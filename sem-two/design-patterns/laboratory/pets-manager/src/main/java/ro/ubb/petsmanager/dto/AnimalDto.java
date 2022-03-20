@@ -13,4 +13,5 @@ public abstract class AnimalDto extends BaseDto {
     protected String race;
     protected Long age;
     protected boolean available;
+    protected String owner;
 }

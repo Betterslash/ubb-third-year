@@ -19,6 +19,7 @@ public abstract class Animal extends BaseEntity{
     protected String race;
     protected Long age;
     protected boolean available;
+    protected String owner;
 
     @ElementCollection
     private List<String> imageUrls;

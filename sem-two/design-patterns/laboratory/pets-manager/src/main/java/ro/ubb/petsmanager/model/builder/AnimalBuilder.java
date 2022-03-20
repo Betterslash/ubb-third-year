@@ -13,6 +13,7 @@ public abstract class AnimalBuilder<E extends Animal> extends Builder<E> {
     protected String race;
     protected Long age;
     protected boolean available;
+    protected String owner;
 
     public void completeInformation(Animal result){
         result.setId(this.id);
@@ -44,6 +45,11 @@ public abstract class AnimalBuilder<E extends Animal> extends Builder<E> {
 
     public AnimalBuilder<E> available(boolean available) {
         this.available = available;
+        return this;
+    }
+
+    public AnimalBuilder<E> owner(String owner){
+        this.owner = owner;
         return this;
     }
 }

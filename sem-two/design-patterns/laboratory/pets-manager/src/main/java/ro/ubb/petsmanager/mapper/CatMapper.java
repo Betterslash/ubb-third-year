@@ -18,6 +18,7 @@ public class CatMapper implements AnimalMapper<Cat, CatDto> {
                 .age(entity.getAge())
                 .race(entity.getRace())
                 .name(entity.getName())
+                .owner(entity.getOwner())
                 .available(entity.isAvailable())
                 .favouriteFood(entity.getFavouriteFood())
                 .furColor(entity.getFurColor())
