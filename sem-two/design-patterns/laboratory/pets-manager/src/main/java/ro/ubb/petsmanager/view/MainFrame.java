@@ -42,9 +42,11 @@ public class MainFrame extends JFrame {
 
     public void initAnimalsView() {
         var animalsView = new AnimalsMainView(uiService);
+        animalsView.setCurrentUser(currentUser);
         animalsView.initializeAvailableAnimalsList();
         animalsView.initializeComboBox();
         animalsView.initializeAdoptButton();
+        animalsView.initializeAddAnimalButton();
         this.rootPane.setContentPane(animalsView.getTabbedPane1());
     }
 

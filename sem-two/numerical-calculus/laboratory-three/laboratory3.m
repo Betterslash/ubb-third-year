@@ -1,9 +1,9 @@
-## Functions z is used for computing L(lagrange)
+## Functions z(Ai) is used for computing L(lagrange)
 
 ##1
 clear
 
-
+##sum from 1 to n with i != j
 function z = Ai(i,x)
   m = length(x);
   p = 1;
@@ -12,9 +12,12 @@ for j = 1:m
     p = p*(x(i)-x(j));
   endif
 end
-z = 1/p;
+z = 1/p; ## inverse the result
 endfunction
 
+%%Lmf(x)
+%%x = xx is my input
+%%xi = x(i)
 function L = lagrange(x,y,xx)  
 
 m = length(x);
@@ -78,7 +81,7 @@ L(j) = s1/s2;
 end
 endfunction
 
-x = [225 256 289]; ##x is the power 2 of y
+x = [225 256 289]; 
 y = [15 16 17];
 xx = [115];
 
@@ -128,13 +131,13 @@ y = f(x);
 
 xx = linspace(0, 10, 100); ## take another 10 points qually spaced
 
-##plot(xx, f(xx)); ## initial function ploting
-##hold on; ## wait for plot to be overriden
+plot(xx, f(xx)); ## initial function ploting
+hold on; ## wait for plot to be overriden
 
 L = lagrange(x, y, xx); ## apply lagrange interpolation
 
-##plot(xx, L,'r');   ##plot on the same table
-##hold off;
+plot(xx, L,'r');   ##plot on the same table
+hold off;
 ##the aproximation becomes more different as we continue
 
 
@@ -182,6 +185,7 @@ function max = compute_error_n(f, y, n, L) ##compute error with the formula
   endfor
 endfunction
 
+%% max
 
 N = 2:2:8;
 for n = N
@@ -194,5 +198,5 @@ for n = N
   hold on;
   plot(xx, f(xx)); ## if we wanna see function with error
   legend;
-  ##title(strcat("n=", num2str(n), " e=", num2str(e)))
+  title(strcat("n=", num2str(n), " e=", num2str(e)))
 endfor

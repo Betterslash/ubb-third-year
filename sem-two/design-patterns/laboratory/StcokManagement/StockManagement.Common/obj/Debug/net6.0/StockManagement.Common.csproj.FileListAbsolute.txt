@@ -1,5 +1,0 @@
-D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Common\obj\Debug\net6.0\StockManagement.Common.csproj.AssemblyReference.cache
-D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Common\obj\Debug\net6.0\StockManagement.Common.GeneratedMSBuildEditorConfig.editorconfig
-D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Common\obj\Debug\net6.0\StockManagement.Common.AssemblyInfoInputs.cache
-D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Common\obj\Debug\net6.0\StockManagement.Common.AssemblyInfo.cs
-D:\Uni\sem-two\design-patterns\laboratory\StcokManagement\StockManagement.Common\obj\Debug\net6.0\StockManagement.Common.csproj.CoreCompileInputs.cache

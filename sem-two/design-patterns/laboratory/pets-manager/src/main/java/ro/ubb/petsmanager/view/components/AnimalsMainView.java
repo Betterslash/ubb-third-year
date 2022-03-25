@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Setter
 @Getter
@@ -22,18 +23,23 @@ public class AnimalsMainView {
     private JList<String> list1;
     private JList<String> list2;
     private JButton adoptButton;
-    private JTextField textField2;
-    private JTextField textField3;
+    private JTextField nameInput;
+    private JTextField imageUrlsInput;
     private JButton addAnimalButton;
-    private JComboBox<String> comboBox1;
+    private JComboBox<String> typeInput;
     private JList<String> list3;
+    private JPanel animalsViewPanel;
+    private JPanel addAnimalPanel;
+    private JTextField ageInput;
+    private JLabel ageLabel;
+    private JLabel typeLabel;
+    private JTextField raceInput;
     private UiService uiService;
+    private String currentUser;
 
     public AnimalsMainView(UiService uiService) {
         this.uiService = uiService;
     }
-
-    public void addAnimal(){}
 
     public void initializeAvailableAnimalsList() {
         try {
@@ -48,14 +54,14 @@ public class AnimalsMainView {
         }
     }
 
-    public void initializeComboBox(){
+    public void initializeComboBox() {
         var comboBoxModel = new DefaultComboBoxModel<String>();
         comboBoxModel.addElement("Dog");
         comboBoxModel.addElement("Cat");
-        comboBox1.setModel(comboBoxModel);
+        typeInput.setModel(comboBoxModel);
     }
 
-    public void initializeAdoptButton(){
+    public void initializeAdoptButton() {
         this.adoptButton.addActionListener(e -> {
             var toBeAdoptedListModel = this.list3.getModel();
             var newModel = new DefaultListModel<String>();
@@ -77,4 +83,23 @@ public class AnimalsMainView {
     private String toListFormat(Animal e) {
         return "Dog" + " : Name -> " + e.getName() + " Race -> " + e.getRace();
     }
+
+    private void refreshComponent() {
+        this.nameInput.setText("");
+        this.raceInput.setText("");
+        this.ageInput.setText("");
+    }
+
+    public void initializeAddAnimalButton() {
+        this.addAnimalButton.addActionListener(e -> {
+            var type = Objects.requireNonNull(this.typeInput.getSelectedItem()).toString();
+            var name = this.nameInput.getText();
+            var race = this.raceInput.getText();
+            var age = this.ageInput.getText();
+            var animal = uiService.createAnimal(type, name, race, currentUser, Long.valueOf(age));
+            uiService.add(animal);
+            refreshComponent();
+        });
+    }
+
 }
