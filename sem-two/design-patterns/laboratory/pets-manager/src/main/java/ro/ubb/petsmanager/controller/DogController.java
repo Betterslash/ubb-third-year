@@ -27,7 +27,7 @@ public class DogController extends ApiController{
     @PutMapping("/adopt")
     public UserResponse<Object> adopt(@RequestBody AdoptRequest adoptRequest){
         return UserResponse.builder()
-                .response(service.adopt(adoptRequest))
+                .body(service.adopt(adoptRequest))
                 .build();
     }
 }

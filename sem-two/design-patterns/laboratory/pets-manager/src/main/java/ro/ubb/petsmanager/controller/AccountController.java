@@ -19,14 +19,14 @@ public class AccountController extends ApiController{
     @PostMapping("/login")
     public UserResponse<Object> login(@RequestBody LoginDto userDto){
         return UserResponse.builder()
-                .response(service.login(userDto))
+                .body(service.login(userDto))
                 .build();
     }
 
     @PostMapping("/register")
     public UserResponse<Object> register(@RequestBody UserDto userDto){
         return UserResponse.builder()
-                .response(service.register(userDto))
+                .body(service.register(userDto))
                 .build();
     }
 }

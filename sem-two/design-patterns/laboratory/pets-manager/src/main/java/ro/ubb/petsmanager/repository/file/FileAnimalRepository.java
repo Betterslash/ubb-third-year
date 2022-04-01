@@ -94,12 +94,12 @@ public abstract class FileAnimalRepository<E extends Animal> implements CrudRepo
     }
 
     @Override
-    public Iterable<E> findAll() {
+    public List<E> findAll() {
         return this.entities;
     }
 
     @Override
-    public Iterable<E> findAllById(Iterable<UUID> uuids) {
+    public List<E> findAllById(Iterable<UUID> uuids) {
         var uuidsList = StreamSupport.stream(uuids.spliterator(), false).toList();
         return this.entities.stream().filter(e -> uuidsList.contains(e.getId()))
                 .collect(Collectors.toList());

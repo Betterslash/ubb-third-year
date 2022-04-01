@@ -1,0 +1,4 @@
+{"furColor":"Black","weight":200,"height":100,"name":"Sparky","race":"Doberman","age":11,"available":true,"id":"a5bd6546-958d-4333-b5a7-049e11b12060"}
+{"furColor":"White","weight":200,"height":120,"name":"Sparky","race":"Husky","age":12,"available":true,"id":"35589ac2-8eea-4bb7-83d6-165da1b82ee9"}
+{"furColor":"Brown","weight":200,"height":120,"name":"Coty","race":"Shiba-Inu","age":1,"available":true,"id":"a7f0fb81-a630-4520-92f9-a579e2355e9f"}
+{"name":"Dori","race":"Race","age":11,"available":true,"id":"4d5f4b17-f42e-4957-855e-ff98a337f4f8"}

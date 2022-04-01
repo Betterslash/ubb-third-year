@@ -13,6 +13,6 @@ public abstract class ApiController {
     @Setter
     @Builder
     public static class UserResponse<T> implements Serializable {
-        private T response;
+        private T body;
     }
 }

@@ -1,12 +1,12 @@
 package ro.ubb.petsmanager.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginDto extends BaseDto{
     private String username;
     private String password;
