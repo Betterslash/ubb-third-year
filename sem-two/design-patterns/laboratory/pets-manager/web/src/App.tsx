@@ -49,7 +49,7 @@ function App() {
                                 <BrowserRouter>
                                     <Routes>
                                         <Route path={"/"} element={<HomePage/>}/>
-                                        <Route path={"/view/:animalId"} element={<ViewAnimalPage/>}/>
+                                        <Route path={"/view/:animalId/:animalType"} element={<ViewAnimalPage/>}/>
                                     </Routes>
                                 </BrowserRouter>
                             </div>

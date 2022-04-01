@@ -33,6 +33,12 @@ public abstract class AbstractAnimalService<D extends AnimalDto, E extends Anima
     }
 
     @Override
+    public D getById(String id) {
+        var entity = this.repository.getById(UUID.fromString(id));
+        return mapper.fromEntityToDto(entity);
+    }
+
+    @Override
     public List<D> getOwned(String username) {
         return this.repository.findAll()
                 .stream()

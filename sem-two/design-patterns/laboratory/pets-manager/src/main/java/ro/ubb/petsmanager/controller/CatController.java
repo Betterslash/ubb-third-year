@@ -1,9 +1,7 @@
 package ro.ubb.petsmanager.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.ubb.petsmanager.dto.CatDto;
 import ro.ubb.petsmanager.service.AnimalService;
 
@@ -18,5 +16,15 @@ public class CatController {
     @GetMapping
     public List<CatDto> getAll(){
         return service.getAll();
+    }
+
+    @PostMapping
+    public CatDto addCat(@RequestBody CatDto dto){
+        return service.save(dto);
+    }
+
+    @GetMapping("/{id}")
+    public CatDto getCatById(@PathVariable String id){
+        return service.getById(id);
     }
 }

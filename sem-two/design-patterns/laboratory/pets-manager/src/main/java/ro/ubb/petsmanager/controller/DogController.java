@@ -3,6 +3,7 @@ package ro.ubb.petsmanager.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ro.ubb.petsmanager.dto.AdoptRequest;
+import ro.ubb.petsmanager.dto.CatDto;
 import ro.ubb.petsmanager.dto.DogDto;
 import ro.ubb.petsmanager.service.AnimalService;
 
@@ -30,4 +31,10 @@ public class DogController extends ApiController{
                 .body(service.adopt(adoptRequest))
                 .build();
     }
+
+    @GetMapping("/{id}")
+    public DogDto getCatById(@PathVariable String id){
+        return service.getById(id);
+    }
+
 }

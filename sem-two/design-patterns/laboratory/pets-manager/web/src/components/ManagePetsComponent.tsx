@@ -9,8 +9,17 @@ import {AnimalMap} from "../infrastructure/utils/AnimalMap";
 export const ManagePetsComponent: React.FC = () => {
     const [isProcessing, setIsProcessing] = useState(false);
     const [animalsMap, setAnimalsMap] = useState<AnimalMap>();
-
     const navigate = useNavigate();
+
+    const getAnimalType = (id: string): string => {
+        if(animalsMap?.getDogs().map(e => e.id).includes(id)){
+            return 'Dog';
+        }
+        if(animalsMap?.getCats().map(e => e.id).includes(id)){
+            return 'Cat';
+        }
+        throw new Error("Couldn't decide the animal type!!");
+    }
 
     useEffect(() => {
         setIsProcessing(true);
@@ -42,7 +51,7 @@ export const ManagePetsComponent: React.FC = () => {
                     .map((e, index) =>
                         <tr key={index.toString()}
                             onClick={() => {
-                                navigate(`/view/${e.animal.id}`)
+                                navigate(`/view/${e.animal.id}/${getAnimalType(e.animal.id)}`)
                             }}>
                             <th scope={"row"}>{index + 1}</th>
                             <th>{e.name}</th>
