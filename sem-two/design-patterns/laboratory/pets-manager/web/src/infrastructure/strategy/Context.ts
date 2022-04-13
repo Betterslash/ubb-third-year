@@ -1,7 +1,9 @@
-import {AnimalModel, CatModel, DogModel} from "../../core/model/AnimalModel";
+import {AnimalModel} from "../../core/model/AnimalModel";
 import {AxiosResponse} from "axios";
 import {DogService} from "../services/DogService";
 import {CatService} from "../services/CatService";
+import {CatModel} from "../../core/model/CatModel";
+import {DogModel} from "../../core/model/DogModel";
 
 export class Context {
 

@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from "axios";
-import {DogModel} from "../../core/model/AnimalModel";
 import {Environment} from "../../core/environment/Environment";
+import {DogModel} from "../../core/model/DogModel";
 
 export class DogService{
     private static ENDPOINT = 'dogs';

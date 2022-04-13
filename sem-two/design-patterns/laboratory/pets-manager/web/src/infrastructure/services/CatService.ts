@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from "axios";
-import {CatModel} from "../../core/model/AnimalModel";
 import {Environment} from "../../core/environment/Environment";
+import {CatModel} from "../../core/model/CatModel";
 
 export class CatService{
     private static ENDPOINT = 'cats';

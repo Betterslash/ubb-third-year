@@ -7,13 +7,3 @@ export interface AnimalModel{
     imageUrls: string[]
 }
 
-export interface CatModel extends AnimalModel{
-    furColor: string,
-    favouriteFood: string
-}
-
-export interface DogModel extends AnimalModel{
-    furColor: string,
-    weight: number,
-    height: number
-}

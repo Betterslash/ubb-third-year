@@ -1,4 +1,6 @@
-import {AnimalModel, CatModel, DogModel} from "../../core/model/AnimalModel";
+import {AnimalModel} from "../../core/model/AnimalModel";
+import {CatModel} from "../../core/model/CatModel";
+import {DogModel} from "../../core/model/DogModel";
 
 export class AnimalMap {
     private static Dog = 'Dog';
